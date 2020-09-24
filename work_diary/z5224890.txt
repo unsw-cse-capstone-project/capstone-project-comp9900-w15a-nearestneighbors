@@ -1,0 +1,9 @@
+ZIJIAN SHEN work diary
+
+week 1
+
+look for group member, read project description and objective carefully for each topic.
+
+week 2
+
+group formed, decide which topic to do with group members, create Jira account and github class repo, get used to these platform, fully understand what user stories and backlog, sprint are, discuss possible software tools and libraries we may use to accomplish our project, (get together with teammates and write project proposal).
