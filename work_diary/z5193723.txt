@@ -2,4 +2,16 @@ MINGKAI ZHANG work diary
 
 Week1
 
-Group formed.
+Group formed and the FilmFinder was selected as our project.
+I found and discussed with the team all available software tools that we can use for the project, and I began to know about bootstrap.
+
+Week 2
+
+I have Learned HTML and CSS online.
+I downloaded the bootstrap and read its documents. I have known about how does it work.
+Our project was created on Jira and we prepared for the proposal. 
+
+Week 3
+
+Patrick Li finished the draft of our proposal and I edited my front part of this project in proposal. I also correct the form and other inappropriate statement. 
+I almost finished the login page.
