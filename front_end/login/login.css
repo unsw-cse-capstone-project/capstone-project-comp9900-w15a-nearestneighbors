@@ -1,0 +1,78 @@
+body {
+  background-color: wheat;
+  font-family: -apple-system;
+  margin: 2.5% 0;
+  width: auto;
+  height: auto;
+  padding-top: 50px;
+}
+
+h1 {
+  font-size: 3em;
+  font-style: unset;
+  font-weight: 200;
+  letter-spacing: -0.03em;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 20px;
+  height: 120px;
+}
+
+.header_img {
+  width: 10em;
+  display: inline-block;
+  margin-left: 250px;
+}
+
+main {
+  display: flex;
+  margin: 0 auto;
+  margin-top: 50px;
+  width: 82.5%;
+}
+
+main > div {
+  flex: 1;
+  padding: 0 5%;
+}
+
+.left {
+  display: 4;
+  align-items: center;
+  border-right: #cccccc solid 1px;
+  text-align: center;
+}
+
+.left > img {
+  height: auto;
+  width: 100%;
+}
+
+.right {
+  flex: 1;
+}
+
+.container {
+  display: grid;
+}
+
+.need {
+  margin-top: 20px;
+  width: 200px;
+  height: 30px;
+}
+
+.submit {
+  margin-top: 20px;
+  width: 100px;
+  height: auto;
+  border-radius: 5px;
+  color: #cccccc;
+  background-color: rgb(74, 74, 64);
+}
+
+.right > .container {
+  text-align: center;
+  padding-top: 90px;
+  width: 50px;
+}
