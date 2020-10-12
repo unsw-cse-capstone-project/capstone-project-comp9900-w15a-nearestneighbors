@@ -1,35 +1,52 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" href="login.css">
-        <meta charset="UTF-8">
-        <title>LOGIN</title>
-    </head>
+  <head>
+    <link rel="stylesheet" href="login.css" />
+    <meta charset="UTF-8" />
+    <title>LOGIN</title>
+  </head>
 
-    <body>
-        <div style="height: 100px;">
-            <img class="header_img" src="unsw.png" alt="FilmFinder">
-            <h1> FilmFinder</h1>
-        </div>
-        <main>
-        <div class="left">
-            <img src="UNSW_LOGIN.jpg">
-        </div>
+  <body>
+    <div style="height: 100px">
+      <img class="header_img" src="unsw.png" alt="FilmFinder" />
+      <h1>FilmFinder</h1>
+    </div>
+    <main>
+      <div class="left">
+        <img src="UNSW_LOGIN.jpg" />
+      </div>
 
-        <div class = "right">
-            <div class = "container">
-                <form name = "login_account">
-                    <input class = "need" placeholder="UserName" type="text" name="name">
-                    <input class = "need" placeholder="Password" type="password" name = "password">
-                    <input class = "submit" type="submit" value="login">
-                </form>
-            </div>
-
-            <p>
-                Don't have an account?
-                <a>Register</a>
+      <div class="right">
+        <p id = "Invalidusername" class="t1"> Invalid username <br />E.G. xxxx@xxxx.xxx</p>
+        <p id = "Invalidpassword" class="t2"> Invalid password <br />The minimum length is 6</p>
+        <div class="container">
+          <form name="login_account" action="" method="get">
+            <input
+                class="input_box"
+                placeholder="UserName"
+                type="text"
+                name="name"
+                id="username"
+              />
             </p>
+            <div>
+              <input
+                class="input_box"
+                placeholder="Password"
+                type="password"
+                name="password"
+                id="password"
+              />
+            </div>
+            <button class="login" disabled="disabled" id="login">login</button>
+          </form>
         </div>
-        </main>
-    </body>
+        <p>
+          Don't have an account?
+          <a style="margin-left: 10px">Register</a>
+        </p>
+      </div>
+    </main>
+    <script src="login.js"></script>
+  </body>
 </html>

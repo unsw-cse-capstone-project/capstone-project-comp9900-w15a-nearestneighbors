@@ -56,13 +56,14 @@ main > div {
   display: grid;
 }
 
-.need {
+.input_box {
   margin-top: 20px;
   width: 200px;
   height: 30px;
+  display: inline-block;
 }
 
-.submit {
+.login {
   margin-top: 20px;
   width: 100px;
   height: auto;
@@ -73,6 +74,20 @@ main > div {
 
 .right > .container {
   text-align: center;
-  padding-top: 90px;
+  padding-top: 14%;
   width: 50px;
+}
+
+.t1 {
+  position: absolute;
+  margin: 105px 220px;
+  color: #db585c;
+  visibility: hidden;
+}
+
+.t2 {
+  position: absolute;
+  margin: 178px 220px;
+  color: #db585c;
+  visibility: hidden;
 }
