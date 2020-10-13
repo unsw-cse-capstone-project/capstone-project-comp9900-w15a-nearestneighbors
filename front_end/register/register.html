@@ -1,1 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Register</title>
+    <link rel="stylesheet" href="register.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="register-box">
+        <div class="title-box">
+          <span>Register</span>
+        </div>
+        <form action="#" method="GET">
+          <div class="username-box">
+            <span class="require">*</span>
+            <label for="username">Username: </label>
+            <div class="username-input">
+              <input
+                type="text"
+                id="username"
+                name="username"
+                placeholder="xxxxxx@xxxx.xxx"
+              />
+            </div>
+          </div>
 
+          <div class="userPassword-box">
+            <span class="require">*</span>
+            <label for="userPassword">Password:</label>
+            <div class="userPassword-input">
+              <input
+                type="password"
+                id="userPassword"
+                name="userPassword"
+                placeholder="The length of password: 6-12 characters"
+              />
+            </div>
+          </div>
+
+          <div class="userRePassword-box">
+            <span class="require">*</span>
+            <label for="userRePassword">Confirm password:</label>
+            <div class="userRePassword-input">
+              <input
+                type="password"
+                id="userRePassword"
+                name="userRePassword"
+                placeholder="Please re-enter the password"
+              />
+            </div>
+          </div>
+          <div class="submit-box">
+            <input id="submit-button" type="submit" value="register" />
+          </div>
+          <div class="goLogin-box">
+            <a href="../login/login.html" style="text-decoration: none"
+              >Already have an account? Go to login</a
+            >
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
