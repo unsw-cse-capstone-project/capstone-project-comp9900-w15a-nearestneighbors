@@ -1,0 +1,11 @@
+Sri Vyshnavi's Work Dairy
+
+Week1:
+Joined the group and decided to make FilmFinder project.
+
+Week2:
+Created a project outline and we came up with some extra features for our project.
+Joined Jira and done some work related to project proposal.
+
+Week4:
+Created the database and tables using SqlLite3.
