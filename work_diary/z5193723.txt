@@ -15,3 +15,7 @@ Week 3
 
 Patrick Li finished the draft of our proposal and I edited my front part of this project in proposal. I also correct the form and other inappropriate statement. 
 I almost finished the login page.
+
+Week 4
+I completed the construction of login and register web pages and the corresponding js functions, and initially designed the entire framework of homepage.
+Conceptually design the logical structure and web page architecture of the entire website.
