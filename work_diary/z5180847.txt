@@ -17,3 +17,17 @@ Week 3
 
 Finished the design of user interfaces according to user stories on Jira.
 Formatted the proposal and submitted. 
+
+
+Week 4
+
+Designed database structure with Zijian Shen.
+Prepared for the Demo in week 5.
+
+Week 5
+
+Finished Demo and discussed about next progressive plan with teammates.
+
+Week 6
+
+Wrote the Retrospective A.
