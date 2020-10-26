@@ -9,4 +9,10 @@ week 2
 group formed, decide which topic to do with group members, create Jira account and github class repo, get used to these platform, fully understand what user stories and backlog, sprint are, discuss possible software tools and libraries we may use to accomplish our project, get together with teammates and come up with project user stories.
 
 week 3
-TODO
+get familiar with git. talk with teammate to finally complete user stories, and sprint. write user story and schedule part of our project proposal.
+
+week 4
+write ER diagram and come up with the relational data model for our project.
+
+week 5
+prepare presentation of the database design part for the progressive demos A. write some start code for backend.
