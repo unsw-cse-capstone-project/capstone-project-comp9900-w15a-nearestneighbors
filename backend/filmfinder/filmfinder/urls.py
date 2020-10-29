@@ -19,6 +19,7 @@ from login.views import index_view, login_view, register_view, logout_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api-auth', include('rest_framework.urls')),
     path('index/', index_view),
     path('login/', login_view),
     path('register/', register_view),
