@@ -122,13 +122,13 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'login/templates/static').replace('\\', '/')
+STATIC_ROOT = os.path.join(BASE_DIR, 'login/templates/login/static').replace('\\', '/')
 
 STATICFILES_DIRS = (
 
     ('css', os.path.join(STATIC_ROOT, 'css').replace('\\', '/')),
 
-    ('image', os.path.join(STATIC_ROOT, 'image').replace('\\', '/')),
+    ('images', os.path.join(STATIC_ROOT, 'images').replace('\\', '/')),
 
     ('js', os.path.join(STATIC_ROOT,'js').replace('\\', '/'))
 

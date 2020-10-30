@@ -29,7 +29,7 @@ def index_view(request):
     # Validate login status
     if not request.session.get('login_flag', None):
         return redirect('/login/')
-    return render(request, 'index.html')
+    return render(request, 'login/index.html')
 
 
 def login_view(request):
@@ -49,7 +49,7 @@ def login_view(request):
                 user = models.User.objects.get(name=name)
             except:
                 message = "user doesn't exist"
-                return render(request, 'login.html', {'message': message})
+                return render(request, 'login/login.html', {'message': message})
 
             # Check if the password is correct
             if user.password == password:
@@ -59,9 +59,9 @@ def login_view(request):
                 return redirect('/index/')
             else:
                 message = 'password is incorrect'
-                return render(request, 'login.html', {'message': message})
+                return render(request, 'login/login.html', {'message': message})
 
-    return render(request, 'login.html')
+    return render(request, 'login/login.html')
 
 
 ''' If Forms is used '''
@@ -102,12 +102,12 @@ def register_view(request):
         check_user_name = models.User.objects.get(name=name)
         if check_user_name == name:
             message = 'User already exists!'
-            return render(request, 'register.html', {'message': message})
+            return render(request, 'login/register.html', {'message': message})
 
         check_email = models.User.objects.get(name=email)
         if check_email == email:
             message = 'This email has been registered!'
-            return render(request, 'register.html', {'message': message})
+            return render(request, 'login/register.html', {'message': message})
 
         new_user = models.User()
         new_user.name = name
@@ -117,7 +117,7 @@ def register_view(request):
 
         return redirect('/login/')
 
-    return render(request, 'register.html')
+    return render(request, 'login/register.html')
 
 
 def logout_view(request):
