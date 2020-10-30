@@ -1,0 +1,6 @@
+<h1>{{ movie.name }}</h1>
+<ul>
+{% for cast in movie.cast_set.all %}
+    <li>{{cast.cast_id.name}}</li>
+{% endfor %}
+</ul>

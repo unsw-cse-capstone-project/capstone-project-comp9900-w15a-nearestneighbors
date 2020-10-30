@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'login',
     'rest_framework',
+    'movies.apps.MoviesConfig'
 ]
 
 MIDDLEWARE = [
@@ -133,3 +134,6 @@ STATICFILES_DIRS = (
     ('js', os.path.join(STATIC_ROOT,'js').replace('\\', '/'))
 
 )
+#path to store movie posters
+MEDIA_URL = '/posters/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'movies')
