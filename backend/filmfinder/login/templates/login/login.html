@@ -21,7 +21,12 @@
         <p id = "Invalidusername" class="t1"> Invalid username <br />E.G. xxxx@xxxx.xxx</p>
         <p id = "Invalidpassword" class="t2"> Invalid password <br />The minimum length is 6</p>
         <div class="container">
-          <form name="login_account" action="" method="get">
+          <form name="login_account" action="/login/" method="post">
+              {% csrf_token %}
+{#              <form class="form-login" action="/login/" method="post">#}
+              {% if message %}
+                    <div class="alert alert-warning">{{ message }}</div>
+              {% endif %}
             <input
                 class="input_box"
                 placeholder="UserName"
