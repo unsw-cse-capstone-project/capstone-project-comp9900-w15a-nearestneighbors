@@ -31,11 +31,11 @@ def index_view(request):
 
 def login_view(request):
     # Check if the user has already logged in
-    if request.session.get('login_flag', None):
-        return redirect('/index/')
+    # if request.session.get('login_flag', None):
+    #     return redirect('/index/')
 
     if request.method == 'POST':
-        name = request.POST.get('username')
+        name = request.POST.get('name')
         password = request.POST.get('password')
         # Check if name ans password are empty
         if name and password:
@@ -57,6 +57,8 @@ def login_view(request):
             else:
                 message = 'password is incorrect'
                 return render(request, 'login/login.html', {'message': message})
+        else:
+            return redirect('/index/')
 
     return render(request, 'login/login.html')
 
