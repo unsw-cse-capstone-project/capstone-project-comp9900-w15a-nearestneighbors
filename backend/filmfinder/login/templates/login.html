@@ -1,30 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+<html>
+  <head>
+    <link rel="stylesheet" href="/static/css/login.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>LOGIN</title>
-</head>
-<body>
+  </head>
 
-    <div style="margin: 15% 40%;">
-        <h1>Welcome to login page!</h1>
-       <form class="form-login" action="/login/" method="post">
-           {% csrf_token %}
-           {% if message %}
-                    <div class="alert alert-warning">{{ message }}</div>
-           {% endif %}
-           {{ login_form }}
-            <p>
-                <label for="id_username">username:</label>
-                <input type="text" id="id_username" name="username" placeholder="username" autofocus required />
-            </p>
-            <p>
-                <label for="id_password">password:</label>
-                <input type="password" id="id_password" placeholder="password" name="password" required >
-            </p>
-            <input type="submit" value="Submit">
-        </form>
+  <body>
+    <div style="height: 100px">
+      <img class="header_img" src="/static/image/unsw.png" alt="FilmFinder" />
+      <h1>FilmFinder</h1>
     </div>
+    <main>
+      <div class="left">
+        <img src="/static/image/UNSW_LOGIN.jpg"/>
+      </div>
 
-</body>
+      <div class="right">
+        <p id = "Invalidusername" class="t1"> Invalid username <br />E.G. xxxx@xxxx.xxx</p>
+        <p id = "Invalidpassword" class="t2"> Invalid password <br />The minimum length is 6</p>
+        <div class="container">
+          <form name="login_account" action="" method="get">
+            <input
+                class="input_box"
+                placeholder="UserName"
+                type="text"
+                name="name"
+                id="username"
+              />
+            </p>
+            <div>
+              <input
+                class="input_box"
+                placeholder="Password"
+                type="password"
+                name="password"
+                id="password"
+              />
+            </div>
+            <button class="login" disabled="disabled" id="login">login</button>
+          </form>
+        </div>
+        <p>
+          Don't have an account?
+          <a href="../register/register.html" style="margin-left: 10px">Register</a>
+        </p>
+      </div>
+    </main>
+    <script ="/static/js/login.js"></script>
+  </body>
 </html>

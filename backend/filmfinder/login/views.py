@@ -25,7 +25,6 @@ class LoginView(APIView):
 
 
 # Create your views here.
-class LoginView(APIView):
 def index_view(request):
     # Validate login status
     if not request.session.get('login_flag', None):
