@@ -20,7 +20,7 @@ class Movie(models.Model):
     region = models.CharField(max_length=50)
     released_date = models.DateTimeField('released date')
     poster = models.ImageField(upload_to='posters',blank = True, null = True)    #TODO
-    director_id = models.ForeignKey(Person, on_delete=models.CASCADE)  #foreign key
+    director = models.ForeignKey(Person, on_delete=models.CASCADE)  #foreign key
     
     def __str__(self):
         return self.name
@@ -34,11 +34,11 @@ class Movie(models.Model):
 
 
 class Cast(models.Model):
-    cast_id = models.ForeignKey(Person, on_delete=models.CASCADE)  #foreign key
-    movie_id = models.ForeignKey(Movie, on_delete=models.CASCADE)  #foreign key
+    cast = models.ForeignKey(Person, on_delete=models.CASCADE)  #foreign key
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)  #foreign key
     
     class Meta:
-        unique_together=[["cast_id","movie_id"]]
+        unique_together=[["cast","movie"]]
 
 #TODO
 #class Review(models.Model)
@@ -46,11 +46,11 @@ class Cast(models.Model):
 #class Wish_list(modesl.Model)
 
 class Movie_genre(models.Model):
-    movie_id = models.ForeignKey(Movie,on_delete=models.CASCADE)   #foreign key
+    movie = models.ForeignKey(Movie,on_delete=models.CASCADE)   #foreign key
     genre_type = models.CharField(max_length = 50)
     
     class Meta:
-        unique_together=[["movie_id","genre_type"]]
+        unique_together=[["movie","genre_type"]]
 
 #TODO
 #class User_banned_list(models.Model)

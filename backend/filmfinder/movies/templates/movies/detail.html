@@ -1,6 +1,24 @@
 <h1>{{ movie.name }}</h1>
 <ul>
-{% for cast in movie.cast_set.all %}
-    <li>{{cast.cast_id.name}}</li>
+<h2>description</h2>
+<li>{{movie.description}}</li>
+
+<h2>region</h2>
+<li>{{movie.region}}</li>
+
+<h2>released_date</h2>
+<li>{{movie.released_date}}</li>
+
+<h2>director</h2>
+<li>{{movie.director.name}}</li>
+
+<h2>cast</h2>
+{% for cast_object in movie.cast_set.all %}
+    <li>{{cast_object.cast.name}}</li>
+{% endfor %}
+
+<h2>genre</h2>
+{% for movie_genre_object in movie.movie_genre_set.all %}
+    <li>{{movie_genre_object.genre_type}}</li>
 {% endfor %}
 </ul>
