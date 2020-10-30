@@ -23,12 +23,9 @@ class LoginView(APIView):
             return JsonResponse(serializer.data)
 
 
-
 # Create your views here.
 def index_view(request):
     # Validate login status
-    if not request.session.get('login_flag', None):
-        return redirect('/login/')
     return render(request, 'login/index.html')
 
 
