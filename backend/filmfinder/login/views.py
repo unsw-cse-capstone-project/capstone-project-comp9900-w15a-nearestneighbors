@@ -90,28 +90,36 @@ def login_view(request):
 
 def register_view(request):
     # Check if user has already logged in
-    if request.session.get('login_flag', None):
-        return redirect('/index/')
+    # if request.session.get('login_flag', None):
+    #     return redirect('/index/')
 
     if request.method == 'POST':
-        name = request.POST.get('name')
-        password = request.POST.get('password')
-        email = request.POST.get('email')
+        username = request.POST.get('username')
+        password = request.POST.get('userPassword')
+        re_password = request.POST.get('userRePassword')
+        # email = request.POST.get('email')
 
-        check_user_name = models.User.objects.get(name=name)
-        if check_user_name == name:
+        # Check if two passwords are the same
+        if password != re_password:
+            message = 'Please input two same passwords!'
+            return render(request, 'login/register.html', {'message': message})
+
+        # Check if username already exists
+        check_user_name = models.User.objects.filter(name=username)
+
+        if check_user_name == username:
             message = 'User already exists!'
             return render(request, 'login/register.html', {'message': message})
 
-        check_email = models.User.objects.get(name=email)
-        if check_email == email:
-            message = 'This email has been registered!'
-            return render(request, 'login/register.html', {'message': message})
+        # check_email = models.User.objects.get(name=email)
+        # if check_email == email:
+        #     message = 'This email has been registered!'
+        #     return render(request, 'login/register.html', {'message': message})
 
         new_user = models.User()
-        new_user.name = name
+        new_user.name = username
         new_user.password = password
-        new_user.email = email
+        # new_user.email = email
         new_user.save()
 
         return redirect('/login/')

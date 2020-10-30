@@ -11,7 +11,8 @@
         <div class="title-box">
           <span>Register</span>
         </div>
-        <form action="#" method="GET">
+        <form action="/register/" method="POST">
+            {% csrf_token %}
           <div class="username-box">
             <span class="require">*</span>
             <label for="username">Username: </label>
@@ -50,6 +51,9 @@
               />
             </div>
           </div>
+            {% if message %}
+                    <div class="alert alert-warning">{{ message }}</div>
+            {% endif %}
           <div class="submit-box">
             <input id="submit-button" type="submit" value="register" />
           </div>
