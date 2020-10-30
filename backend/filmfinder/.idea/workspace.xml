@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="96336994-92a9-449a-8d70-6ff21587ba67" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/filmfinder/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/filmfinder/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/filmfinder/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/filmfinder/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/login/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/login/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/login/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/login/templates/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/login/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/login/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/templates/static/js/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/login/templates/static/js/login.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,9 +24,13 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/login/templates/static/js/login.js">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="693">
+              <caret line="58" column="10" selection-start-line="58" selection-start-column="10" selection-end-line="58" selection-end-column="10" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -44,7 +42,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/filmfinder/settings.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="678">
@@ -120,6 +118,7 @@
         <option value="$PROJECT_DIR$/filmfinder/urls.py" />
         <option value="$PROJECT_DIR$/login/templates/login.html" />
         <option value="$PROJECT_DIR$/filmfinder/settings.py" />
+        <option value="$PROJECT_DIR$/login/templates/static/js/login.js" />
       </list>
     </option>
   </component>
@@ -162,6 +161,14 @@
               <item name="login" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
               <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="filmfinder" type="b2602c69:ProjectViewProjectNode" />
+              <item name="filmfinder" type="462c0819:PsiDirectoryNode" />
+              <item name="login" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -232,12 +239,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1604028232391</updated>
-      <workItem from="1604028234082" duration="3694000" />
+      <workItem from="1604028234082" duration="3887000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3694000" />
+    <option name="totallyTimeSpent" value="3887000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -318,9 +325,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/login/templates/static/js/login.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/login/templates/static/css/login.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -345,6 +349,13 @@
           <folding>
             <element signature="e#311#335#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/login/templates/static/js/login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="693">
+          <caret line="58" column="10" selection-start-line="58" selection-start-column="10" selection-end-line="58" selection-end-column="10" />
         </state>
       </provider>
     </entry>
