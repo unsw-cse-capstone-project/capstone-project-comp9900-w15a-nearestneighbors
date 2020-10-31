@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'login',
+    'search',
     'rest_framework',
     'movies.apps.MoviesConfig'
 ]
@@ -123,7 +124,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'login/templates/login/static').replace('\\', '/')
+STATIC_ROOT = os.path.join(BASE_DIR, '/static').replace('\\', '/')
 
 STATICFILES_DIRS = (
 

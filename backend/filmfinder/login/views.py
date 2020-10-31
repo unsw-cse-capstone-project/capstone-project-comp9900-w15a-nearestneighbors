@@ -9,23 +9,24 @@ from . import models, forms
 import pdb
 
 # DRL API - Implemented with serializers
-class LoginView(APIView):
-
-    def get(self, request, *args, **kwargs):
-        queryset = User.objects.all()
-        serializer = UserSerializer(queryset, many=True)
-        return JsonResponse(serializer.data)
-
-
-    def post(self, request, *args, **kwargs):
-        serializer = UserSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data)
+# class LoginView(APIView):
+#
+#     def get(self, request, *args, **kwargs):
+#         queryset = User.objects.all()
+#         serializer = UserSerializer(queryset, many=True)
+#         return JsonResponse(serializer.data)
+#
+#
+#     def post(self, request, *args, **kwargs):
+#         serializer = UserSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return JsonResponse(serializer.data)
 
 
 # Create your views here.
 def index_view(request):
+    # Check if user has logged in
     if request.session.get('login_flag', None):
         message = request.session.get('name') + ', Welcome back! '
         return render(request, 'login/index.html', {'message': message})
@@ -96,7 +97,6 @@ def login_view(request):
 
 
 def register_view(request):
-    # pdb.set_trace()
     # Check if user has already logged in.
     # If so, direct the user to the index page.
     if request.session.get('login_flag', None):
@@ -120,15 +120,9 @@ def register_view(request):
             message = 'User already exists!'
             return render(request, 'login/register.html', {'message': message})
 
-        # check_email = models.User.objects.get(name=email)
-        # if check_email == email:
-        #     message = 'This email has been registered!'
-        #     return render(request, 'login/register.html', {'message': message})
-
         new_user = models.User()
         new_user.name = username
         new_user.password = password
-        # new_user.email = email
         new_user.save()
 
         return redirect('/login/')
