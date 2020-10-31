@@ -6,6 +6,7 @@ from rest_framework.views import APIView
 from .serializers import UserSerializer
 from . import models, forms
 
+import pdb
 
 # DRL API - Implemented with serializers
 class LoginView(APIView):
@@ -25,18 +26,24 @@ class LoginView(APIView):
 
 # Create your views here.
 def index_view(request):
+    if request.session.get('login_flag', None):
+        message = request.session.get('name') + ', Welcome back! '
+        return render(request, 'login/index.html', {'message': message})
     # Validate login status
     return render(request, 'login/index.html')
 
 
 def login_view(request):
-    # Check if the user has already logged in
-    # if request.session.get('login_flag', None):
-    #     return redirect('/index/')
+    # pdb.set_trace()
+    # Check if the user has already logged in.
+    # If so, direct the user to the index page.
+    if request.session.get('login_flag', None):
+        return redirect('/index/')
 
     if request.method == 'POST':
         name = request.POST.get('name')
         password = request.POST.get('password')
+        # pdb.set_trace()
         # Check if name ans password are empty
         if name and password:
             print(name, password)
@@ -89,9 +96,11 @@ def login_view(request):
 
 
 def register_view(request):
-    # Check if user has already logged in
-    # if request.session.get('login_flag', None):
-    #     return redirect('/index/')
+    # pdb.set_trace()
+    # Check if user has already logged in.
+    # If so, direct the user to the index page.
+    if request.session.get('login_flag', None):
+        return redirect('/index/')
 
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -106,8 +115,8 @@ def register_view(request):
 
         # Check if username already exists
         check_user_name = models.User.objects.filter(name=username)
-
-        if check_user_name == username:
+        # pdb.set_trace()
+        if len(check_user_name) > 0:
             message = 'User already exists!'
             return render(request, 'login/register.html', {'message': message})
 
@@ -133,4 +142,4 @@ def logout_view(request):
         return redirect('/index/')
 
     request.session.flush()
-    return redirect('/login/')
+    return redirect('/index/')

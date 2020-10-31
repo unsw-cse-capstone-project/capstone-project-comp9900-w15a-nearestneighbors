@@ -28,12 +28,16 @@
         </form>
 
         <ul style="padding-left: 50px" class="nav navbar-nav">
-          <li><a href="register.html">SIGN UP</a></li>
-          <li><a href="login.html">LOG IN</a></li>
+          <li><a href="/register/">SIGN UP</a></li>
+          <li><a href="/login/">LOG IN</a></li>
+            <li><a href="/logout/">LOG OUT</a></li>
         </ul>
       </div>
     </nav>
-
+    {% if message %}
+        <div class="alert alert-warning">{{ message }}</div>
+    {% endif %}
+{#    <h1>{{ request.session.name }} Welcome Back!</h1>#}
     <div class="row">
       <div class="column">
         <img src="/static/images/index/img_0.jpg" />
