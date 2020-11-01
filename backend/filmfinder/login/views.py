@@ -29,14 +29,23 @@ import pdb
 def index_view(request):
     # Check if user has logged in
     if request.session.get('login_flag', None):
-        message = request.session.get('name') + ', Welcome back! '
-        return render(request, 'login/index.html', {'message': message})
+        data = {
+            'login_flag': True,
+            'username': request.session.get('name')
+        }
+        return JsonResponse(data)
+        # return render(request, 'login/index.html', {'message': message})
+
     # Validate login status
-    return render(request, 'login/index.html')
+    data = {
+        'login_flag': False,
+        'username': None
+    }
+    return JsonResponse(data)
+    # return render(request, 'login/index.html')
 
 
 def login_view(request):
-    # pdb.set_trace()
     # Check if the user has already logged in.
     # If so, direct the user to the index page.
     if request.session.get('login_flag', None):
@@ -48,28 +57,21 @@ def login_view(request):
         # return redirect('/index/')
 
     if request.method == 'POST':
-        # pdb.set_trace()
         req = simplejson.loads(request.body)
         name = req['name']
         password = req['password']
-        # datas = req['datas']
-        # game_id1 = datas[0]['game_id']
-        # name = request.POST.get('name')
-        # password = request.POST.get('password')
         # pdb.set_trace()
-        # pdb.set_trace()
+
         # Check if name ans password are empty
         if name and password:
             # Check if the user exists
             try:
                 user = models.User.objects.get(name=name)
             except:
-                message = "user doesn't exist"
                 data = {
-                    'success': True,
-                    'msg': None
+                    'success': False,
+                    'msg': "user doesn't exist"
                 }
-                # return render(request, 'login/login.html', {'message': message})
                 return JsonResponse(data)
 
             # Check if the password is correct
@@ -82,37 +84,20 @@ def login_view(request):
                     'msg': None
                 }
                 return JsonResponse(data)
-                # return redirect('/index/')
             else:
-                message = 'password is incorrect'
                 data = {
                     'success': False,
-                    'msg': 'password is incorrect'
+                    'msg': 'incorrect password'
                 }
                 return JsonResponse(data)
-                # return render(request, 'login/login.html', {'message': message})
+
         else:
             data = {
                 'success': False,
                 'msg': 'username and password are required'
             }
             return JsonResponse(data)
-            # return redirect('/index/')
 
-    # elif request.method == 'GET':
-    #
-    #     data = {
-    #         'success': None,
-    #         'msg': 'GET request'
-    #     }
-    #
-    #     return JsonResponse(data)
-    # pdb.set_trace()
-    # data = {
-    #     'success': False,
-    #     'msg': 'unexpected request'
-    # }
-    # return JsonResponse(data)
     return render(request, 'login/login.html')
 
 
@@ -145,24 +130,34 @@ def register_view(request):
     # Check if user has already logged in.
     # If so, direct the user to the index page.
     if request.session.get('login_flag', None):
-        return redirect('/index/')
+        data = {
+            'success': False,
+            'msg': 'user already logged in'
+        }
+        return JsonResponse(data)
 
     if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('userPassword')
-        re_password = request.POST.get('userRePassword')
-        # email = request.POST.get('email')
+        req = simplejson.loads(request.body)
+        username = req['username']
+        password = req['userPassword']
+        re_password = req['userRePassword']
 
         # Check if two passwords are the same
         if password != re_password:
-            message = 'Please input two same passwords!'
-            return render(request, 'login/register.html', {'message': message})
+            data = {
+                'success': False,
+                'msg': 'two passwords are not the same'
+            }
+            return JsonResponse(data)
+            # return render(request, 'login/register.html', {'message': message})
 
         # Check if username already exists
         check_user_name = models.User.objects.filter(name=username)
-        # pdb.set_trace()
         if len(check_user_name) > 0:
-            message = 'User already exists!'
+            data = {
+                'success': False,
+                'msg': 'user already exists'
+            }
             return render(request, 'login/register.html', {'message': message})
 
         new_user = models.User()
