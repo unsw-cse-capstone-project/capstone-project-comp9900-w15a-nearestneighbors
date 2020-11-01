@@ -149,6 +149,6 @@ If not, `"name"` will be `None`.
 `"success"` indicates whether the input keywords can conduct a search successfully.
 `"result"` contains search result, which is a list of dictionaries. In each dictionary, there are `"mid"`, `"name"`, `"released_date"`, `"poster"`, and `"rating"`. 
 They are used to demonstrate each movie in search result, except `"mid"`.
-`{ "success": true, "msg": None}` indicates the user successfully registerd a new account.
+`{ "success": true, "result": []}` indicates no related movie is found.
 
 
