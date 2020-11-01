@@ -43,8 +43,8 @@ def login_view(request):
             'success': False,
             'msg': 'User already logged in'
         }
-        # return JsonResponse(data)
-        return redirect('/index/')
+        return JsonResponse(data)
+        # return redirect('/index/')
 
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -57,7 +57,12 @@ def login_view(request):
                 user = models.User.objects.get(name=name)
             except:
                 message = "user doesn't exist"
-                return render(request, 'login/login.html', {'message': message})
+                data = {
+                    'success': True,
+                    'msg': None
+                }
+                # return render(request, 'login/login.html', {'message': message})
+                return JsonResponse(data)
 
             # Check if the password is correct
             if user.password == password:
@@ -76,8 +81,8 @@ def login_view(request):
                     'success': False,
                     'msg': 'password is incorrect'
                 }
-                # return JsonResponse(data)
-                return render(request, 'login/login.html', {'message': message})
+                return JsonResponse(data)
+                # return render(request, 'login/login.html', {'message': message})
         else:
             data = {
                 'success': False,
@@ -86,12 +91,12 @@ def login_view(request):
             return JsonResponse(data)
             # return redirect('/index/')
 
-    # data = {
-    #     'success': False,
-    #     'msg': 'unexpected request'
-    # }
-    # return JsonResponse(data)
-    return render(request, 'login/login.html')
+    data = {
+        'success': False,
+        'msg': 'unexpected request'
+    }
+    return JsonResponse(data)
+    # return render(request, 'login/login.html')
 
 
 ''' If Forms is used '''
