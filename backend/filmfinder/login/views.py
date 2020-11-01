@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 
 from .serializers import UserSerializer
 from . import models, forms
+import simplejson
 
 import pdb
 
@@ -47,8 +48,15 @@ def login_view(request):
         # return redirect('/index/')
 
     if request.method == 'POST':
-        name = request.POST.get('name')
-        password = request.POST.get('password')
+        # pdb.set_trace()
+        req = simplejson.loads(request.body)
+        name = req['name']
+        password = req['password']
+        # datas = req['datas']
+        # game_id1 = datas[0]['game_id']
+        # name = request.POST.get('name')
+        # password = request.POST.get('password')
+        # pdb.set_trace()
         # pdb.set_trace()
         # Check if name ans password are empty
         if name and password:

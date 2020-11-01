@@ -23,7 +23,6 @@
         <p id = "Invalidpassword" class="t2"> Invalid password <br />The minimum length is 6</p>
         <div class="container">
           <form name="login_account" action="/login/" method="POST">
-              {% csrf_token %}
               {% if message %}
                     <div class="alert alert-warning">{{ message }}</div>
               {% endif %}

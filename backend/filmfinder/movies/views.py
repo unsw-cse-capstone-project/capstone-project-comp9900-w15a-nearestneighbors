@@ -9,7 +9,7 @@ def index(request):
     #return HttpResponse("Hello, world. You're at the movies index.")
     movie_list = models.Movie.objects.order_by('name')[:]
     context = {"movie_list": movie_list}
-    return render(request,'movies/index.html',context)
+    return render(request, 'movies/index.html', context)
     
     
 def detail(request,movie_id):
@@ -23,6 +23,11 @@ def search_view(request):
     if not key_words:
         message = 'Please input a key word!'
         return render(request, 'login/index.html', {'message': message})
-    pdb.set_trace()
+
+    # Search for movies, the name of which matches input keywords
+    movie_list = models.Movie.objects.filter(title__icontains=q)
+
+    # pdb.set_trace()
+
     return
 
