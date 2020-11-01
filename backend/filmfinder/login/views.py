@@ -9,21 +9,6 @@ import simplejson
 
 import pdb
 
-# DRL API - Implemented with serializers
-# class LoginView(APIView):
-#
-#     def get(self, request, *args, **kwargs):
-#         queryset = User.objects.all()
-#         serializer = UserSerializer(queryset, many=True)
-#         return JsonResponse(serializer.data)
-#
-#
-#     def post(self, request, *args, **kwargs):
-#         serializer = UserSerializer(data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return JsonResponse(serializer.data)
-
 
 # Create your views here.
 def index_view(request):
@@ -41,8 +26,9 @@ def index_view(request):
         'login_flag': False,
         'username': None
     }
-    return JsonResponse(data)
-    # return render(request, 'login/index.html')
+    # pdb.set_trace()
+    # return JsonResponse(data)
+    return render(request, 'login/index.html')
 
 
 def login_view(request):
@@ -51,7 +37,7 @@ def login_view(request):
     if request.session.get('login_flag', None):
         data = {
             'success': False,
-            'msg': 'User already logged in'
+            'msg': 'user already logged in'
         }
         return JsonResponse(data)
         # return redirect('/index/')
@@ -101,31 +87,6 @@ def login_view(request):
     return render(request, 'login/login.html')
 
 
-''' If Forms is used '''
-# def login_view(request):
-#     if request.method == 'POST':
-#         login_form = forms.UserForm(request.POST)
-#         if login_form.is_valid():
-#             name = login_form.cleaned_data.get('name')
-#             password = login_form.cleaned_data.get('password')
-#             print(name, password)
-#             try:
-#                 user = models.User.objects.get(name=name)
-#             except:
-#                 message = "user doesn't exist"
-#                 return render(request, 'login.html', {'message': message})
-#             if user.password == password:
-#                 return redirect('/index/')
-#             else:
-#                 message = 'password is incorrect'
-#                 return render(request, 'login.html', {'message': message})
-#         else:
-#             message = 'login form is invalid'
-#             return render(request, 'login.html', {'message': message})
-#     login_form = forms.UserForm()
-#     return render(request, 'login.html')
-
-
 def register_view(request):
     # Check if user has already logged in.
     # If so, direct the user to the index page.
@@ -138,9 +99,9 @@ def register_view(request):
 
     if request.method == 'POST':
         req = simplejson.loads(request.body)
-        username = req['username']
-        password = req['userPassword']
-        re_password = req['userRePassword']
+        username = req['name']
+        password = req['password']
+        re_password = req['re_password']
 
         # Check if two passwords are the same
         if password != re_password:
@@ -156,24 +117,39 @@ def register_view(request):
         if len(check_user_name) > 0:
             data = {
                 'success': False,
-                'msg': 'user already exists'
+                'msg': 'username already exists'
             }
-            return render(request, 'login/register.html', {'message': message})
+            return JsonResponse(data)
 
         new_user = models.User()
         new_user.name = username
         new_user.password = password
         new_user.save()
-
-        return redirect('/login/')
+        data = {
+            'success': True,
+            'msg': None
+        }
+        return JsonResponse(data)
+        # return redirect('/login/')
 
     return render(request, 'login/register.html')
 
 
 def logout_view(request):
     # Check if user didn't log in
-    if not request.session.get('login_flag', None):
-        return redirect('/index/')
+    if request.method == 'GET':
+        if not request.session.get('login_flag', None):
+            data = {
+                'success': False,
+                'msg': "user didn't log in"
+            }
+            return JsonResponse(data)
+            # return redirect('/index/')
 
     request.session.flush()
-    return redirect('/index/')
+    data = {
+        'success': True,
+        'msg': None
+    }
+    return JsonResponse(data)
+    # return redirect('/index/')
