@@ -105,5 +105,36 @@ If not, `"name"` will be `None`.
   1. `{ "success": false, "msg": "user didn't log in"}` indicates the user didn't logged in with an existing account.
 
 `{ "success": true, "msg": None}` indicates the user successfully logged out, and the session has been flushed.
+<br/><br/>
+<br/><br/>
+
+## Movies
+### search_view
+**Url**:  http://127.0.0.1:8000/search/
+
+**Request Method**: GET
+
+**Input Request**:
+```json
+{
+  "keywords": "some key words here"
+}
+```
+`"keywords"` is the keywords a user input to search for movies.
+
+**Output Data**:
+```json
+{
+  "success": true,
+  "msg": "This is registeration message."
+}
+```
+`"success"` indicates whether a user successfully registered a new account.
+`"msg"` contains error messages if `"success"` is `false`, which are:
+  1. `{ "success": false, "msg": "user already logged in"}` indicates the user has already logged in with an existing account.
+  2. `{ "success": false, "msg": "two passwords are not the same"}` indicates the user didn't input the same password twice.
+  3. `{ "success": false, "msg": "user already exists"}` indicates the input username already exists in our database.
+
+`{ "success": true, "msg": None}` indicates the user successfully registerd a new account.
 
 
