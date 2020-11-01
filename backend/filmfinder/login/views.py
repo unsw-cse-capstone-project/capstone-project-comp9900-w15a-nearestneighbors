@@ -91,7 +91,7 @@ def login_view(request):
             return JsonResponse(data)
             # return redirect('/index/')
 
-    elif request == 'GET':
+    elif request.method == 'GET':
 
         data = {
             'success': None,
