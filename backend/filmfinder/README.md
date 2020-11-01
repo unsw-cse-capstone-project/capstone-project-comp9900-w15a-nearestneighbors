@@ -17,7 +17,7 @@ Input Request:
 Output Data:
 ```json
 {
-  "success": True,
+  "success": true,
   "msg": "This is login message"
 }
 ```
