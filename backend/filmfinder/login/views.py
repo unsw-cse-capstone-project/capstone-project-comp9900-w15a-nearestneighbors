@@ -43,8 +43,8 @@ def login_view(request):
             'success': False,
             'msg': 'User already logged in'
         }
-        return JsonResponse(data)
-        # return redirect('/index/')
+        # return JsonResponse(data)
+        return redirect('/index/')
 
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -52,8 +52,6 @@ def login_view(request):
         # pdb.set_trace()
         # Check if name ans password are empty
         if name and password:
-            print(name, password)
-
             # Check if the user exists
             try:
                 user = models.User.objects.get(name=name)
@@ -73,13 +71,13 @@ def login_view(request):
                 return JsonResponse(data)
                 # return redirect('/index/')
             else:
-                # message = 'password is incorrect'
+                message = 'password is incorrect'
                 data = {
                     'success': False,
                     'msg': 'password is incorrect'
                 }
-                return JsonResponse(data)
-                # return render(request, 'login/login.html', {'message': message})
+                # return JsonResponse(data)
+                return render(request, 'login/login.html', {'message': message})
         else:
             data = {
                 'success': False,
@@ -88,12 +86,12 @@ def login_view(request):
             return JsonResponse(data)
             # return redirect('/index/')
 
-    data = {
-        'success': False,
-        'msg': 'unexpected request'
-    }
-    return JsonResponse(data)
-    # return render(request, 'login/login.html')
+    # data = {
+    #     'success': False,
+    #     'msg': 'unexpected request'
+    # }
+    # return JsonResponse(data)
+    return render(request, 'login/login.html')
 
 
 ''' If Forms is used '''

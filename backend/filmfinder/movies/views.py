@@ -17,7 +17,7 @@ def detail(request,movie_id):
     return render(request, 'movies/detail.html', {'movie': movie})
 
 
-def search(request):
+def search_view(request):
     key_words = request.GET.get('search')
     # Check if input is empty
     if not key_words:

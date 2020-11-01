@@ -19,7 +19,8 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 from login.views import index_view, login_view, register_view, logout_view
-from search.views import search_view
+from movies.views import search_view
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
