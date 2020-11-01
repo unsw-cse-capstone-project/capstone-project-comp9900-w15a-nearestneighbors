@@ -127,15 +127,28 @@ If not, `"name"` will be `None`.
 ```json
 {
   "success": true,
-  "msg": "This is registeration message."
+  "result": [
+              {
+              "mid": "movie id", 
+              "name": "movie name", 
+              "released_date": "released year", 
+              "poster": "src path of poster", 
+              "rating": "latest averaged rating"
+            },
+              {
+              "mid": "movie id", 
+              "name": "movie name", 
+              "released_date": "released year", 
+              "poster": "src path of poster", 
+              "rating": "latest averaged rating"
+            },
+              ...
+          ]
 }
 ```
-`"success"` indicates whether a user successfully registered a new account.
-`"msg"` contains error messages if `"success"` is `false`, which are:
-  1. `{ "success": false, "msg": "user already logged in"}` indicates the user has already logged in with an existing account.
-  2. `{ "success": false, "msg": "two passwords are not the same"}` indicates the user didn't input the same password twice.
-  3. `{ "success": false, "msg": "user already exists"}` indicates the input username already exists in our database.
-
+`"success"` indicates whether the input keywords can conduct a search successfully.
+`"result"` contains search result, which is a list of dictionaries. In each dictionary, there are `"mid"`, `"name"`, `"released_date"`, `"poster"`, and `"rating"`. 
+They are used to demonstrate each movie in search result, except `"mid"`.
 `{ "success": true, "msg": None}` indicates the user successfully registerd a new account.
 
 
