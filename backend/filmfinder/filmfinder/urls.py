@@ -23,15 +23,15 @@ from movies.views import search_view
 
 
 urlpatterns = [
-    path('admin', admin.site.urls),
+    path('admin/', admin.site.urls),
     path('api-auth', include('rest_framework.urls')),
-    path('index', index_view),
-    path('login', login_view),
-    path('register', register_view),
-    path('logout', logout_view),
-    path('search', search_view),
+    path('index/', index_view),
+    path('login/', login_view),
+    path('register/', register_view),
+    path('logout/', logout_view),
+    path('search/', search_view),
     #URL for movies
-    path('movies', include('movies.urls')),
+    path('movies/', include('movies.urls')),
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)  #movies poster images
 
 urlpatterns += staticfiles_urlpatterns()
