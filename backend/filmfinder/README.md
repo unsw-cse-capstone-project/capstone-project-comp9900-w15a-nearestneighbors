@@ -21,6 +21,7 @@ If so, `"name"` will be the username.
 If not, `"name"` will be `None`.
 
 
+
 ### login_view
 **Url**:  http://127.0.0.1:8000/login/
 
@@ -43,13 +44,13 @@ If not, `"name"` will be `None`.
 ```
 `"success"` indicates whether a user successfully logged in.
 `"msg"` contains error messages if `"success"` is `false`, which are:
-
   1. `{ "success": False, "msg": "user already logged in"}` indicates the user has already logged in.
   2. `{ "success": False, "msg": "tuser doesn't exist"}` indicates the input username doesn't exist in our database.
-  3. `{ "success": True, "msg": None}` indicates the user logged in successfully.
-  4. `{ "success": False, "msg": "incorrect password"}` indicates the user didn't input correct password.
-  5. `{ "success": False, "msg": "username and password are required"}` indicates the user didn't input password and username.
-  
+  3. `{ "success": False, "msg": "incorrect password"}` indicates the user didn't input correct password.
+  4. `{ "success": False, "msg": "username and password are required"}` indicates the user didn't input password and username.
+
+`{ "success": true, "msg": None}` indicates the user successfully logged in.
+
 
 ### register_view
 **Url**:  http://127.0.0.1:8000/register/
@@ -80,5 +81,28 @@ If not, `"name"` will be `None`.
   1. `{ "success": false, "msg": "user already logged in"}` indicates the user has already logged in with an existing account.
   2. `{ "success": false, "msg": "two passwords are not the same"}` indicates the user didn't input the same password twice.
   3. `{ "success": false, "msg": "user already exists"}` indicates the input username already exists in our database.
-  4. `{ "success": true, "msg": None}` indicates the user successfully registerd a new account.
+
+`{ "success": true, "msg": None}` indicates the user successfully registerd a new account.
+
+
+
+### logout_view
+**Url**:  http://127.0.0.1:8000/logout/
+
+**Request Method**: GET
+
+**Input Request**: N/A
+**Output Data**:
+```json
+{
+  "success": true,
+  "msg": "This is registeration message."
+}
+```
+`"success"` indicates whether a user successfully logged out.
+`"msg"` contains error messages if `"success"` is `false`, which are:
+  1. `{ "success": false, "msg": "user didn't log in"}` indicates the user didn't logged in with an existing account.
+
+`{ "success": true, "msg": None}` indicates the user successfully logged out, and the session has been flushed.
+
 
