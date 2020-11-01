@@ -10,7 +10,7 @@ work diary directory contains each team member's work diary, using zID to name t
         $ which python3
         ```
       
-2.  Create a virtual environment for the project by entering
+3.  Create a virtual environment for the project by entering
         ```
         $ virtualenv your_venv -p (paste your python3 path here)
         ```
@@ -21,20 +21,34 @@ work diary directory contains each team member's work diary, using zID to name t
         ```
     You can deactivate your virtual environment by
         ```
-        (your_env)$ deactivate
+        (your_venv)$ deactivate
         ```
         
 5.  Install Django in your activated virtual environment by: 
         ```
-        (your_env)$ pip install django
+        (your_venv)$ pip install django
         ```
         
 6.  Install Django Rest Framework in your activated virtual environment by: 
         ```
-        (your_env)$ pip install djangorestframework
+        (your_venv)$ pip install djangorestframework
         ```
         
-5.  Now you can run the server by: 
+7.  Install Django Rest Framework in your activated virtual environment by: 
         ```
-        (your_env)$ python3 manage.py runserver
+        (your_venv)$ pip install djangorestframework
         ```
+        
+8.  Now you can run the server by: 
+        ```
+        (your_venv)$ python3 manage.py runserver
+        ```
+        
+On CSE machine:
+1.      Clone this repo to your CSE machine.
+
+2.      Create a virtual environment for the project by entering
+        ```
+        $ python3 -m venv your_venv
+        ```
+3.      Follow step 4 to 8 above to set up Django.
