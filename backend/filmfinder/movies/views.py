@@ -3,8 +3,11 @@ from django.template import loader
 from django.shortcuts import render, get_object_or_404
 from django.http import Http404
 from . import models
+from django.db.models import Avg
 import simplejson
 from django.http import JsonResponse
+from django.core import serializers
+import pdb
 
 
 # Create your views here.
@@ -22,8 +25,9 @@ def detail(request,movie_id):
 
 def search_view(request):
     if request.method == 'GET':
-        req = simplejson.loads(request.body)
-        key_words = req['keywords'].strip()
+        key_words = request.GET.get('search')
+        # req = simplejson.loads(request.body)
+        # key_words = req['keywords'].strip()
 
         # Check if input is empty
         if not key_words:
@@ -34,10 +38,19 @@ def search_view(request):
             return JsonResponse(data)
 
         # Get movies that keywords is or is a substring of movie names
-        movie_list = models.Movie.objects.filter(title__icontains=key_words)
-        # Search for movies, the name of which matches input keywords
-        movie_list = models.Movie.objects.filter(title__icontains=q)
-
+        movie_list = list(models.Movie.objects.filter(name__icontains=key_words).values('mid', 'name', 'released_date', 'poster'))
+        for movie in movie_list:
+            movie['rating'] = models.Review.objects.filter(movie_id__exact=movie['mid']).aggregate(Avg('rating_number', distinct=True))['rating_number__avg']
+            if movie['rating'] is not None:
+                movie['rating'] = round(movie['rating'], 1)
+        pdb.set_trace()
+        data = {
+            'success': True,
+            'result': []
+        }
+        # data['result'].append(serializers.serialize('python', movie_list))
+        data['result'] = list(movie_list)
+        return JsonResponse(data)
         # pdb.set_trace()
 
     return

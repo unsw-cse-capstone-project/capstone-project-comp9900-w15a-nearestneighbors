@@ -1,5 +1,5 @@
 from django.db import models
-import datetime
+from login.models import User
 from django.utils import timezone
 # Create your models here.
 
@@ -41,7 +41,13 @@ class Cast(models.Model):
         unique_together=[["cast","movie"]]
 
 #TODO
-#class Review(models.Model)
+class Review(models.Model):
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, to_field='uid')
+    movie_id = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    review_comment = models.TextField(max_length=1000)
+    rating_number = models.FloatField()
+    date = models.DateTimeField()
+
 #class Watch_history(models.Model)
 #class Wish_list(modesl.Model)
 
