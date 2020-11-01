@@ -12,7 +12,7 @@ work diary directory contains each team member's work diary, using zID to name t
       
 2.  Create a virtual environment for the project by entering
         ```
-        $ virtualenv your_venv ip (paste your python3 path here)
+        $ virtualenv your_venv -p (paste your python3 path here)
         ```
       
 4.  Activate your virtual environment by:
