@@ -51,7 +51,7 @@ You can deactivate your virtual environment by
 
 2.  Create a virtual environment for the project by entering
 ```
-$ python3 -m venv your_venv
+        $ python3 -m venv your_venv
 ```
 
 3.  Follow the step 4 to 8 above to set up Django.
