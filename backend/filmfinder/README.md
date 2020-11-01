@@ -45,13 +45,9 @@ Output Data:
 ```"msg"``` contains error messages if ```"success"``` is ```false```, which are:
 
   1. ```{ "success": False, "msg": "user already logged in"}``` indicates the user has already logged in.
-
   2. ```{ "success": False, "msg": "tuser doesn't exist"}``` indicates the input username doesn't exist in our database.
-
   3. ```{ "success": True, "msg": None}``` indicates the user logged in successfully.
-
   4. ```{ "success": False, "msg": "incorrect password"}``` indicates the user didn't input correct password.
-
   5. ```{ "success": False, "msg": "username and password are required"}``` indicates the user didn't input password and username.
   
 
