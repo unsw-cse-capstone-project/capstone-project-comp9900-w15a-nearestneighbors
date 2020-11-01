@@ -93,6 +93,7 @@ If not, `"name"` will be `None`.
 **Request Method**: GET
 
 **Input Request**: N/A
+
 **Output Data**:
 ```json
 {
