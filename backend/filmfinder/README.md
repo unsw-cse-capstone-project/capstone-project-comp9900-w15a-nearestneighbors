@@ -124,7 +124,7 @@ If not, `"name"` will be `None`.
 `"keywords"` is the keywords a user input to search for movies.
 
 **Output Data**:
-```json
+```
 {
   "success": true,
   "result": [
