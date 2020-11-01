@@ -91,21 +91,21 @@ def login_view(request):
             return JsonResponse(data)
             # return redirect('/index/')
 
-    elif request.method == 'GET':
-
-        data = {
-            'success': None,
-            'msg': 'GET request'
-        }
-
-        return JsonResponse(data)
+    # elif request.method == 'GET':
+    #
+    #     data = {
+    #         'success': None,
+    #         'msg': 'GET request'
+    #     }
+    #
+    #     return JsonResponse(data)
     # pdb.set_trace()
-    data = {
-        'success': False,
-        'msg': 'unexpected request'
-    }
-    return JsonResponse(data)
-    # return render(request, 'login/login.html')
+    # data = {
+    #     'success': False,
+    #     'msg': 'unexpected request'
+    # }
+    # return JsonResponse(data)
+    return render(request, 'login/login.html')
 
 
 ''' If Forms is used '''
