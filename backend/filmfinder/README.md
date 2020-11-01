@@ -21,7 +21,7 @@ If so, `"name"` will be the username.
 If not, `"name"` will be `None`.
 
 
-
+<br/><br/>
 ### login_view
 **Url**:  http://127.0.0.1:8000/login/
 
@@ -52,6 +52,7 @@ If not, `"name"` will be `None`.
 `{ "success": true, "msg": None}` indicates the user successfully logged in.
 
 
+<br/><br/>
 ### register_view
 **Url**:  http://127.0.0.1:8000/register/
 
@@ -85,7 +86,7 @@ If not, `"name"` will be `None`.
 `{ "success": true, "msg": None}` indicates the user successfully registerd a new account.
 
 
-
+<br/><br/>
 ### logout_view
 **Url**:  http://127.0.0.1:8000/logout/
 
