@@ -15,3 +15,14 @@ def index(request):
 def detail(request,movie_id):
     movie = get_object_or_404(models.Movie, pk = movie_id)
     return render(request, 'movies/detail.html', {'movie': movie})
+
+
+def search(request):
+    key_words = request.GET.get('search')
+    # Check if input is empty
+    if not key_words:
+        message = 'Please input a key word!'
+        return render(request, 'login/index.html', {'message': message})
+    pdb.set_trace()
+    return
+

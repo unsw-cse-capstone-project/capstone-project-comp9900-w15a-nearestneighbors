@@ -39,7 +39,12 @@ def login_view(request):
     # Check if the user has already logged in.
     # If so, direct the user to the index page.
     if request.session.get('login_flag', None):
-        return redirect('/index/')
+        data = {
+            'success': False,
+            'msg': 'User already logged in'
+        }
+        return JsonResponse(data)
+        # return redirect('/index/')
 
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -61,14 +66,34 @@ def login_view(request):
                 # Store login information in session
                 request.session['login_flag'] = True
                 request.session['name'] = name
-                return redirect('/index/')
+                data = {
+                    'success': True,
+                    'msg': None
+                }
+                return JsonResponse(data)
+                # return redirect('/index/')
             else:
-                message = 'password is incorrect'
-                return render(request, 'login/login.html', {'message': message})
+                # message = 'password is incorrect'
+                data = {
+                    'success': False,
+                    'msg': 'password is incorrect'
+                }
+                return JsonResponse(data)
+                # return render(request, 'login/login.html', {'message': message})
         else:
-            return redirect('/index/')
+            data = {
+                'success': False,
+                'msg': 'username and password are required'
+            }
+            return JsonResponse(data)
+            # return redirect('/index/')
 
-    return render(request, 'login/login.html')
+    data = {
+        'success': False,
+        'msg': 'unexpected request'
+    }
+    return JsonResponse(data)
+    # return render(request, 'login/login.html')
 
 
 ''' If Forms is used '''
