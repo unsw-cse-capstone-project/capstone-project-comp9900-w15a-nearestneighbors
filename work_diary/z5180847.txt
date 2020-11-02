@@ -38,4 +38,9 @@ Learnt about Django framework.
 
 Week 7
 
-Worked on
+Worked on backend, built up project framework.
+
+
+Week 8
+
+Developed APIs for login, register, logout, index page and search functionality.
