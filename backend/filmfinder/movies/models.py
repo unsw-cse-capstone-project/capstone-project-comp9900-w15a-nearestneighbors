@@ -19,7 +19,7 @@ class Movie(models.Model):
     description = models.CharField(max_length=500)
     region = models.CharField(max_length=50)
     released_date = models.DateTimeField('released date')
-    poster = models.ImageField(upload_to='posters',blank = True, null = True)    #TODO
+    poster = models.ImageField(upload_to='../movies/posters',blank = True, null = True)    #TODO
     director = models.ForeignKey(Person, on_delete=models.CASCADE)  #foreign key
     
     def __str__(self):

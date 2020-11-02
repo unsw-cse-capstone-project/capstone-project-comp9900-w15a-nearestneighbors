@@ -134,5 +134,5 @@ STATICFILES_DIRS = (
 
 )
 #path to store movie posters
-MEDIA_URL = '/posters/'
+MEDIA_URL = '/movies/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'movies')

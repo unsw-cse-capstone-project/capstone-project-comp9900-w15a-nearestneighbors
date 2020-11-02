@@ -151,4 +151,95 @@ If not, `"name"` will be `None`.
 They are used to demonstrate each movie in search result, except `"mid"`.
 `{ "success": true, "result": []}` indicates no related movie is found.
 
+### movie_list_view
+**Url**:  http://127.0.0.1:8000/movies/
 
+**Request Method**: GET
+**Input Request**: No Input
+
+**Output Data**:
+```
+{
+"success": true,
+"movies":[
+            {
+              "mid": 1,
+              "name": "test_movie1",
+              "genre":[
+                "test_genre1",
+                "test_genre12",
+                "test_genre3"
+              ],
+              "description": "test_movie1_description",
+              "region": "US",
+              "released_date": "2020-10-30T09:37:52Z",
+              "director": "test_director1",
+              "poster": "../movies/posters/壁纸.jpg",
+              "cast":[
+                "test_actor1",
+                "test_actor2"
+              ]
+            },
+
+            {
+              "mid": 2,
+              "name": "test_movie2",
+              "genre":["test_genre1", "test_genre3"],
+              "description": "test_movie2 description",
+              "region": "SYD",
+              "released_date": "2020-10-05T00:00:00Z",
+              "director": "test_director2",   
+              "poster": "../movies/posters/终将成为你6.jpg",
+              "cast":["test_actor1"]
+            },
+
+            ...
+
+            {
+              ...
+            },
+
+          ]
+}
+```
+`"success"` indicates `http://127.0.0.1:8000/movies/` successfully return all movies.
+`"result"` contains search result, which is a list of dictionaries. In each dictionary, there are `"mid"`, `"name"`, `"genre type"`, `"description"`,`"region"`,  `"released_date"`,`"director_name"`,`"poster"`,`"cast"` fields.
+
+### movie_list_view
+**Url**:  http://127.0.0.1:8000/movies/detail/
+
+**Request Method**: GET
+**Input Request**:
+```json
+{
+  "movie_id": "input movie_id here (must be a integer)"
+}
+```
+
+**Output Data**:
+```
+{
+  "success": true,
+  "msg": "found movie with movie_id: 1",
+  "movie":[
+            {
+              "mid": 1,
+              "name": "test_movie1",
+              "genre":["test_genre1", "test_genre12", "test_genre3"],
+              "description": "test_movie1_description",
+              "region": "US",
+              "released_date": "2020-10-30T09:37:52Z",
+              "director": "test_director1",
+              "poster": "../movies/posters/壁纸.jpg",
+              "cast":["test_actor1", "test_actor2"]
+            }
+          ]
+}
+```
+`"success"` indicates whether found matching movie.
+`"msg"` shows the current state.
+`"movie"` is a list, which has only one element, containing detail for the matching movie.
+1. `{"success": false, "msg": "movie_id is required", "movie": []}` indicates there is no input in the GET Query Parameters.
+2. `{"success": false, "msg": "movie_id must be a integer", "movie": []}` indicates the input is not a integer.
+3. `{"success": false, "msg": "The movie you are looking for does not exist", "movie": []}` indicates there is no movie with mid == movie_id
+4. `{"success": true, "msg": "found movie with movie_id", "movie": [{...}]}` indicates there is a movie with mid == movie_id
