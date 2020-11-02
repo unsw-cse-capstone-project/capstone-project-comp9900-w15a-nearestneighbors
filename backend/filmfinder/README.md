@@ -118,10 +118,10 @@ If not, `"name"` will be `None`.
 **Input Request**:
 ```json
 {
-  "keywords": "some key words here"
+  "search": "some key words here"
 }
 ```
-`"keywords"` is the keywords a user input to search for movies.
+`"search"` is the keywords a user input to search for movies.
 
 **Output Data**:
 ```
