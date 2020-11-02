@@ -24,10 +24,18 @@ Week 4
 Designed database structure with Zijian Shen.
 Prepared for the Demo in week 5.
 
+
 Week 5
 
 Finished Demo and discussed about next progressive plan with teammates.
 
+
 Week 6
 
 Wrote the Retrospective A.
+Learnt about Django framework.
+
+
+Week 7
+
+Worked on
