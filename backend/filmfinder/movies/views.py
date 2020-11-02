@@ -43,7 +43,7 @@ def search_view(request):
             movie['rating'] = models.Review.objects.filter(movie_id__exact=movie['mid']).aggregate(Avg('rating_number', distinct=True))['rating_number__avg']
             if movie['rating'] is not None:
                 movie['rating'] = round(movie['rating'], 1)
-        pdb.set_trace()
+        # pdb.set_trace()
         data = {
             'success': True,
             'result': []

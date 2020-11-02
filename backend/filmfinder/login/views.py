@@ -27,8 +27,8 @@ def index_view(request):
         'username': None
     }
     # pdb.set_trace()
-    # return JsonResponse(data)
-    return render(request, 'login/index.html')
+    return JsonResponse(data)
+    # return render(request, 'login/index.html')
 
 
 def login_view(request):
