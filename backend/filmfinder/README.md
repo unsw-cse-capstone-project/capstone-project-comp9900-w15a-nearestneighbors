@@ -205,7 +205,7 @@ They are used to demonstrate each movie in search result, except `"mid"`.
 `"success"` indicates `http://127.0.0.1:8000/movies/` successfully return all movies.
 `"result"` contains search result, which is a list of dictionaries. In each dictionary, there are `"mid"`, `"name"`, `"genre type"`, `"description"`,`"region"`,  `"released_date"`,`"director_name"`,`"poster"`,`"cast"` fields.
 
-### movie_list_view
+### detail_view
 **Url**:  http://127.0.0.1:8000/movies/detail/
 
 **Request Method**: GET
