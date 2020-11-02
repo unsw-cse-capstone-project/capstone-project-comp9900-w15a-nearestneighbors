@@ -25,10 +25,12 @@ def detail(request,movie_id):
 
 def search_view(request):
     if request.method == 'GET':
-        key_words = request.GET.get('search')
-        # req = simplejson.loads(request.body)
-        # key_words = req['keywords'].strip()
-
+        # key_words = request.GET.get('search')
+        try:
+            req = simplejson.loads(request.body)
+            key_words = req['search'].strip()
+        except:
+            key_words = request.GET.get('search')
         # Check if input is empty
         if not key_words:
             data = {
