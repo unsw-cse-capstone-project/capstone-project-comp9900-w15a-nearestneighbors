@@ -86,6 +86,9 @@ def detail_view(request):
             data['movie'].append(movie_to_dict(movie_obj))
         finally:
             return JsonResponse(data)
+    else:
+        data['msg'] = "please use GET"
+        return JsonResponse(data)
             
 
 def search_view(request):
