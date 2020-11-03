@@ -50,11 +50,14 @@ class Cast(models.Model):
 
 #TODO
 class Review(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, to_field='uid')
-    movie_id = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     review_comment = models.TextField(max_length=1000)
     rating_number = models.FloatField()
     date = models.DateTimeField()
+    
+    class Meta:
+        unique_together=[["user","movie"]]
 
 #class Watch_history(models.Model)
 #class Wish_list(modesl.Model)

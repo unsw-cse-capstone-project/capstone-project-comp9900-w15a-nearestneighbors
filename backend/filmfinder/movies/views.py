@@ -91,7 +91,7 @@ def detail_view(request):
         return JsonResponse(data)
             
 
-def search_view(request):
+def search_by_name_view(request):
     if request.method == 'GET':
         # key_words = request.GET.get('search')
         try:

@@ -11,8 +11,8 @@ class lower_CharField(models.CharField):
         return str(value).lower()
 
 class User(models.Model):
-    uid = models.IntegerField(primary_key=True)
-    name = models.CharField(max_length=50)
+    uid = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=50,unique=True)
     password = models.CharField(max_length=20)
     profile_photo = models.ImageField(blank=True)
     email = models.CharField(max_length=50, default='N/A')

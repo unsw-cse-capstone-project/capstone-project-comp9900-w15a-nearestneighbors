@@ -110,8 +110,8 @@ If not, `"name"` will be `None`.
 <br/><br/>
 
 ## Movies
-### search_view
-**Url**:  http://127.0.0.1:8000/search/
+### search_by_name_view
+**Url**:  http://127.0.0.1:8000/search_by_name/
 
 **Request Method**: GET
 
