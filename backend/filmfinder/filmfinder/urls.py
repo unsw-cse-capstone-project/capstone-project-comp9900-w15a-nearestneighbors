@@ -19,7 +19,7 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 from login.views import index_view, login_view, register_view, logout_view
-from movies.views import search_by_name_view
+from movies.views import search_view
 
 
 urlpatterns = [
@@ -29,7 +29,7 @@ urlpatterns = [
     path('login/', login_view),
     path('register/', register_view),
     path('logout/', logout_view),
-    path('search_by_name/', search_by_name_view),
+    path('search/', search_view),
     #URL for movies
     path('movies/', include('movies.urls')),
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)  #movies poster images

@@ -89,9 +89,9 @@ def detail_view(request):
     else:
         data['msg'] = "please use GET"
         return JsonResponse(data)
-            
+    
 
-def search_by_name_view(request):
+def search_view(request):
     if request.method == 'GET':
         # key_words = request.GET.get('search')
         try:
