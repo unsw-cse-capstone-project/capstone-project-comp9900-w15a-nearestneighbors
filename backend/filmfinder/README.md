@@ -181,7 +181,8 @@ They are used to demonstrate each movie in search result, except `"mid"`.
               "cast":[
                 "test_actor1",
                 "test_actor2"
-              ]
+              ],
+              "average_rating":4.5
             },
 
             {
@@ -193,7 +194,8 @@ They are used to demonstrate each movie in search result, except `"mid"`.
               "released_date": "2020-10-05T00:00:00Z",
               "director": "test_director2",   
               "poster": "../movies/posters/终将成为你6.jpg",
-              "cast":["test_actor1"]
+              "cast":["test_actor1"],
+              "average_rating":4.3
             },
 
             ...
@@ -209,7 +211,7 @@ They are used to demonstrate each movie in search result, except `"mid"`.
 
 `"result"` contains search result, which is a list of dictionaries. 
 
-In each dictionary, there are `"mid"`, `"name"`, `"genre type"`,`"description"`,`"region"`,  `"released_date"`,`"director_name"`,`"poster"`,`"cast"` fields.
+In each dictionary, there are `"mid"`, `"name"`, `"genre type"`,`"description"`,`"region"`,  `"released_date"`,`"director_name"`,`"poster"`,`"cast"`,`"average_rating"` fields.
 
 ### detail_view
 **Url**:  http://127.0.0.1:8000/movies/detail/
@@ -226,21 +228,44 @@ In each dictionary, there are `"mid"`, `"name"`, `"genre type"`,`"description"`,
 **Output Data**:
 ```
 {
-  "success": true,
-  "msg": "found movie with movie_id: 1",
-  "movie":[
-            {
-              "mid": 1,
-              "name": "test_movie1",
-              "genre":["test_genre1", "test_genre12", "test_genre3"],
-              "description": "test_movie1_description",
-              "region": "US",
-              "released_date": "2020-10-30T09:37:52Z",
-              "director": "test_director1",
-              "poster": "../movies/posters/壁纸.jpg",
-              "cast":["test_actor1", "test_actor2"]
-            }
-          ]
+  'mid': 4,
+  'name': 'The Avengers',
+  'genre': ['Action', 'Adventure', 'Science fiction'],
+  'description': "Marvel's The Avengers[6] (classified under the name .....",
+  'region': 'United States',
+  'released_date': datetime.datetime(2012, 5, 4, 12, 0, tzinfo=<UTC>),
+  'director': 'Joss Whedon',
+  'poster': '../movies/posters/The_Avengers_2012_film_poster.jpg',
+  'cast': [
+            'Robert Downey Jr.',
+            'Chris Evans',
+            'Mark Ruffalo',
+            'Chris Hemsworth',
+            'Scarlett Johansson',
+            'Jeremy Renner',
+            'Tom Hiddleston'
+          ],
+  'average_rating': 4.5,
+  'reviews':[
+              {
+                'user_name': '6@6.6',
+                'review_comment': 'I was lucky enough to attend the Marve.....',
+                'rating_number': 4.5,
+                'date': datetime.datetime(2018, 4, 11, 6, 41, 19, tzinfo=<UTC>)
+              },
+              {
+                'user_name': '5@5.5',
+                'review_comment': "'Avengers Assemble' ('The Avengers') is a truly enjoyable superhero film that ....",
+                'rating_number': 5.0,
+                'date': datetime.datetime(2015, 11, 4, 6, 40, 34, tzinfo=<UTC>)
+              },
+              {
+                'user_name': '7@7.7',
+                'review_comment': "I just saw the early screening for San Diego through the top 10 cities on facebook who got them.....",
+                'rating_number': 4.7,
+                'date': datetime.datetime(2012, 12, 30, 6, 41, 53, tzinfo=<UTC>)
+              }
+            ]
 }
 ```
 `"success"` indicates whether found matching movie.
