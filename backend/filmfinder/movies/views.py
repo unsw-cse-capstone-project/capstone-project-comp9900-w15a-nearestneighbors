@@ -12,6 +12,8 @@ from django.utils import timezone
 from django.http import JsonResponse
 from django.core import serializers
 import pdb
+import re
+
 
 '''internal function'''
 def movie_to_dict(movie_obj):
@@ -185,6 +187,7 @@ def new_review_view(request):
         data['msg'] = 'please use POST'
         return JsonResponse(data)
 
+
 def search_view(request):
     if request.method == 'GET':
         # key_words = request.GET.get('search')
@@ -201,21 +204,64 @@ def search_view(request):
             }
             return JsonResponse(data)
 
-        # Get movies that keywords is or is a substring of movie names
-        movie_list = list(models.Movie.objects.filter(name__icontains=key_words).values('mid', 'name', 'released_date', 'poster'))
-        for movie in movie_list:
-            movie['rating'] = models.Review.objects.filter(movie_id__exact=movie['mid']).aggregate(Avg('rating_number', distinct=True))['rating_number__avg']
-            if movie['rating'] is not None:
-                movie['rating'] = round(movie['rating'], 1)
-        # pdb.set_trace()
         data = {
             'success': True,
             'result': []
         }
-        # data['result'].append(serializers.serialize('python', movie_list))
-        data['result'] = list(movie_list)
+
+        key_words_list = key_words.split(' ')
+
+        by_genre = []
+        by_director = []
+        by_time = []
+        by_region = []
+
+        all_genres = ['action', 'animation', 'comedy', 'crime', 'documentary', 'drama', 'fantacy', 'horror', 'kids', 'family', 'mystery', 'romance', 'science', 'fiction']
+
+        # Get movies that keyword is or is a substring of movie names
+        by_name = list(models.Movie.objects.filter(name__icontains=key_words).values_list('mid', flat=True))
+
+        for word in key_words_list:
+
+            if word:
+                # Get movies that keyword is or is a substring of genres
+                if word.lower() in all_genres:
+                    id_list = list(models.Movie_genre.objects.filter(genre_type__icontains=word).values_list('movie_id', flat=True).distinct())
+                    by_genre.extend(id_list)
+
+                # Get movies that keyword is or is a substring of a director's name
+                pid_list = list(models.Person.objects.filter(name__icontains=word).values_list('pid', flat=True).distinct())
+                if pid_list:
+                    id_list = list(models.Movie.objects.filter(director_id__in=pid_list).values_list('mid', flat=True).distinct())
+                    by_director.extend(id_list)
+
+                # Get movies that keyword is a time
+                if re.findall(r'[1-2][0-9][0-9][0-9]', word):
+                    id_list = list(models.Movie.objects.filter(released_date__year=word).values_list('mid', flat=True).distinct())
+                    by_time.extend(id_list)
+
+                # Get movies that keyword is a region
+                id_list = list(models.Movie.objects.filter(region__icontains=word).values_list('mid', flat=True))
+                by_region.extend(id_list)
+
+        if by_name:
+            result_id_list = by_name + by_genre + by_director + by_time + by_region
+        else:
+            set_list = [set(by_genre), set(by_director), set(by_time), set(by_region)]
+            set_list = [s for s in set_list if len(s) != 0]
+            result_id_list = set.intersection(*set_list)
+
+        # Get and calculate latest average ratings
+        movie_list = list(models.Movie.objects.filter(mid__in=result_id_list).values('mid', 'name', 'released_date', 'poster'))
+        for movie in movie_list:
+            movie['rating'] = models.Review.objects.filter(movie_id__exact=movie['mid']).aggregate(Avg('rating_number', distinct=True))['rating_number__avg']
+            if movie['rating'] is not None:
+                movie['rating'] = round(movie['rating'], 1)
+
+        # Sort results based on ratings.
+        # If two are the same then sort results alphabetically.
+        data['result'] = sorted(list(movie_list), key=lambda x: (-x['rating'], x['name']))
         return JsonResponse(data)
-        # pdb.set_trace()
 
     return
 
