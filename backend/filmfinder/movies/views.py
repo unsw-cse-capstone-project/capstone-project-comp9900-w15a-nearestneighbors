@@ -28,7 +28,8 @@ def movie_to_dict(movie_obj):
      'released_date': datetime.datetime(2020, 10, 30, 9, 37, 52, tzinfo=<UTC>),
      'director': 'test_director1',
      'poster': '../movies/posters/壁纸.jpg',
-     'cast': ['test_actor1', 'test_actor2']
+     'cast': ['test_actor1', 'test_actor2'],
+     'average_rating': 4.5
     }
     '''
     movie = {} 
@@ -41,8 +42,98 @@ def movie_to_dict(movie_obj):
     movie['director'] = movie_obj.director.name 
     movie['poster'] = str(movie_obj.poster) 
     movie['cast'] = [cast_obj.cast.name for cast_obj in movie_obj.cast_set.all()]
+    movie['average_rating'] = models.Review.objects.filter(movie_id__exact=movie['mid']).aggregate(Avg('rating_number', distinct=True))['rating_number__avg']
+    if movie['average_rating'] is not None:
+                movie['average_rating'] = round(movie['average_rating'], 1)
     
     return movie
+
+def review_to_dict(review_obj):
+    '''
+    convert review_obj to a dict,
+    containing user_id, user_name, movie_id, movie_name, review_comment, rating_number, date
+    
+    e.g.
+    {
+        'user_id': 4,
+        'user_name': '4@4.4',
+        'movie_id': 5,
+        'movie_name': 'Avengers: Age of Ultron',
+        'review_comment': "Marvel's The Avengers (2012) is an awesome movie.",
+        'rating_number': 5.0,
+        'date': datetime.datetime(2013, 2, 3, 6, 37, 24, tzinfo=<UTC>)
+    }
+
+    '''
+    review = {}
+    review['user_id'] = review_obj.user.uid
+    review['user_name'] = review_obj.user.name
+    review['movie_id'] = review_obj.movie.mid
+    review['movie_name'] = review_obj.movie.name
+    review['review_comment'] = review_obj.review_comment
+    review['rating_number'] = review_obj.rating_number
+    review['date'] = review_obj.date
+    return review
+    
+
+def movie_detail_to_dict(movie_obj):
+    '''
+    convert movie_object to a dict containing
+    mid, name, list of genre type, description, region, released_date, director_name, poster image path, list of cast name, list of reviews
+    
+    e.g.
+    {
+        'mid': 4,
+        'name': 'The Avengers',
+        'genre': ['Action', 'Adventure', 'Science fiction'],
+        'description': "Marvel's The Avengers[6] (classified under the name .....",
+        'region': 'United States',
+        'released_date': datetime.datetime(2012, 5, 4, 12, 0, tzinfo=<UTC>),
+        'director': 'Joss Whedon',
+        'poster': '../movies/posters/The_Avengers_2012_film_poster.jpg',
+        'cast': [
+                    'Robert Downey Jr.',
+                    'Chris Evans',
+                    'Mark Ruffalo',
+                    'Chris Hemsworth',
+                    'Scarlett Johansson',
+                    'Jeremy Renner',
+                    'Tom Hiddleston'
+                ],
+        'average_rating': 4.5,
+        'reviews':[
+                    {
+                        'user_name': '6@6.6',
+                        'review_comment': 'I was lucky enough to attend the Marve.....',
+                        'rating_number': 4.5,
+                        'date': datetime.datetime(2018, 4, 11, 6, 41, 19, tzinfo=<UTC>)
+                    },
+                    {
+                        'user_name': '5@5.5',
+                        'review_comment': "'Avengers Assemble' ('The Avengers') is a truly enjoyable superhero film that ....",
+                        'rating_number': 5.0,
+                        'date': datetime.datetime(2015, 11, 4, 6, 40, 34, tzinfo=<UTC>)
+                    },
+                    {
+                        'user_name': '7@7.7',
+                        'review_comment': "I just saw the early screening for San Diego through the top 10 cities on facebook who got them.....",
+                        'rating_number': 4.7,
+                        'date': datetime.datetime(2012, 12, 30, 6, 41, 53, tzinfo=<UTC>)
+                    }
+                ]
+    }
+
+    '''
+    movie_dict = movie_to_dict(movie_obj)
+    movie_dict['reviews'] = []
+    for review_obj in movie_obj.review_set.all().order_by('-date')[:5]:
+        review_dict = review_to_dict(review_obj)
+        del review_dict['user_id']
+        del review_dict['movie_id']
+        del review_dict['movie_name']
+        movie_dict['reviews'].append(review_dict)
+    return movie_dict
+    
 
 '''APIs'''
 def movie_list_view(request):
@@ -102,7 +193,7 @@ def detail_view(request):
         else:
             data['success'] = True
             data['msg'] = 'found movie with movie_id: ' + str(movie_id)
-            data['movie'].append(movie_to_dict(movie_obj))
+            data['movie'].append(movie_detail_to_dict(movie_obj))
             return JsonResponse(data)
             
     else:

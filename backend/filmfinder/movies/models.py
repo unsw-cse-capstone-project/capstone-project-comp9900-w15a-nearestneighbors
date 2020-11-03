@@ -24,7 +24,7 @@ class Person(models.Model):
 class Movie(models.Model):
     mid = models.AutoField(primary_key=True) # primary_key
     name = models.CharField(max_length=50)
-    description = models.CharField(max_length=500)
+    description = models.CharField(max_length=1000)
     region = models.CharField(max_length=50)
     released_date = models.DateTimeField('released date')
     poster = models.ImageField(upload_to='../movies/posters',blank = True, null = True)    #TODO
