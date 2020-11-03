@@ -8,4 +8,7 @@ urlpatterns = [
     
     # e.g.: /movies/detail/
     path('detail/', views.detail_view, name='detail_view'),
+    
+    #e.g.: /movies/detail/new_review/
+    path('detail/new_review/', views.new_review_view, name = 'new_review_view'),
 ]

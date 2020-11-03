@@ -3,13 +3,17 @@ from django.template import loader
 from django.shortcuts import render, get_object_or_404
 from django.http import Http404
 from django.core.exceptions import ObjectDoesNotExist
-from . import models
+from . import models    #models in movies App
+import login.models # models in login App
 from django.db.models import Avg
 import simplejson
+import datetime
+from django.utils import timezone
 from django.http import JsonResponse
 from django.core import serializers
 import pdb
 
+'''internal function'''
 def movie_to_dict(movie_obj):
     '''
     convert movie_object to a dict containing
@@ -40,8 +44,7 @@ def movie_to_dict(movie_obj):
     
     return movie
 
-
-# Create your views here.
+'''APIs'''
 def movie_list_view(request):
     '''
     return all movies detail by calling 'movie_to_dict' function for all movie objects in database 
@@ -58,6 +61,13 @@ def movie_list_view(request):
     return JsonResponse(data)
     
 def detail_view(request):
+    '''
+    get a movie detail by giving movie_id.
+    the input json has this format:
+    {
+        "movie_id": "some movie id here, must be a positive integer"
+    }
+    '''
     data = {}
     data['success'] = False
     data['msg'] = ''
@@ -65,31 +75,115 @@ def detail_view(request):
     if request.method == 'GET':
         try:
             req = simplejson.loads(request.body)
-            key_words = req['movie_id'].strip()
+            movie_id = req['movie_id'].strip()
         except:
-            key_words = request.GET.get('movie_id')
+            movie_id = request.GET.get('movie_id')
         # Check if input is empty
-        if not key_words:
+        if movie_id == None:
             data['msg'] = 'movie_id is required'
             return JsonResponse(data)
-        
         #else input is not empty
+        
+        #check if movie_id is a positive integer
         try:
-            movie_obj = models.Movie.objects.get(mid = key_words)
-        except ValueError:
-            data['msg'] = 'movie_id must be a integer'
+            movie_id = int(movie_id)
+            if not (movie_id > 0):
+                data['msg'] = 'movie_id must be a positive integer'
+                return JsonResponse(data)
+        except:
+            data['msg'] = 'movie_id must be a positive integer'
+            return JsonResponse(data)
+        
+        try:
+            movie_obj = models.Movie.objects.get(mid = movie_id)
         except ObjectDoesNotExist:
-            data['msg'] = 'The movie you are looking for does not exist'
+            data['msg'] = 'does not have movie with movie_id: ' + str(movie_id)
+            return JsonResponse(data)
         else:
             data['success'] = True
-            data['msg'] = 'found movie with movie_id: ' + str(key_words)
+            data['msg'] = 'found movie with movie_id: ' + str(movie_id)
             data['movie'].append(movie_to_dict(movie_obj))
-        finally:
             return JsonResponse(data)
+            
     else:
         data['msg'] = "please use GET"
         return JsonResponse(data)
+ 
+def new_review_view(request):
+    '''
+    a view function that create a new Review tuple
+    the input json has this format:
+    {
+        "movie_id": "some movie id here, must be a positive integer",
+        "review_comment": "some comment here, must be a string",
+        "rating_number": "some rating number here, must be a positive number",
+    }
+    '''
+    data = {}
+    data['success'] = False
+    data['msg'] = ''
+    if request.method == 'POST':
+        # Check if the user has already logged in.
+        # If user has not logged in, return an error msg to frontend.
+        # If user has logged in, let user create a new review
+        if not request.session.get('login_flag', None):
+            data['msg'] = 'user does not log in'
+            return JsonResponse(data)
+        #else use is logged in
+        user_name = request.session.get('name', None)
+        # return user_obj by user_name from login.models.User database
+        try:
+            user_obj = login.models.User.objects.get(name = user_name)
+        except ObjectDoesNotExist:
+            data['msg'] = 'does not have user: ' + str(user_name)
+            return JsonResponse(data)
+        
+        req = simplejson.loads(request.body)
+        movie_id = req.get('movie_id', None)
+        review_comment = req.get('review_comment', None)
+        rating_number = req.get('rating_number', None)
+        
+        #check if either movie_id, review_comment, rating_number, is empty
+        if movie_id == None or review_comment == None or rating_number == None:
+            data['msg'] = 'movie_id, review_comment, rating_number are required'
+            return JsonResponse(data)
+        
+        # check movie_id is a positive integer and rating_number is a positive number
+        try:
+            movie_id = int(movie_id)
+            rating_number = float(rating_number)
+            if not (movie_id > 0 and rating_number >= 0):
+                data['msg'] = 'movie_id must be a positive integer, ' + \
+                              'review_comment must be a string, ' + \
+                              'rating_number must be a positive number'
+                return JsonResponse(data)
+        except:
+            data['msg'] = 'movie_id must be a positive integer, ' + \
+                              'review_comment must be a string, ' + \
+                              'rating_number must be a positive number'
+            return JsonResponse(data)
     
+        # return movie_obj by movie_id from models.Movie database
+        try:
+            movie_obj = models.Movie.objects.get(mid = movie_id)
+        except ObjectDoesNotExist:
+            data['msg'] = 'does not have movie with movie_id: ' + str(movie_id)
+            return JsonResponse(data)
+        
+        date = datetime.datetime.now(timezone.utc)
+        
+        try:
+            models.Review.objects.create(user = user_obj, movie = movie_obj, review_comment = review_comment, rating_number = rating_number, date = date)
+        except:
+            data['msg'] = 'each user can only leave one review for a movie, but reviews are editable'
+            return JsonResponse(data)
+        else:
+            data['success'] = True
+            data['msg'] = 'successfully create a new review'
+            return JsonResponse(data)
+    else:
+        data['msg'] = 'please use POST'
+        return JsonResponse(data)
 
 def search_view(request):
     if request.method == 'GET':
