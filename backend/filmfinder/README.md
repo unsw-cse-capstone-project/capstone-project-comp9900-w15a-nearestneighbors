@@ -83,7 +83,7 @@ If not, `"name"` will be `None`.
   2. `{ "success": false, "msg": "two passwords are not the same"}` indicates the user didn't input the same password twice.
   3. `{ "success": false, "msg": "user already exists"}` indicates the input username already exists in our database.
 
-`{ "success": true, "msg": None}` indicates the user successfully registerd a new account.
+`{ "success": true, "msg": None}` indicates the user successfully registered a new account.
 
 
 <br/><br/>
@@ -147,7 +147,9 @@ If not, `"name"` will be `None`.
 }
 ```
 `"success"` indicates whether the input keywords can conduct a search successfully.
+
 `"result"` contains search result, which is a list of dictionaries. In each dictionary, there are `"mid"`, `"name"`, `"released_date"`, `"poster"`, and `"rating"`. 
+
 They are used to demonstrate each movie in search result, except `"mid"`.
 `{ "success": true, "result": []}` indicates no related movie is found.
 
@@ -155,6 +157,7 @@ They are used to demonstrate each movie in search result, except `"mid"`.
 **Url**:  http://127.0.0.1:8000/movies/
 
 **Request Method**: GET
+
 **Input Request**: No Input
 
 **Output Data**:
@@ -203,16 +206,20 @@ They are used to demonstrate each movie in search result, except `"mid"`.
 }
 ```
 `"success"` indicates `http://127.0.0.1:8000/movies/` successfully return all movies.
-`"result"` contains search result, which is a list of dictionaries. In each dictionary, there are `"mid"`, `"name"`, `"genre type"`, `"description"`,`"region"`,  `"released_date"`,`"director_name"`,`"poster"`,`"cast"` fields.
+
+`"result"` contains search result, which is a list of dictionaries. 
+
+In each dictionary, there are `"mid"`, `"name"`, `"genre type"`,`"description"`,`"region"`,  `"released_date"`,`"director_name"`,`"poster"`,`"cast"` fields.
 
 ### detail_view
 **Url**:  http://127.0.0.1:8000/movies/detail/
 
 **Request Method**: GET
+
 **Input Request**:
 ```json
 {
-  "movie_id": "input movie_id here (must be a integer)"
+  "movie_id": "some movie id here, must be a positive integer"
 }
 ```
 
@@ -237,9 +244,46 @@ They are used to demonstrate each movie in search result, except `"mid"`.
 }
 ```
 `"success"` indicates whether found matching movie.
+
 `"msg"` shows the current state.
+
 `"movie"` is a list, which has only one element, containing detail for the matching movie.
+
 1. `{"success": false, "msg": "movie_id is required", "movie": []}` indicates there is no input in the GET Query Parameters.
-2. `{"success": false, "msg": "movie_id must be a integer", "movie": []}` indicates the input is not a integer.
-3. `{"success": false, "msg": "The movie you are looking for does not exist", "movie": []}` indicates there is no movie with mid == movie_id
-4. `{"success": true, "msg": "found movie with movie_id", "movie": [{...}]}` indicates there is a movie with mid == movie_id
+2. `{"success": false, "msg": "movie_id must be a positive integer", "movie": []}` indicates the input is not a positive integer.
+3. `{"success": false, "msg": "does not have movie with movie_id: "+ "str(movie_id)", "movie": []}` indicates there is no movie with mid == movie_id
+4. `{"success": true, "msg": "found movie with movie_id: " + "str(movie_id)", "movie": [{...}]}` indicates there is a movie with mid == movie_id
+   
+### new_review_view
+**Url**:  http://127.0.0.1:8000/movies/detail/new_review/
+
+**Request Method**: POST
+
+**Input Request**:
+```json
+{
+  "movie_id": "some movie id here, must be a positive integer", 
+  "review_comment": "some comment here, must be a string",
+  "rating_number": "some rating number here, must be a positive number",
+}
+```
+
+**Output Data**:
+```
+{
+  "success": true/false
+  "msg": "some message here",
+}
+```
+
+`"success"` indicates whether successfully create new review.
+
+`"msg"` shows the current state.
+
+1. `{"success": false, "msg": "user does not log in"}` indicates that user does not log in
+2. `{"success": false, "msg": "movie_id, review_comment, rating_number are required"}` means the input json dose not have either movie_id field, or review_comment field, or rating_number field
+3. `{"success": false, "msg": "movie_id must be a positive integer, review_comment must be a string,rating_number must be a positive number"}` indicates the input json does not follow the above input request
+4. `{"success": false, "msg": "does not have movie with movie_id: " + "str(movie_id)"}` indicates the given movie_id field does not match any record in Movie database
+5. `{"success": false, "msg": "each user can only leave one review for a movie, but reviews are editable"}` indicates that there is already a review for the current user and the given movie
+6. `{"success": true, "msg": "successfully create a new review"}` indicates a new review is created
+
