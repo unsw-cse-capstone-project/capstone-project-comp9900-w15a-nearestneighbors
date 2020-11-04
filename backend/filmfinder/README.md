@@ -133,14 +133,14 @@ If not, `"name"` will be `None`.
               "name": "movie name", 
               "released_date": "released year", 
               "poster": "src path of poster", 
-              "rating": "latest averaged rating"
+              "average_rating": "latest averaged rating"
             },
               {
               "mid": "movie id", 
               "name": "movie name", 
               "released_date": "released year", 
               "poster": "src path of poster", 
-              "rating": "latest averaged rating"
+              "average_rating": "latest averaged rating"
             },
               ...
           ]
@@ -148,7 +148,7 @@ If not, `"name"` will be `None`.
 ```
 `"success"` indicates whether the input keywords can conduct a search successfully.
 
-`"result"` contains search result, which is a list of dictionaries. In each dictionary, there are `"mid"`, `"name"`, `"released_date"`, `"poster"`, and `"rating"`. 
+`"result"` contains search result, which is a list of dictionaries. In each dictionary, there are `"mid"`, `"name"`, `"released_date"`, `"poster"`, and `"average_rating"`. 
 
 They are used to demonstrate each movie in search result, except `"mid"`.
 `{ "success": true, "result": []}` indicates no related movie is found.
