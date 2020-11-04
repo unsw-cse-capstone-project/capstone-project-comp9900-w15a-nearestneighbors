@@ -345,9 +345,9 @@ def search_view(request):
         # Get and calculate latest average ratings
         movie_list = list(models.Movie.objects.filter(mid__in=result_id_list).values('mid', 'name', 'released_date', 'poster'))
         for movie in movie_list:
-            movie['rating'] = models.Review.objects.filter(movie_id__exact=movie['mid']).aggregate(Avg('rating_number', distinct=True))['rating_number__avg']
-            if movie['rating'] is not None:
-                movie['rating'] = round(movie['rating'], 1)
+            movie['average_rating'] = models.Review.objects.filter(movie_id__exact=movie['mid']).aggregate(Avg('rating_number', distinct=True))['rating_number__avg']
+            if movie['average_rating'] is not None:
+                movie['average_rating'] = round(movie['average_rating'], 1)
 
         # Sort results based on ratings.
         # If two are the same then sort results alphabetically.
