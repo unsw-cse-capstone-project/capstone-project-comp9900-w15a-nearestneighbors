@@ -1,0 +1,17 @@
+.bg {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #3C57FC;
+}
+
+.wp100 {
+  width: 100%;
+}
+
+.carts .ant-card-body {
+  padding-top: 8px;
+}
