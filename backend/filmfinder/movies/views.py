@@ -338,6 +338,9 @@ def search_view(request):
         if by_name:
             result_id_list = by_name + by_genre + by_director + by_time + by_region
         else:
+            if not by_genre and not by_director and not by_region and not by_time:
+                return JsonResponse(data)
+            
             set_list = [set(by_genre), set(by_director), set(by_time), set(by_region)]
             set_list = [s for s in set_list if len(s) != 0]
             result_id_list = set.intersection(*set_list)
@@ -351,7 +354,7 @@ def search_view(request):
 
         # Sort results based on ratings.
         # If two are the same then sort results alphabetically.
-        data['result'] = sorted(list(movie_list), key=lambda x: (-x['rating'], x['name']))
+        data['result'] = sorted(list(movie_list), key=lambda x: (-x['average_rating'], x['name']))
         return JsonResponse(data)
 
     return
