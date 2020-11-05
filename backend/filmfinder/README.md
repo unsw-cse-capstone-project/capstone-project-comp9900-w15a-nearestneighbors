@@ -293,6 +293,33 @@ Note that if the user is logged in, the `"average_rating"` field will exclude re
 
 Note that if the user is logged in, the `"reviews"` field will exclude reviews given by users in banned list.
 
+### add_to_wishlist_view
+**Author**: ZIJIAN SHEN
+
+**Url**: http://127.0.0.1:8000/movies/detail/add_to_wishlist/
+**Request Method**: GET
+
+**Input Request**:
+```json
+{
+  "movie_id": "some movie id here, must be a positive integer"
+}
+```
+**Output Data**:
+```
+{
+  "success": true/false,
+  "msg": "some message here"
+}
+```
+1. `{"success": false, "msg": "user does not log in"}` indicates that user does not log in
+2. `{"success": false, "msg": "movie_id is required"}` means the input json dose not have movie_id field
+3. `{"success": false, "msg": "movie_id must be a positive integer"}` indicates the input json does not follow the above input request
+4. `{"success": false, "msg": "does not have movie with movie_id: " + "str(movie_id)"}` indicates the given movie_id field does not match any record in Movie database
+5. `{"success": false, "msg": "movie already in wishlist"}` indicates the given movie is already in wishlist
+6. `{"success": true, "msg": "successfully insert movie to wishlist"}` indicates the given movie is successfully inserted into wishlist
+
+
 ### all_reviews_view
 **Author**: ZIJIAN SHEN
 

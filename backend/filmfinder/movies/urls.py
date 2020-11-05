@@ -9,6 +9,9 @@ urlpatterns = [
     # e.g.: /movies/detail/
     path('detail/', views.detail_view, name='detail_view'),
     
+    # e.g.: /movies/detail/add_to_wishlist/
+    path('detail/add_to_wishlist/', views.add_to_wishlist_view, name='add_to_wishlist_view'),
+    
      # e.g.: /movies/detail/all_reviews/
     path('detail/all_reviews/', views.all_reviews_view, name='all_reviews_view'),
     

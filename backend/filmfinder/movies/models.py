@@ -65,7 +65,15 @@ class Review(models.Model):
         unique_together=[["user","movie"]]
 
 #class Watch_history(models.Model)
-#class Wish_list(modesl.Model)
+class Wish_list(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.user.name + "'s wishlist contains " + self.movie.name
+    
+    class Meta:
+        unique_together=[["user","movie"]]
 
 class Movie_genre(models.Model):
     movie = models.ForeignKey(Movie,on_delete=models.CASCADE)   #foreign key

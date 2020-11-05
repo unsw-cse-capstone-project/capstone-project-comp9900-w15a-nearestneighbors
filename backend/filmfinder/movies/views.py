@@ -3,6 +3,7 @@ from django.template import loader
 from django.shortcuts import render, get_object_or_404
 from django.http import Http404
 from django.core.exceptions import ObjectDoesNotExist
+from django.db import IntegrityError
 from . import models    #models in movies App
 import login.models # models in login App
 from django.db.models import Avg
@@ -262,6 +263,77 @@ def detail_view(request):
         data['msg'] = "please use GET"
         return JsonResponse(data)
 
+def add_to_wishlist_view(request):
+    '''
+    add movie given by movie_id to user's wish_list.
+    the input json has this format:
+    {
+        "movie_id": "some movie id here, must be a positive integer"
+    }
+    
+    request.method == 'GET'
+    '''
+    #TODO
+    data = {}
+    data['success'] = False
+    data['msg'] = ''
+    if request.method == 'GET':
+        # Check if the user has already logged in.
+        # If user has not logged in, return an error msg to frontend.
+        # If user has logged in, let user create a new review
+        if not request.session.get('login_flag', None):
+            data['msg'] = 'user does not log in'
+            return JsonResponse(data)
+        #else use is logged in
+        user_name = request.session.get('name', None)
+        # return user_obj by user_name from login.models.User database
+        try:
+            user_obj = login.models.User.objects.get(name = user_name)
+        except ObjectDoesNotExist:
+            data['msg'] = 'does not have user: ' + str(user_name)
+            return JsonResponse(data)
+        
+        try:
+            req = simplejson.loads(request.body)
+            movie_id = req['movie_id'].strip()
+        except:
+            movie_id = request.GET.get('movie_id')
+        # Check if input is empty
+        if movie_id == None:
+            data['msg'] = 'movie_id is required'
+            return JsonResponse(data)
+        #else input is not empty
+        
+        #check if movie_id is a positive integer
+        try:
+            movie_id = int(movie_id)
+            if not (movie_id > 0):
+                data['msg'] = 'movie_id must be a positive integer'
+                return JsonResponse(data)
+        except:
+            data['msg'] = 'movie_id must be a positive integer'
+            return JsonResponse(data)
+        
+        try:
+            movie_obj = models.Movie.objects.get(mid = movie_id)
+        except ObjectDoesNotExist:
+            data['msg'] = 'does not have movie with movie_id: ' + str(movie_id)
+            return JsonResponse(data)
+        
+        try:
+            models.Wish_list.objects.create(user = user_obj, movie = movie_obj)
+        except IntegrityError:
+            data['msg'] = 'movie already in wishlist'
+            return JsonResponse(data)
+        else:
+            data['success'] = True
+            data['msg'] = 'successfully insert movie to wishlist'
+            return JsonResponse(data)
+        
+    else:
+        data['msg'] = 'please use GET'
+        return JsonResponse(data)
+
 def all_reviews_view(request):
     '''
     get all reviews by giving movie_id.
@@ -306,7 +378,7 @@ def all_reviews_view(request):
         else:
             data['success'] = True
             data['msg'] = 'found all reviews for movie_id: ' + str(movie_id)
-            #TODO
+
             movie_detail_dict = movie_detail_to_dict(movie_obj,request,num_review = 1000)
             data['reviews'] = movie_detail_dict['reviews']
             return JsonResponse(data)
@@ -382,7 +454,7 @@ def new_review_view(request):
         
         try:
             models.Review.objects.create(user = user_obj, movie = movie_obj, review_comment = review_comment, rating_number = rating_number, date = date)
-        except:
+        except IntegrityError:
             data['msg'] = 'each user can only leave one review for a movie, but reviews are editable'
             return JsonResponse(data)
         else:

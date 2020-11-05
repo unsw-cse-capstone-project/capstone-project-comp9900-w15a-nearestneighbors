@@ -30,7 +30,10 @@ urlpatterns = [
     path('register/', register_view),
     path('logout/', logout_view),
     path('search/', search_view),
-    #URL for movies
+    
+    #URL for showing all movies, movies detail,
+    #add to wishlist, view all reviews for a specific movie,
+    #create a new review for a specific movie
     path('movies/', include('movies.urls')),
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)  #movies poster images
 
