@@ -198,6 +198,8 @@ def movie_list_view(request):
     '''
     return all movies detail by calling 'movie_to_dict' function for all movie objects in database 
     and return in Json from
+    
+    request.method == 'GET'
     '''
     data = {}
     data['success'] = False
@@ -216,6 +218,8 @@ def detail_view(request):
     {
         "movie_id": "some movie id here, must be a positive integer"
     }
+    
+    request.method == 'GET'
     '''
     data = {}
     data['success'] = False
@@ -257,7 +261,60 @@ def detail_view(request):
     else:
         data['msg'] = "please use GET"
         return JsonResponse(data)
- 
+
+def all_reviews_view(request):
+    '''
+    get all reviews by giving movie_id.
+    the input json has this format:
+    {
+        "movie_id": "some movie id here, must be a positive integer"
+    }
+    
+    request.method == 'GET'
+    '''
+    data = {}
+    data['success'] = False
+    data['msg'] = ''
+    data['reviews'] = []
+    if request.method == 'GET':
+        try:
+            req = simplejson.loads(request.body)
+            movie_id = req['movie_id'].strip()
+        except:
+            movie_id = request.GET.get('movie_id')
+        # Check if input is empty
+        if movie_id == None:
+            data['msg'] = 'movie_id is required'
+            return JsonResponse(data)
+        #else input is not empty
+        
+        #check if movie_id is a positive integer
+        try:
+            movie_id = int(movie_id)
+            if not (movie_id > 0):
+                data['msg'] = 'movie_id must be a positive integer'
+                return JsonResponse(data)
+        except:
+            data['msg'] = 'movie_id must be a positive integer'
+            return JsonResponse(data)
+        
+        try:
+            movie_obj = models.Movie.objects.get(mid = movie_id)
+        except ObjectDoesNotExist:
+            data['msg'] = 'does not have movie with movie_id: ' + str(movie_id)
+            return JsonResponse(data)
+        else:
+            data['success'] = True
+            data['msg'] = 'found all reviews for movie_id: ' + str(movie_id)
+            #TODO
+            movie_detail_dict = movie_detail_to_dict(movie_obj,request,num_review = 1000)
+            data['reviews'] = movie_detail_dict['reviews']
+            return JsonResponse(data)
+            
+    else:
+        data['msg'] = "please use GET"
+        return JsonResponse(data)
+    
 def new_review_view(request):
     '''
     a view function that create a new Review tuple
@@ -267,6 +324,8 @@ def new_review_view(request):
         "review_comment": "some comment here, must be a string",
         "rating_number": "some rating number here, must be a positive number",
     }
+    
+    request.method == 'POST'
     '''
     data = {}
     data['success'] = False
