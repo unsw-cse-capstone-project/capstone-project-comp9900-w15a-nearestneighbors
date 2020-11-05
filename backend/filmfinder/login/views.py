@@ -4,8 +4,8 @@ from django.http import JsonResponse
 from rest_framework.views import APIView
 
 from .serializers import UserSerializer
-# from . import models
-from movie_finder import models
+from . import models
+#from movie_finder import models
 import simplejson
 
 import pdb

@@ -45,6 +45,8 @@ class Cast(models.Model):
     cast = models.ForeignKey(Person, on_delete=models.CASCADE)  #foreign key
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)  #foreign key
     
+    def __str__(self):
+        return self.cast.name + ' is one of cast for movie: ' + self.movie.name
     class Meta:
         unique_together=[["cast","movie"]]
 
@@ -56,6 +58,9 @@ class Review(models.Model):
     rating_number = models.FloatField()
     date = models.DateTimeField()
     
+    def __str__(self):
+        return self.user.name + ' has a review for movie: ' + self.movie.name
+    
     class Meta:
         unique_together=[["user","movie"]]
 
@@ -66,8 +71,17 @@ class Movie_genre(models.Model):
     movie = models.ForeignKey(Movie,on_delete=models.CASCADE)   #foreign key
     genre_type = models.CharField(max_length = 50)
     
+    def __str__(self):
+        return self.movie.name + ' has genre_type: ' + self.genre_type
+    
     class Meta:
         unique_together=[["movie","genre_type"]]
 
 #TODO
-#class User_banned_list(models.Model)
+class User_banned_list(models.Model):
+    user = models.ForeignKey(User, on_delete = models.CASCADE, related_name = 'banned_user_set')
+    banned_user = models.ForeignKey(User, on_delete = models.CASCADE, related_name = 'users_banned_this_user_set')
+    def __str__(self):
+        return self.user.name + ' bans ' + self.banned_user.name
+    class Meta:
+        unique_together=[["user","banned_user"]]

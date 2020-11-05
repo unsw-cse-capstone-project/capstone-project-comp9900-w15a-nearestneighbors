@@ -16,7 +16,24 @@ import re
 
 
 '''internal function'''
-def movie_to_dict(movie_obj):
+def get_banned_user_obj_list(user_obj):
+    '''
+    input is an user object, this function returns a list of user objects that were banned by the input user
+    
+    e.g.
+    user 'pete@123.com' banned user 'holly@123.com' and user '1@1.1',
+    
+    user_obj = models.User.objects.get(name = 'pete@123.com')
+    banned_user_obj_list = get_banned_user_obj_list(user_obj)
+    
+    then, 
+    banned_user_obj_list == [user_obj('holly@123.com'), user_obj('1@1.1')]
+    '''
+    banned_user_obj_list = [user_banned_list_obj.banned_user for user_banned_list_obj in user_obj.banned_user_set.all()]
+    return banned_user_obj_list
+    
+
+def movie_to_dict(movie_obj,request):
     '''
     convert movie_object to a dict containing
     mid, name, list of genre type, description, region, released_date, director_name, poster image path, list of cast name
@@ -44,7 +61,26 @@ def movie_to_dict(movie_obj):
     movie['director'] = movie_obj.director.name 
     movie['poster'] = str(movie_obj.poster) 
     movie['cast'] = [cast_obj.cast.name for cast_obj in movie_obj.cast_set.all()]
-    movie['average_rating'] = models.Review.objects.filter(movie_id__exact=movie['mid']).aggregate(Avg('rating_number', distinct=True))['rating_number__avg']
+    
+    # if the user has logged in
+    if request.session.get('login_flag', None):
+        user_name = request.session.get('name', None)
+        # return user_obj by user_name from login.models.User database
+        try:
+            user_obj = login.models.User.objects.get(name = user_name)
+        except ObjectDoesNotExist: # should never goes into this statement
+            banned_user_obj_list = []
+        else:
+            banned_user_obj_list = get_banned_user_obj_list(user_obj)
+        finally:
+            movie['average_rating'] = models.Review.objects.filter(movie_id__exact=movie['mid'])\
+                                      .exclude(user__in = banned_user_obj_list)\
+                                      .aggregate(Avg('rating_number', distinct=True))['rating_number__avg']
+    
+    # else the user does not log in    
+    else:
+        movie['average_rating'] = models.Review.objects.filter(movie_id__exact=movie['mid']).aggregate(Avg('rating_number', distinct=True))['rating_number__avg']
+    
     if movie['average_rating'] is not None:
                 movie['average_rating'] = round(movie['average_rating'], 1)
     
@@ -78,10 +114,12 @@ def review_to_dict(review_obj):
     return review
     
 
-def movie_detail_to_dict(movie_obj):
+def movie_detail_to_dict(movie_obj,request,num_review):
     '''
     convert movie_object to a dict containing
     mid, name, list of genre type, description, region, released_date, director_name, poster image path, list of cast name, list of reviews
+    
+    note that if user has logged in, list of reviews will not include reviews from its block list.
     
     e.g.
     {
@@ -126,9 +164,27 @@ def movie_detail_to_dict(movie_obj):
     }
 
     '''
-    movie_dict = movie_to_dict(movie_obj)
+    movie_dict = movie_to_dict(movie_obj,request)
     movie_dict['reviews'] = []
-    for review_obj in movie_obj.review_set.all().order_by('-date')[:5]:
+    
+    # if the user has logged in
+    if request.session.get('login_flag', None):
+        user_name = request.session.get('name', None)
+        # return user_obj by user_name from login.models.User database
+        try:
+            user_obj = login.models.User.objects.get(name = user_name)
+        except ObjectDoesNotExist:
+            review_obj_list = movie_obj.review_set.all()
+        else:
+            banned_user_obj_list = get_banned_user_obj_list(user_obj)
+            review_obj_list = movie_obj.review_set.exclude(user__in = banned_user_obj_list)
+            
+    # else the user does not log in
+    else:
+        review_obj_list = movie_obj.review_set.all()
+    
+    
+    for review_obj in review_obj_list.order_by('-date')[:num_review]:
         review_dict = review_to_dict(review_obj)
         del review_dict['user_id']
         del review_dict['movie_id']
@@ -150,7 +206,7 @@ def movie_list_view(request):
         data['success'] = True
         movie_obj_list = models.Movie.objects.order_by('name')[:]
         for movie_obj in movie_obj_list:
-            data['movies'].append(movie_to_dict(movie_obj))
+            data['movies'].append(movie_to_dict(movie_obj,request))
     return JsonResponse(data)
     
 def detail_view(request):
@@ -195,7 +251,7 @@ def detail_view(request):
         else:
             data['success'] = True
             data['msg'] = 'found movie with movie_id: ' + str(movie_id)
-            data['movie'].append(movie_detail_to_dict(movie_obj))
+            data['movie'].append(movie_detail_to_dict(movie_obj,request, num_review = 5))
             return JsonResponse(data)
             
     else:
