@@ -17,5 +17,15 @@ Patrick Li finished the draft of our proposal and I edited my front part of this
 I almost finished the login page.
 
 Week 4
+
 I completed the construction of login and register web pages and the corresponding js functions, and initially designed the entire framework of homepage.
 Conceptually design the logical structure and web page architecture of the entire website.
+
+Week 5
+
+After discussion, we decided to use frameworks such as react and boostrap to redesign our front end.I learned about react in the week5.
+
+Week 6
+
+Completed the re-architecture and functional design of the main page and movie details page, as well as the registration and login pages, 
+and used api to connect to the back-end database.
