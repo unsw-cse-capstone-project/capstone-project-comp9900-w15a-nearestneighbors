@@ -83,7 +83,7 @@ def movie_to_dict(movie_obj,request):
         movie['average_rating'] = models.Review.objects.filter(movie_id__exact=movie['mid']).aggregate(Avg('rating_number', distinct=True))['rating_number__avg']
     
     if movie['average_rating'] is not None:
-                movie['average_rating'] = round(movie['average_rating'], 1)
+        movie['average_rating'] = round(movie['average_rating'], 1)
     
     return movie
 
@@ -198,7 +198,7 @@ def movie_detail_to_dict(movie_obj,request,num_review):
 def movie_list_view(request):
     '''
     return all movies detail by calling 'movie_to_dict' function for all movie objects in database 
-    and return in Json from
+    and return in Json form
     
     request.method == 'GET'
     '''
@@ -273,14 +273,13 @@ def add_to_wishlist_view(request):
     
     request.method == 'GET'
     '''
-    #TODO
     data = {}
     data['success'] = False
     data['msg'] = ''
     if request.method == 'GET':
         # Check if the user has already logged in.
         # If user has not logged in, return an error msg to frontend.
-        # If user has logged in, let user create a new review
+        # If user has logged in, let user add movie to his/her wishlist
         if not request.session.get('login_flag', None):
             data['msg'] = 'user does not log in'
             return JsonResponse(data)
@@ -334,6 +333,300 @@ def add_to_wishlist_view(request):
         data['msg'] = 'please use GET'
         return JsonResponse(data)
 
+def my_wishlist_view(request):
+    '''
+    get all movies in wishlist of the current user
+    input: No input
+    
+    request.method == 'GET'
+    '''
+    data = {}
+    data['success'] = False
+    data['msg'] = ''
+    data['wishlist'] = []
+    if request.method == 'GET':
+        # Check if the user has already logged in.
+        # If user has not logged in, return an error msg to frontend.
+        # If user has logged in, let user view his/her wishlist
+        if not request.session.get('login_flag', None):
+            data['msg'] = 'user does not log in'
+            return JsonResponse(data)
+        #else use is logged in
+        user_name = request.session.get('name', None)
+        # return user_obj by user_name from login.models.User database
+        try:
+            user_obj = login.models.User.objects.get(name = user_name)
+        except ObjectDoesNotExist:
+            data['msg'] = 'does not have user: ' + str(user_name)
+            return JsonResponse(data)
+        
+        data['success'] = True
+        data['msg'] = 'successfully get wishlist of the current user'
+        
+        movie_id_list = list(models.Wish_list.objects.filter(user__exact = user_obj).values_list('movie_id',flat = True))
+        useful_keys = {'mid','name','region','released_date','average_rating'}
+        for mid in movie_id_list:
+            movie_obj = models.Movie.objects.get(mid = mid)
+            movie_dict = movie_to_dict(movie_obj,request)
+            data['wishlist'].append({key:value for key,value in movie_dict.items() if key in useful_keys})
+        
+        return JsonResponse(data)
+        
+    else:
+        data['msg'] = 'please use GET'
+        return JsonResponse(data)
+        
+
+def remove_from_wishlist_view(request):
+    '''
+    remove movie given by movie_id from user's wish_list.
+    the input json has this format:
+    {
+        "movie_id": "some movie id here, must be a positive integer"
+    }
+    
+    request.method == 'GET'
+    '''
+    data = {}
+    data['success'] = False
+    data['msg'] = ''
+    if request.method == 'GET':
+        # Check if the user has already logged in.
+        # If user has not logged in, return an error msg to frontend.
+        # If user has logged in, let user remove movie from his/her wishlist
+        if not request.session.get('login_flag', None):
+            data['msg'] = 'user does not log in'
+            return JsonResponse(data)
+        #else use is logged in
+        user_name = request.session.get('name', None)
+        # return user_obj by user_name from login.models.User database
+        try:
+            user_obj = login.models.User.objects.get(name = user_name)
+        except ObjectDoesNotExist:
+            data['msg'] = 'does not have user: ' + str(user_name)
+            return JsonResponse(data)
+        
+        try:
+            req = simplejson.loads(request.body)
+            movie_id = req['movie_id'].strip()
+        except:
+            movie_id = request.GET.get('movie_id')
+        # Check if input is empty
+        if movie_id == None:
+            data['msg'] = 'movie_id is required'
+            return JsonResponse(data)
+        #else input is not empty
+        
+        #check if movie_id is a positive integer
+        try:
+            movie_id = int(movie_id)
+            if not (movie_id > 0):
+                data['msg'] = 'movie_id must be a positive integer'
+                return JsonResponse(data)
+        except:
+            data['msg'] = 'movie_id must be a positive integer'
+            return JsonResponse(data)
+        
+        try:
+            movie_obj = models.Movie.objects.get(mid = movie_id)
+        except ObjectDoesNotExist:
+            data['msg'] = 'does not have movie with movie_id: ' + str(movie_id)
+            return JsonResponse(data)
+        
+        try:
+            models.Wish_list.objects.get(user = user_obj, movie = movie_obj).delete()
+        except ObjectDoesNotExist:
+            data['msg'] = "movie with movie_id: " + str(movie_id) + ' is not in wishlist'
+            return JsonResponse(data)
+        else:
+            data['success'] = True
+            data['msg'] = 'successfully remove movie from wishlist'
+            return JsonResponse(data)
+        
+    else:
+        data['msg'] = 'please use GET'
+        return JsonResponse(data)
+
+def add_to_bannedlist_view(request):
+    '''
+    add user, that the current user doesn't like, given by banned_user_id, to the current user's blacklist.
+    the input json has this format:
+    {
+        "banned_user_id": "banned user, that you don't like, id here, must be a positive integer"
+    }
+    
+    request.method == 'GET'
+    '''
+    data = {}
+    data['success'] = False
+    data['msg'] = ''
+    if request.method == 'GET':
+        # Check if the current user has already logged in.
+        # If user has not logged in, return an error msg to frontend.
+        # If user has logged in, let user add banned user he/she doesn't like, to his/her blacklist
+        if not request.session.get('login_flag', None):
+            data['msg'] = 'user does not log in'
+            return JsonResponse(data)
+        #else current use is logged in
+        curr_user_name = request.session.get('name', None)
+        # return curr_user_obj by curr_user_name from login.models.User database
+        try:
+            curr_user_obj = login.models.User.objects.get(name = curr_user_name)
+        except ObjectDoesNotExist:
+            data['msg'] = 'does not have user: ' + str(curr_user_name)
+            return JsonResponse(data)
+        
+        try:
+            req = simplejson.loads(request.body)
+            banned_user_id = req['banned_user_id'].strip()
+        except:
+            banned_user_id = request.GET.get('banned_user_id')
+        # check if input is empty
+        if banned_user_id == None:
+            data['msg'] = 'banned_user_id is required'
+            return JsonResponse(data)
+        
+        # else input is not empty
+        # check if banned_user_id is a positive integer
+        try:
+            banned_user_id = int(banned_user_id)
+            if not (banned_user_id > 0):
+                data['msg'] = 'banned_user_id must be a positive integer'
+                return JsonResponse(data)
+        except:
+            data['msg'] = 'banned_user_id must be a positive integer'
+            return JsonResponse(data)
+        
+        try:
+            banned_user_obj = login.models.User.objects.get(uid = banned_user_id)
+        except ObjectDoesNotExist:
+            data['msg'] = 'does not have user with banned_user_id: ' + str(banned_user_id)
+            return JsonResponse(data)
+        
+        if curr_user_obj.uid == banned_user_obj.uid:
+            data['msg'] = 'user cannot add itself to its blacklist'
+            return JsonResponse(data)
+        
+        try:
+            models.User_banned_list.objects.create(user = curr_user_obj, banned_user = banned_user_obj)
+        except IntegrityError:
+            data['msg'] = 'banned_user_id: ' + str(banned_user_id) + ' already in blacklist'
+            return JsonResponse(data)
+        else:
+            data['success'] = True
+            data['msg'] = 'successfully insert banned_user_id: ' + str(banned_user_id) + ' into blacklist'
+            return JsonResponse(data)
+        
+    else:
+        data['msg'] = 'please use GET'
+        return JsonResponse(data)
+
+def my_bannedlist_view(request):
+    '''
+    get all users in bannedlist of the current user
+    input: No input
+    
+    request.method == 'GET'
+    '''
+    data = {}
+    data['success'] = False
+    data['msg'] = ''
+    data['bannedlist'] = []
+    if request.method == 'GET':
+        # Check if the user has already logged in.
+        # If user has not logged in, return an error msg to frontend.
+        # If user has logged in, let user view his/her blacklist
+        if not request.session.get('login_flag', None):
+            data['msg'] = 'user does not log in'
+            return JsonResponse(data)
+        #else use is logged in
+        user_name = request.session.get('name', None)
+        # return user_obj by user_name from login.models.User database
+        try:
+            user_obj = login.models.User.objects.get(name = user_name)
+        except ObjectDoesNotExist:
+            data['msg'] = 'does not have user: ' + str(user_name)
+            return JsonResponse(data)
+        
+        data['success'] = True
+        data['msg'] = 'successfully get blacklist of the current user'
+        
+        banned_user_obj_list = get_banned_user_obj_list(user_obj)
+        data['bannedlist'] = [{"uid":banned_user_obj.uid, "name":banned_user_obj.name} for banned_user_obj in banned_user_obj_list]
+        return JsonResponse(data)
+        
+    else:
+        data['msg'] = 'please use GET'
+        return JsonResponse(data)
+
+def remove_from_bannedlist_view(request):
+    '''
+    remove banned_user given by banned_user_id from user's blacklist.
+    the input json has this format:
+    {
+        "banned_user_id": "some banned_user_id, that you want to no longer block, must be a positive integer"
+    }
+    
+    request.method == 'GET'
+    '''
+    data = {}
+    data['success'] = False
+    data['msg'] = ''
+    if request.method == 'GET':
+        # Check if the user has already logged in.
+        # If user has not logged in, return an error msg to frontend.
+        # If user has logged in, let user remove banned_user from his/her blacklist
+        if not request.session.get('login_flag', None):
+            data['msg'] = 'user does not log in'
+            return JsonResponse(data)
+        #else use is logged in
+        user_name = request.session.get('name', None)
+        # return user_obj by user_name from login.models.User database
+        try:
+            user_obj = login.models.User.objects.get(name = user_name)
+        except ObjectDoesNotExist:
+            data['msg'] = 'does not have user: ' + str(user_name)
+            return JsonResponse(data)
+        
+        try:
+            req = simplejson.loads(request.body)
+            banned_user_id = req['banned_user_id'].strip()
+        except:
+            banned_user_id = request.GET.get('banned_user_id')
+        # check if input is empty
+        if banned_user_id == None:
+            data['msg'] = 'banned_user_id is required'
+            return JsonResponse(data)
+        #else input is not empty
+        #check if banned_user_id is a positive integer
+        try:
+            banned_user_id = int(banned_user_id)
+            if not (banned_user_id) > 0:
+                data['msg'] = 'banned_user_id must be a positive integer'
+                return JsonResponse(data)
+        except:
+            data['msg'] = 'banned_user_id must be a positive integer'
+            return JsonResponse(data)
+        
+        try:
+            banned_user_obj = login.models.User.objects.get(uid = banned_user_id)
+        except ObjectDoesNotExist:
+            data['msg'] = 'does not have user with banned_user_id: ' + str(banned_user_id)
+            return JsonResponse(data)
+        
+        try:
+            models.User_banned_list.objects.get(user = user_obj, banned_user = banned_user_obj).delete()
+        except ObjectDoesNotExist:
+            data['msg'] = "user with banned_user_id: " + str(banned_user_id) + ' is not in blacklist'
+            return JsonResponse(data)
+        else:
+            data['success'] = True
+            data['msg'] = 'successfully remove user from blacklist'
+            return JsonResponse(data)
+    else:
+        data['msg'] = 'please use GET'
+        return JsonResponse(data)
+    
 def all_reviews_view(request):
     '''
     get all reviews by giving movie_id.
@@ -465,6 +758,270 @@ def new_review_view(request):
         data['msg'] = 'please use POST'
         return JsonResponse(data)
 
+def my_reviews_view(request):
+    '''
+    get all reviews left by the current user
+    input: No input
+    
+    request.method == 'GET'
+    '''
+    data = {}
+    data['success'] = False
+    data['msg'] = ''
+    data['reviewlist'] = []
+    if request.method == 'GET':
+        # Check if the user has already logged in.
+        # If user has not logged in, return an error msg to frontend.
+        # If user has logged in, let user view his/her reviewlist
+        if not request.session.get('login_flag', None):
+            data['msg'] = 'user does not log in'
+            return JsonResponse(data)
+        #else use is logged in
+        user_name = request.session.get('name', None)
+        # return user_obj by user_name from login.models.User database
+        try:
+            user_obj = login.models.User.objects.get(name = user_name)
+        except ObjectDoesNotExist:
+            data['msg'] = 'does not have user: ' + str(user_name)
+            return JsonResponse(data)
+        
+        data['success'] = True
+        data['msg'] = 'successfully get reviewlist of the current user'
+        review_obj_list = models.Review.objects.filter(user__exact = user_obj).order_by('-date')
+        for review_obj in review_obj_list:
+            data['reviewlist'].append(review_to_dict(review_obj))
+        return JsonResponse(data)
+        
+    else:
+        data['msg'] = 'please use GET'
+        return JsonResponse(data)
+
+def get_review_view(request):
+    '''
+    get a single review left by the current user, for movie_id.
+    the input json has this format:
+    {
+        "movie_id": "some movie id here, must be a positive integer"
+    }
+    
+    request.method == 'GET'
+    '''
+    data = {}
+    data['success'] = False
+    data['msg'] = ''
+    data['review'] = []
+    if request.method == 'GET':
+        # Check if the user has already logged in.
+        # If user has not logged in, return an error msg to frontend.
+        # If user has logged in, let user get review left by him/her, for movie_id
+        if not request.session.get('login_flag', None):
+            data['msg'] = 'user does not log in'
+            return JsonResponse(data)
+        #else use is logged in
+        user_name = request.session.get('name', None)
+        # return user_obj by user_name from login.models.User database
+        try:
+            user_obj = login.models.User.objects.get(name = user_name)
+        except ObjectDoesNotExist:
+            data['msg'] = 'does not have user: ' + str(user_name)
+            return JsonResponse(data)
+        
+        try:
+            req = simplejson.loads(request.body)
+            movie_id = req['movie_id'].strip()
+        except:
+            movie_id = request.GET.get('movie_id')
+        # Check if input is empty
+        if movie_id == None:
+            data['msg'] = 'movie_id is required'
+            return JsonResponse(data)
+        #else input is not empty
+        
+        #check if movie_id is a positive integer
+        try:
+            movie_id = int(movie_id)
+            if not (movie_id > 0):
+                data['msg'] = 'movie_id must be a positive integer'
+                return JsonResponse(data)
+        except:
+            data['msg'] = 'movie_id must be a positive integer'
+            return JsonResponse(data)
+        
+        try:
+            movie_obj = models.Movie.objects.get(mid = movie_id)
+        except ObjectDoesNotExist:
+            data['msg'] = 'does not have movie with movie_id: ' + str(movie_id)
+            return JsonResponse(data)
+        
+        try:
+            review_obj = models.Review.objects.get(user = user_obj, movie = movie_obj)
+        except ObjectDoesNotExist:
+            data['msg'] = "the current user didn't leave a review for movie_id: " + str(movie_id)
+            return JsonResponse(data)
+        else:
+            data['success'] = True
+            data['msg'] = 'found review for movie_id: ' + str(movie_id) + ' left by the current user'
+            data['review'].append(review_to_dict(review_obj))
+            return JsonResponse(data)
+    else:
+        data['msg'] = 'please use GET'
+        return JsonResponse(data)
+    
+def delete_review_view(request):
+    '''
+    delete the review that was left by the current user, for movie_id
+    the input json has this format:
+    {
+        "movie_id": "some movie id here, must be a positive integer"
+    }
+    
+    request.method == 'GET'
+    '''
+    data = {}
+    data['success'] = False
+    data['msg'] = ''
+    if request.method == 'GET':
+        # Check if the user has already logged in.
+        # If user has not logged in, return an error msg to frontend.
+        # If user has logged in, let user delete review left by him/her, for movie_id
+        if not request.session.get('login_flag', None):
+            data['msg'] = 'user does not log in'
+            return JsonResponse(data)
+        #else use is logged in
+        user_name = request.session.get('name', None)
+        # return user_obj by user_name from login.models.User database
+        try:
+            user_obj = login.models.User.objects.get(name = user_name)
+        except ObjectDoesNotExist:
+            data['msg'] = 'does not have user: ' + str(user_name)
+            return JsonResponse(data)
+        
+        try:
+            req = simplejson.loads(request.body)
+            movie_id = req['movie_id'].strip()
+        except:
+            movie_id = request.GET.get('movie_id')
+        # Check if input is empty
+        if movie_id == None:
+            data['msg'] = 'movie_id is required'
+            return JsonResponse(data)
+        #else input is not empty
+        
+        #check if movie_id is a positive integer
+        try:
+            movie_id = int(movie_id)
+            if not (movie_id > 0):
+                data['msg'] = 'movie_id must be a positive integer'
+                return JsonResponse(data)
+        except:
+            data['msg'] = 'movie_id must be a positive integer'
+            return JsonResponse(data)
+        
+        try:
+            movie_obj = models.Movie.objects.get(mid = movie_id)
+        except ObjectDoesNotExist:
+            data['msg'] = 'does not have movie with movie_id: ' + str(movie_id)
+            return JsonResponse(data)
+        
+        try:
+            models.Review.objects.get(user = user_obj, movie = movie_obj).delete()
+        except ObjectDoesNotExist:
+            data['msg'] = "the current user didn't leave a review for movie_id: " + str(movie_id)
+            return JsonResponse(data)
+        else:
+            data['success'] = True
+            data['msg'] = "successfully delete review"
+            return JsonResponse(data)
+    else:
+        data['msg'] = 'please use GET'
+        return JsonResponse(data)
+  
+def edit_review_view(request):
+    '''
+    edit the review that was left by the current user, for movie_id
+    Note that only review_comment and rating_number are editable
+    
+    the input json has this format:
+    {
+        "movie_id": "some movie id here, must be a positive integer",
+        "review_comment": "some comment here, must be a string",
+        "rating_number": "some rating number here, must be a positive number",
+    }
+    
+    request.method == 'POST'
+    '''
+    data = {}
+    data['success'] = False
+    data['msg'] = ''
+    if request.method == 'POST':
+        # Check if the user has already logged in.
+        # If user has not logged in, return an error msg to frontend.
+        # If user has logged in, let user edit review
+        if not request.session.get('login_flag', None):
+            data['msg'] = 'user does not log in'
+            return JsonResponse(data)
+        #else use is logged in
+        user_name = request.session.get('name', None)
+        # return user_obj by user_name from login.models.User database
+        try:
+            user_obj = login.models.User.objects.get(name = user_name)
+        except ObjectDoesNotExist:
+            data['msg'] = 'does not have user: ' + str(user_name)
+            return JsonResponse(data)
+        
+        req = simplejson.loads(request.body)
+        movie_id = req.get('movie_id', None)
+        review_comment = req.get('review_comment', None)
+        rating_number = req.get('rating_number', None)
+        
+        #check if either movie_id, review_comment, rating_number, is empty
+        if movie_id == None or review_comment == None or rating_number == None:
+            data['msg'] = 'movie_id, review_comment, rating_number are required'
+            return JsonResponse(data)
+        
+        # check movie_id is a positive integer and rating_number is a positive number
+        try:
+            movie_id = int(movie_id)
+            rating_number = float(rating_number)
+            if not (movie_id > 0 and rating_number >= 0):
+                data['msg'] = 'movie_id must be a positive integer, ' + \
+                              'review_comment must be a string, ' + \
+                              'rating_number must be a positive number'
+                return JsonResponse(data)
+        except:
+            data['msg'] = 'movie_id must be a positive integer, ' + \
+                              'review_comment must be a string, ' + \
+                              'rating_number must be a positive number'
+            return JsonResponse(data)
+    
+        # return movie_obj by movie_id from models.Movie database
+        try:
+            movie_obj = models.Movie.objects.get(mid = movie_id)
+        except ObjectDoesNotExist:
+            data['msg'] = 'does not have movie with movie_id: ' + str(movie_id)
+            return JsonResponse(data)
+        
+        # return review_obj, from models.Review database, by giving user_obj, movie_obj
+        try:
+            review_obj = models.Review.objects.get(user = user_obj, movie = movie_obj)
+        except ObjectDoesNotExist:
+            data['msg'] = "the current user didn't leave a review for movie_id: " + str(movie_id)
+            return JsonResponse(data)
+        else:
+            # update review_obj
+            date = datetime.datetime.now(timezone.utc)
+            review_obj.review_comment = review_comment
+            review_obj.rating_number = rating_number
+            review_obj.date = date
+            review_obj.save()
+            
+            data['success'] = True
+            data['msg'] = 'successfully edit review'
+            return JsonResponse(data)
+        
+    else:
+        data['msg'] = 'please use POST'
+        return JsonResponse(data)
 
 def search_view(request):
     if request.method == 'GET':

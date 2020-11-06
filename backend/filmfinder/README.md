@@ -209,6 +209,8 @@ They are used to demonstrate each movie in search result, except `"mid"`.
           ]
 }
 ```
+return all movies detail for all movie objects in database.
+
 `"success"` indicates `http://127.0.0.1:8000/movies/` successfully return all movies.
 
 `"movies"` contains search result, which is a list of dictionaries. 
@@ -280,6 +282,8 @@ Note that if the user is logged in, the `"average_rating"` field will exclude re
   ]
 }
 ```
+get a movie detail by giving movie_id.
+
 `"success"` indicates whether found matching movie.
 
 `"msg"` shows the current state.
@@ -288,8 +292,8 @@ Note that if the user is logged in, the `"average_rating"` field will exclude re
 
 1. `{"success": false, "msg": "movie_id is required", "movie": []}` indicates there is no input in the GET Query Parameters.
 2. `{"success": false, "msg": "movie_id must be a positive integer", "movie": []}` indicates the input is not a positive integer.
-3. `{"success": false, "msg": "does not have movie with movie_id: " + "str(movie_id)", "movie": []}` indicates there is no movie with mid == movie_id
-4. `{"success": true, "msg": "found movie with movie_id: " + "str(movie_id)", "movie": [{...}]}` indicates there is a movie with mid == movie_id
+3. `{"success": false, "msg": "does not have movie with movie_id: " + str(movie_id), "movie": []}` indicates there is no movie with mid == movie_id
+4. `{"success": true, "msg": "found movie with movie_id: " + str(movie_id), "movie": [{...}]}` indicates there is a movie with mid == movie_id
 
 Note that if the user is logged in, the `"reviews"` field will exclude reviews given by users in banned list.
 
@@ -312,10 +316,12 @@ Note that if the user is logged in, the `"reviews"` field will exclude reviews g
   "msg": "some message here"
 }
 ```
+add movie given by movie_id to user's wish_list.
+
 1. `{"success": false, "msg": "user does not log in"}` indicates that user does not log in
 2. `{"success": false, "msg": "movie_id is required"}` means the input json dose not have movie_id field
 3. `{"success": false, "msg": "movie_id must be a positive integer"}` indicates the input json does not follow the above input request
-4. `{"success": false, "msg": "does not have movie with movie_id: " + "str(movie_id)"}` indicates the given movie_id field does not match any record in Movie database
+4. `{"success": false, "msg": "does not have movie with movie_id: " + str(movie_id)}` indicates the given movie_id field does not match any record in Movie database
 5. `{"success": false, "msg": "movie already in wishlist"}` indicates the given movie is already in wishlist
 6. `{"success": true, "msg": "successfully insert movie to wishlist"}` indicates the given movie is successfully inserted into wishlist
 
@@ -361,14 +367,16 @@ Note that if the user is logged in, the `"reviews"` field will exclude reviews g
             ]
 }
 ```
+get all reviews by giving movie_id.
+
 `"success"` indicates whether successfully return all reviews.
 
 `"msg"` shows the current state.
 
 1. `{"success": false, "msg": "movie_id is required", "reviews": []}` indicates there is no input in the GET Query Parameters.
 2. `{"success": false, "msg": "movie_id must be a positive integer", "reviews": []}` indicates the input is not a positive integer.
-3. `{"success": false, "msg": "does not have movie with movie_id: " + "str(movie_id)", "reviews": []}` indicates there is no movie with mid == movie_id
-4. `{"success": true, "msg": "found all reviews for movie_id: " + "str(movie_id)", "reviews": [{...}, {...}]}` indicates there is a movie with mid == movie_id, and found all reviews for this movie.
+3. `{"success": false, "msg": "does not have movie with movie_id: " + str(movie_id), "reviews": []}` indicates there is no movie with mid == movie_id
+4. `{"success": true, "msg": "found all reviews for movie_id: " + str(movie_id), "reviews": [{...}, {...}]}` indicates there is a movie with mid == movie_id, and found all reviews for this movie.
 
 Note that if the user is logged in, the `"reviews"` field will exclude reviews given by users in banned list.
 
@@ -386,7 +394,7 @@ Note that if the user is logged in, the `"reviews"` field will exclude reviews g
 {
   "movie_id": "some movie id here, must be a positive integer", 
   "review_comment": "some comment here, must be a string",
-  "rating_number": "some rating number here, must be a positive number",
+  "rating_number": "some rating number here, must be a positive number"
 }
 ```
 
@@ -404,8 +412,338 @@ Note that if the user is logged in, the `"reviews"` field will exclude reviews g
 
 1. `{"success": false, "msg": "user does not log in"}` indicates that user does not log in
 2. `{"success": false, "msg": "movie_id, review_comment, rating_number are required"}` means the input json dose not have either movie_id field, or review_comment field, or rating_number field
-3. `{"success": false, "msg": "movie_id must be a positive integer, review_comment must be a string,rating_number must be a positive number"}` indicates the input json does not follow the above input request
-4. `{"success": false, "msg": "does not have movie with movie_id: " + "str(movie_id)"}` indicates the given movie_id field does not match any record in Movie database
+3. `{"success": false, "msg": "movie_id must be a positive integer, review_comment must be a string, rating_number must be a positive number"}` indicates the input json does not follow the above input request
+4. `{"success": false, "msg": "does not have movie with movie_id: " + str(movie_id)}` indicates the given movie_id field does not match any record in Movie database
 5. `{"success": false, "msg": "each user can only leave one review for a movie, but reviews are editable"}` indicates that there is already a review for the current user and the given movie
 6. `{"success": true, "msg": "successfully create a new review"}` indicates a new review is created
+
+## User Page(Pages for another users)
+
+### add_to_bannedlist_view
+
+**Author**: ZIJIAN SHEN
+
+**Url**: http://127.0.0.1:8000/user_page/add_to_bannedlist/
+
+**Request Method**: GET
+
+**Input Request**: 
+```json
+{
+  "banned_user_id": "banned user, that you don't like, id here, must be a positive integer"
+}
+```
+
+**Output Data**:
+```
+{
+  "success": true/false
+  "msg": "some message here",
+}
+```
+add user, that the current user doesn't like, given by banned_user_id, to the current user's blacklist.
+
+1. `{"success": false, "msg": "user does not log in"}` indicates that user does not log in
+2. `{"success": false, "msg": "banned_user_id is required"}` means the input json dose not have banned_user_id field 
+3. `{"success": false, "msg": "banned_user_id must be a positive integer"}` indicates the input json does not follow the above input request
+4. `{"success": false, "msg": "does not have user with banned_user_id: " + str(banned_user_id)}` indicates that the user you want to add to your blacklist does not exist
+5. `{"success": false, "msg": "user cannot add itself to its blacklist"}` indicates that user cannot add itself to its blacklist
+6. `{"success": false, "msg": "banned_user_id: " + str(banned_user_id) + " already in blacklist"}` indicates that the user you want to block is already in your blacklist
+7. `{"success": true, "msg": "successfully insert banned_user_id: " + str(banned_user_id) + " into blacklist"}` indicates that now the user with banned_user_id is in your blacklist
+
+## My Page
+
+### my_wishlist_view
+
+**Author**: ZIJIAN SHEN
+
+**Url**: http://127.0.0.1:8000/my_page/my_wishlist/
+
+**Request Method**: GET
+
+**Input Request**: No Input
+
+**Output Data**:
+```
+{
+  "success": true,
+  "msg": "successfully get wishlist of the current user",
+  "wishlist":[
+                  {
+                    "mid": 4,
+                    "name": "The Avengers",
+                    "region": "United States",
+                    "released_date": "2012-05-04T12:00:00Z",
+                    "average_rating": 3.8
+                  },
+                  {
+                    "mid": 5,
+                    "name": "Avengers: Age of Ultron",
+                    "region": "United States",
+                    "released_date": "2015-05-01T00:00:00Z",
+                    "average_rating": 3.0
+                  }
+                ]
+}
+```
+get all movies in wishlist of the current user.
+
+1. `{"success": false, "msg": "user does not log in", "wishlist":[]}` indicates that user does not log in
+2. `{"success": true, "msg": "successfully get wishlist of the current user", "wishlist":[...]}` means successfully get wishlist of the current user
+
+
+### remove_from_wishlist_view
+
+**Author**: ZIJIAN SHEN
+
+**Url**: http://127.0.0.1:8000/my_page/remove_from_wishlist/
+
+**Request Method**: GET
+
+**Input Request**:
+```json
+{
+  "movie_id": "some movie id here, must be a positive integer"
+}
+```
+**Output Data**:
+```
+{
+  "success": true/false,
+  "msg": "some message here"
+}
+```
+remove movie given by movie_id from user's wish_list.
+
+1. `{"success": false, "msg": "user does not log in"}` indicates that user does not log in
+2. `{"success": false, "msg": "movie_id is required"}` means the input json dose not have movie_id field
+3. `{"success": false, "msg": "movie_id must be a positive integer"}` indicates the input json does not follow the above input request
+4. `{"success": false, "msg": "does not have movie with movie_id: " + str(movie_id)}` indicates the given movie_id field does not match any record in Movie database
+5. `{"success": false, "msg": "movie with movie_id: " + str(movie_id) + " is not in wishlist"}` indicates the given movie is not in the user's wishlist
+6. `{"success": true, "msg": "successfully remove movie from wishlist"}` indicates the given movie is successfully removed from the user's wishlist
+
+### my_reviews_view
+
+**Author**: ZIJIAN SHEN
+
+**Url**: http://127.0.0.1:8000/my_page/my_reviews/
+
+**Request Method**: GET
+
+**Input Request**: No Input
+
+**Output Data**: 
+```
+{
+  "success": true,
+  "msg": "successfully get reviewlist of the current user",
+  "reviewlist":[
+                  {
+                    "user_id": 1,
+                    "user_name": "pete@123.com",
+                    "movie_id": 5,
+                    "movie_name": "Avengers: Age of Ultron",
+                    "review_comment": "some comment here, must be a string",
+                    "rating_number": 1.0,
+                    "date": "2020-11-05T10:20:09.849Z"
+                  },
+                  {
+                    "user_id": 1,
+                    "user_name": "pete@123.com",
+                    "movie_id": 4,
+                    "movie_name": "The Avengers",
+                    "review_comment": "bad movie for movie_id = 4",
+                    "rating_number": 1.0,
+                    "date": "2020-11-05T08:13:28.537Z"
+                  }
+                ]
+}
+```
+get all reviews left by the current user.
+1. `{"success": false, "msg": "user does not log in", "reviewlist":[]}` indicates that user does not log in
+2. `{"success": true, "msg": "successfully get reviewlist of the current user", "reviewlist":[...]}` indicates that successfully get reviewlist of the current user.
+
+### get_review_view
+
+**Author**: ZIJAIN SHEN
+
+**Url**: http://127.0.0.1:8000/my_page/my_reviews/get_review/
+
+**Request Method**: GET
+
+**Input Request**:
+```json
+{
+  "movie_id": "some movie id here, must be a positive integer"
+}
+```
+
+**Output Data**:
+```
+{
+  "success": true,
+  "msg": "found review for movie_id: 5 left by the current user",
+  "review":[
+              {
+                "user_id": 1,
+                "user_name": "pete@123.com",
+                "movie_id": 5,
+                "movie_name": "Avengers: Age of Ultron",
+                "review_comment": "some comment here, must be a string",
+                "rating_number": 1.0,
+                "date": "2020-11-05T10:20:09.849Z"
+              }
+            ]
+}
+```
+get a single review left by the current user, for movie_id.
+
+`"success"` indicates whether successfully get a single review left by the current user, for movie_id.
+
+`"msg"` shows the current state.
+
+1. `{"success": false, "msg": "user does not log in", "review": []}` indicates user does not log in
+2. `{"success": false, "msg": "movie_id is required", "review": []}` indicates the input json dose not have movie_id field
+3. `{"success": false, "msg": "movie_id must be a positive integer", "review": []}` indicates the input json does not follow the above input request
+4. `{"success": false, "msg": "does not have movie with movie_id: " + str(movie_id), "review": []}` indicates the given movie_id field does not match any record in Movie database
+5. `{"success": false, "msg": "the current user didn't leave a review for movie_id: " + str(movie_id), "review": []}` indicates there is no review left by the current user, for movie_id
+6. `{"success": true, "msg": "found review for movie_id: " + str(movie_id) + " left by the current user", "review": [{...}]}` indicates found review that was left by the current user, for movie_id
+   
+### delete_review_view
+
+**Author**: ZIJIAN SHEN
+
+**Url**: http://127.0.0.1:8000/my_page/my_reviews/get_review/delete_review/
+
+**Request Method**: GET
+
+**Input Request**:
+```json
+{
+  "movie_id": "some movie id here, must be a positive integer"
+}
+```
+**Output Data**:
+```
+{
+  "success": true/false,
+  "msg": "some message here"
+}
+```
+delete the review that was left by the current user, for movie_id
+
+`"success"` indicates whether successfully delete the review left by the current user, for movie_id.
+
+`"msg"` shows the current state.
+
+1. `{"success": false, "msg": "user does not log in"}` indicates user does not log in
+2. `{"success": false, "msg": "movie_id is required"}` indicates the input json dose not have movie_id field
+3. `{"success": false, "msg": "movie_id must be a positive integer"}` indicates the input json does not follow the above input request
+4. `{"success": false, "msg": "does not have movie with movie_id: " + str(movie_id)}` indicates the given movie_id field does not match any record in Movie database
+5. `{"success": false, "msg": "the current user didn't leave a review for movie_id: " + str(movie_id)}` indicates there is no review left by the current user, for movie_id
+6. `{"success": true, "msg": "successfully delete review"}` indicates successfully delete the review left by the current user, for movie_id
+
+### edit_review_view
+**Author**: ZIJIAN SHEN
+
+**Url**: http://127.0.0.1:8000/my_page/my_reviews/get_review/edit_review/
+
+**Request Method**: POST
+
+**Input Request**:
+```json
+{
+  "movie_id": "some movie id here, must be a positive integer",
+  "review_comment": "some comment here, must be a string",
+  "rating_number": "some rating number here, must be a positive number"
+}
+```
+**Output Data**:
+```
+{
+  "success": true/false
+  "msg": "some message here",
+}
+```
+
+edit the review that was left by the current user, for movie_id.
+
+Note that only review_comment and rating_number are editable.
+
+`"success"` indicates whether successfully edit review.
+
+`"msg"` shows the current state.
+
+1. `{"success": false, "msg": "user does not log in"}` indicates that user does not log in
+2. `{"success": false, "msg": "movie_id, review_comment, rating_number are required"}` means the input json dose not have either movie_id field, or review_comment field, or rating_number field
+3. `{"success": false, "msg": "movie_id must be a positive integer, review_comment must be a string, rating_number must be a positive number"}` indicates the input json does not follow the above input request
+4. `{"success": false, "msg": "does not have movie with movie_id: " + str(movie_id)}` indicates the given movie_id field does not match any record in Movie database
+5. `{"success": false, "msg": "the current user didn't leave a review for movie_id: " + str(movie_id)}` indicates there is no review left by the current user, for movie_id
+6. `{"success": true, "msg": "successfully edit review"}` indicates successfully edit the review left by the current user, for movie_id
+
+### my_bannedlist_view
+
+**Author**: ZIJIAN SHEN
+
+**Url**: http://127.0.0.1:8000/my_page/my_bannedlist/
+
+**Request Method**: GET
+
+**Input Request**: No Input
+
+**Output Data**:
+```
+{
+  "success": true,
+  "msg": "successfully get blacklist of the current user",
+  "bannedlist":[
+                  {
+                    "uid": 2,
+                    "name": "holly@123.com"
+                  },
+                  {
+                    "uid": 6,
+                    "name": "6@6.6"
+                  },
+                  {
+                    "uid": 7,
+                    "name": "7@7.7"
+                  }
+                ]
+}
+```
+get all users in bannedlist of the current user.
+
+1. `{"success": false, "msg": "user does not log in", "bannedlist":[]}` indicates that user does not log in
+2. `{"success": true, "msg": "successfully get blacklist of the current user", "bannedlist":[...]}` indicates that successfully get blacklist of the current user.
+
+### remove_from_bannedlist_view
+**Author**: ZIJIAN SHEN
+
+**Url**: http://127.0.0.1:8000/my_page/my_bannedlist/remove_from_bannedlist/
+
+**Request Method**: GET
+
+**Input Request**: 
+```json
+{
+  "banned_user_id": "some banned_user_id, that you want to no longer block, must be a positive integer"
+}
+```
+**Output Data**:
+```
+{
+  "success": true/false,
+  "msg": "some message here"
+}
+```
+
+remove banned_user given by banned_user_id from user's blacklist.
+
+1. `{"success": false, "msg": "user does not log in"}` indicates that user does not log in
+2. `{"success": false, "msg": "banned_user_id is required"}` means the input json dose not have banned_user_id field
+3. `{"success": false, "msg": "banned_user_id must be a positive integer"}` indicates the input json does not follow the above input request
+4. `{"success": false, "msg": "does not have user with banned_user_id: " + str(banned_user_id)}` indicates the given banned_user_id field does not match any record in User database
+5. `{"success": false, "msg": "user with banned_user_id: " + str(banned_user_id) + " is not in blacklist"}` indicates the given banned_user is not in the current user's blacklist
+6. `{"success": true, "msg": "successfully remove user from blacklist"}` indicates the given banned_user is successfully removed from the current user's blacklist
 

@@ -20,6 +20,10 @@ from django.conf.urls.static import static
 from django.conf import settings
 from login.views import index_view, login_view, register_view, logout_view
 from movies.views import search_view
+from movies.views import my_wishlist_view, remove_from_wishlist_view
+from movies.views import my_reviews_view, get_review_view, delete_review_view, edit_review_view
+from movies.views import add_to_bannedlist_view, my_bannedlist_view, remove_from_bannedlist_view
+
 
 
 urlpatterns = [
@@ -30,6 +34,18 @@ urlpatterns = [
     path('register/', register_view),
     path('logout/', logout_view),
     path('search/', search_view),
+    
+    path('my_page/my_wishlist/', my_wishlist_view),
+    path('my_page/my_wishlist/remove_from_wishlist/', remove_from_wishlist_view),
+    
+    path('my_page/my_reviews/',my_reviews_view),
+    path('my_page/my_reviews/get_review/', get_review_view),
+    path('my_page/my_reviews/get_review/delete_review/', delete_review_view),
+    path('my_page/my_reviews/get_review/edit_review/', edit_review_view),
+    
+    path('my_page/my_bannedlist/', my_bannedlist_view),
+    path('user_page/add_to_bannedlist/', add_to_bannedlist_view),
+    path('my_page/my_bannedlist/remove_from_bannedlist/',remove_from_bannedlist_view),
     
     #URL for showing all movies, movies detail,
     #add to wishlist, view all reviews for a specific movie,
