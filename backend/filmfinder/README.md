@@ -3,6 +3,9 @@
 ## Login
 
 ### index_view
+
+**Author**: PATRICK LI
+
 **Url**:  http://127.0.0.1:8000/index/
 
 **Request Method**: GET
@@ -13,16 +16,37 @@
 ```json
 {
   "login_flag": true,
-  "name": "username"
+  "name": "username",
+  "most_popular":[
+              {
+              "mid": "movie id", 
+              "name": "movie name", 
+              "released_date": "released year", 
+              "poster": "src path of poster", 
+              "average_rating": "latest averaged rating"
+            },
+              {
+              "mid": "movie id", 
+              "name": "movie name", 
+              "released_date": "released year", 
+              "poster": "src path of poster", 
+              "average_rating": "latest averaged rating"
+            },
+              ...
+          ]
 }
 ```
 `"login_flag"` indicates whether a user has logged in. 
 If so, `"name"` will be the username. 
 If not, `"name"` will be `None`.
+`"most_popular"` contains top 10 movies based on their average ratings, which is a list of dictionaries. In each dictionary, there are `"mid"`, `"name"`, `"released_date"`, `"poster"`, and `"average_rating"`.
 
 
 <br/><br/>
 ### login_view
+
+**Author**: PATRICK LI
+
 **Url**:  http://127.0.0.1:8000/login/
 
 **Request Method**: POST
@@ -54,6 +78,9 @@ If not, `"name"` will be `None`.
 
 <br/><br/>
 ### register_view
+
+**Author**: PATRICK LI
+
 **Url**:  http://127.0.0.1:8000/register/
 
 **Request Method**: POST
@@ -88,6 +115,9 @@ If not, `"name"` will be `None`.
 
 <br/><br/>
 ### logout_view
+
+**Author**: PATRICK LI
+
 **Url**:  http://127.0.0.1:8000/logout/
 
 **Request Method**: GET
@@ -102,15 +132,19 @@ If not, `"name"` will be `None`.
 }
 ```
 `"success"` indicates whether a user successfully logged out.
-`"msg"` contains error messages if `"success"` is `false`, which are:
-  1. `{ "success": false, "msg": "user didn't log in"}` indicates the user didn't logged in with an existing account.
+`"msg"` contains error message if `"success"` is `false`, which is `{ "success": false, "msg": "user didn't log in"}` indicates the user didn't logged in with an existing account.
 
 `{ "success": true, "msg": None}` indicates the user successfully logged out, and the session has been flushed.
 <br/><br/>
 <br/><br/>
 
+
+
 ## Movies
 ### search_view
+
+**Author**: PATRICK LI
+
 **Url**:  http://127.0.0.1:8000/search/
 
 **Request Method**: GET
@@ -153,6 +187,17 @@ If not, `"name"` will be `None`.
 They are used to demonstrate each movie in search result, except `"mid"`.
 `{ "success": true, "result": []}` indicates no related movie is found.
 
+When searching for movies, keywords can be:
+  - a movie name or a substring of a movie name;
+  - a director name or a substring of a director name;  
+  - a region or a substring of a region;
+  - a genre or a substring of a genre;
+  - Any combination of keywords mentioned above.
+  
+When input keywords are multiple constraints, the search will be conducted based on a conjunction of input keywords. For example, if input keywords are `UK 2003 quentin`, it will search for Quentin Tarantino's movies made in UK in 2003.
+
+
+<br/><br/>
 ### movie_list_view
 **Author**: ZIJAN SHEN
 
@@ -219,6 +264,8 @@ In each dictionary, there are `"mid"`, `"name"`, `"genre type"`,`"description"`,
 
 Note that if the user is logged in, the `"average_rating"` field will exclude reviews given by users in banned list.
 
+
+<br/><br/>
 ### detail_view
 **Author**: ZIJIAN SHEN
 
@@ -297,10 +344,14 @@ get a movie detail by giving movie_id.
 
 Note that if the user is logged in, the `"reviews"` field will exclude reviews given by users in banned list.
 
+
+<br/><br/>
 ### add_to_wishlist_view
+
 **Author**: ZIJIAN SHEN
 
 **Url**: http://127.0.0.1:8000/movies/detail/add_to_wishlist/
+
 **Request Method**: GET
 
 **Input Request**:
@@ -326,7 +377,9 @@ add movie given by movie_id to user's wish_list.
 6. `{"success": true, "msg": "successfully insert movie to wishlist"}` indicates the given movie is successfully inserted into wishlist
 
 
+<br/><br/>
 ### all_reviews_view
+
 **Author**: ZIJIAN SHEN
 
 **Url**:  http://127.0.0.1:8000/movies/detail/all_reviews/
@@ -381,8 +434,9 @@ get all reviews by giving movie_id.
 Note that if the user is logged in, the `"reviews"` field will exclude reviews given by users in banned list.
 
 
-
+<br/><br/>
 ### new_review_view
+
 **Author**: ZIJIAN SHEN
 
 **Url**:  http://127.0.0.1:8000/movies/detail/new_review/
@@ -451,6 +505,11 @@ add user, that the current user doesn't like, given by banned_user_id, to the cu
 6. `{"success": false, "msg": "banned_user_id: " + str(banned_user_id) + " already in blacklist"}` indicates that the user you want to block is already in your blacklist
 7. `{"success": true, "msg": "successfully insert banned_user_id: " + str(banned_user_id) + " into blacklist"}` indicates that now the user with banned_user_id is in your blacklist
 
+<br/><br/>
+<br/><br/>
+
+
+
 ## My Page
 
 ### my_wishlist_view
@@ -492,6 +551,7 @@ get all movies in wishlist of the current user.
 2. `{"success": true, "msg": "successfully get wishlist of the current user", "wishlist":[...]}` means successfully get wishlist of the current user
 
 
+<br/><br/>
 ### remove_from_wishlist_view
 
 **Author**: ZIJIAN SHEN
@@ -522,6 +582,8 @@ remove movie given by movie_id from user's wish_list.
 5. `{"success": false, "msg": "movie with movie_id: " + str(movie_id) + " is not in wishlist"}` indicates the given movie is not in the user's wishlist
 6. `{"success": true, "msg": "successfully remove movie from wishlist"}` indicates the given movie is successfully removed from the user's wishlist
 
+
+<br/><br/>
 ### my_reviews_view
 
 **Author**: ZIJIAN SHEN
@@ -563,6 +625,8 @@ get all reviews left by the current user.
 1. `{"success": false, "msg": "user does not log in", "reviewlist":[]}` indicates that user does not log in
 2. `{"success": true, "msg": "successfully get reviewlist of the current user", "reviewlist":[...]}` indicates that successfully get reviewlist of the current user.
 
+
+<br/><br/>
 ### get_review_view
 
 **Author**: ZIJAIN SHEN
@@ -608,7 +672,9 @@ get a single review left by the current user, for movie_id.
 4. `{"success": false, "msg": "does not have movie with movie_id: " + str(movie_id), "review": []}` indicates the given movie_id field does not match any record in Movie database
 5. `{"success": false, "msg": "the current user didn't leave a review for movie_id: " + str(movie_id), "review": []}` indicates there is no review left by the current user, for movie_id
 6. `{"success": true, "msg": "found review for movie_id: " + str(movie_id) + " left by the current user", "review": [{...}]}` indicates found review that was left by the current user, for movie_id
-   
+
+
+<br/><br/>
 ### delete_review_view
 
 **Author**: ZIJIAN SHEN
@@ -643,6 +709,8 @@ delete the review that was left by the current user, for movie_id
 5. `{"success": false, "msg": "the current user didn't leave a review for movie_id: " + str(movie_id)}` indicates there is no review left by the current user, for movie_id
 6. `{"success": true, "msg": "successfully delete review"}` indicates successfully delete the review left by the current user, for movie_id
 
+
+<br/><br/>
 ### edit_review_view
 **Author**: ZIJIAN SHEN
 
@@ -681,6 +749,8 @@ Note that only review_comment and rating_number are editable.
 5. `{"success": false, "msg": "the current user didn't leave a review for movie_id: " + str(movie_id)}` indicates there is no review left by the current user, for movie_id
 6. `{"success": true, "msg": "successfully edit review"}` indicates successfully edit the review left by the current user, for movie_id
 
+
+<br/><br/>
 ### my_bannedlist_view
 
 **Author**: ZIJIAN SHEN
@@ -717,6 +787,8 @@ get all users in bannedlist of the current user.
 1. `{"success": false, "msg": "user does not log in", "bannedlist":[]}` indicates that user does not log in
 2. `{"success": true, "msg": "successfully get blacklist of the current user", "bannedlist":[...]}` indicates that successfully get blacklist of the current user.
 
+
+<br/><br/>
 ### remove_from_bannedlist_view
 **Author**: ZIJIAN SHEN
 
