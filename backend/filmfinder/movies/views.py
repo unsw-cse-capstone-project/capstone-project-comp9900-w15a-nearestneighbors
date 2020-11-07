@@ -87,6 +87,7 @@ def movie_to_dict(movie_obj,request):
     
     return movie
 
+
 def review_to_dict(review_obj):
     '''
     convert review_obj to a dict,
@@ -194,7 +195,112 @@ def movie_detail_to_dict(movie_obj,request,num_review):
     return movie_dict
     
 
+def update_movie_rating_record(movie_id, rating_number, operation):
+    movie = models.Movie.objects.get(mid=movie_id)
+    if operation == 'new':
+        # Update the average_rating and votecount for the movie.
+        movie.average_rating = (float(movie.average_rating) * float(movie.votecount) + rating_number) / (movie.votecount + 1)
+        movie.votecount += 1
+        movie.save()
+    elif operation == 'delete':
+        movie.average_rating = (float(movie.average_rating) * float(movie.votecount) - float(rating_number)) / (movie.votecount - 1)
+        movie.votecount -= 1
+        movie.save()
+    elif operation == 'edit':
+        movie.average_rating = float(movie.average_rating) + (float(rating_number) / movie.votecount)
+        movie.save()
+
+
 '''APIs'''
+def search_view(request):
+    if request.method == 'GET':
+        # key_words = request.GET.get('search')
+        try:
+            req = simplejson.loads(request.body)
+            key_words = req['search'].strip()
+        except:
+            key_words = request.GET.get('search')
+        # Check if input is empty
+        if not key_words:
+            data = {
+                'success': False,
+                'msg': 'empty input'
+            }
+            return JsonResponse(data)
+
+        data = {
+            'success': True,
+            'result': []
+        }
+
+        key_words_list = key_words.split(' ')
+
+        by_genre = []
+        by_director = []
+        by_time = []
+        by_region = []
+
+        all_genres = ['action', 'animation', 'comedy', 'crime', 'documentary', 'drama', 'fantacy', 'horror', 'kids',
+                      'family', 'mystery', 'romance', 'science', 'fiction']
+
+        # Get movies that keyword is or is a substring of movie names
+        by_name = list(models.Movie.objects.filter(name__icontains=key_words).values_list('mid', flat=True))
+
+        for word in key_words_list:
+
+            if word:
+                # Get movies that keyword is or is a substring of genres
+                if word.lower() in all_genres:
+                    id_list = list(models.Movie_genre.objects.filter(genre_type__icontains=word).values_list('movie_id',
+                                                                                                             flat=True).distinct())
+                    by_genre.extend(id_list)
+
+                # Get movies that keyword is or is a substring of a director's name
+                pid_list = list(
+                    models.Person.objects.filter(name__icontains=word).values_list('pid', flat=True).distinct())
+                if pid_list:
+                    id_list = list(
+                        models.Movie.objects.filter(director_id__in=pid_list).values_list('mid', flat=True).distinct())
+                    by_director.extend(id_list)
+
+                # Get movies that keyword is a time
+                if re.findall(r'[1-2][0-9][0-9][0-9]', word):
+                    id_list = list(
+                        models.Movie.objects.filter(released_date__year=word).values_list('mid', flat=True).distinct())
+                    by_time.extend(id_list)
+
+                # Get movies that keyword is a region
+                id_list = list(models.Movie.objects.filter(region__icontains=word).values_list('mid', flat=True))
+                by_region.extend(id_list)
+
+        if by_name:
+            result_id_list = by_name + by_genre + by_director + by_time + by_region
+        else:
+            if not by_genre and not by_director and not by_region and not by_time:
+                return JsonResponse(data)
+
+            set_list = [set(by_genre), set(by_director), set(by_time), set(by_region)]
+            set_list = [s for s in set_list if len(s) != 0]
+            result_id_list = set.intersection(*set_list)
+
+        # Get and calculate latest average ratings
+        movie_list = list(
+            models.Movie.objects.filter(mid__in=result_id_list).values('mid', 'name', 'released_date', 'poster'))
+        for movie in movie_list:
+            movie['average_rating'] = \
+            models.Review.objects.filter(movie_id__exact=movie['mid']).aggregate(Avg('rating_number', distinct=True))[
+                'rating_number__avg']
+            if movie['average_rating'] is not None:
+                movie['average_rating'] = round(movie['average_rating'], 1)
+
+        # Sort results based on ratings.
+        # If two are the same then sort results alphabetically.
+        data['result'] = sorted(list(movie_list), key=lambda x: (-x['average_rating'], x['name']))
+        return JsonResponse(data)
+
+    return
+
+
 def movie_list_view(request):
     '''
     return all movies detail by calling 'movie_to_dict' function for all movie objects in database 
@@ -754,7 +860,10 @@ def new_review_view(request):
         date = datetime.datetime.now(timezone.utc)
         
         try:
+            # create a new record for the new review in database.
             models.Review.objects.create(user = user_obj, movie = movie_obj, review_comment = review_comment, rating_number = rating_number, date = date)
+            # update the average_rating and votecount for the movie.
+            update_movie_rating_record(movie_id, float(rating_number), 'new')
         except IntegrityError:
             data['msg'] = 'each user can only leave one review for a movie, but reviews are editable'
             return JsonResponse(data)
@@ -935,7 +1044,11 @@ def delete_review_view(request):
             return JsonResponse(data)
         
         try:
+            # get the rating_number of the review to be deleted
+            rating_number = models.Review.objects.get(user=user_obj, movie=movie_obj).rating_number
             models.Review.objects.get(user = user_obj, movie = movie_obj).delete()
+            # update the average_rating and votecount for the movie.
+            update_movie_rating_record(movie_id, float(rating_number), 'delete')
         except ObjectDoesNotExist:
             data['msg'] = "the current user didn't leave a review for movie_id: " + str(movie_id)
             return JsonResponse(data)
@@ -1020,13 +1133,17 @@ def edit_review_view(request):
             data['msg'] = "the current user didn't leave a review for movie_id: " + str(movie_id)
             return JsonResponse(data)
         else:
+            # get the previous rating_number
+            prev_rating_number = review_obj.rating_number
             # update review_obj
             date = datetime.datetime.now(timezone.utc)
             review_obj.review_comment = review_comment
             review_obj.rating_number = rating_number
             review_obj.date = date
             review_obj.save()
-            
+            # update the average_rating and votecount for the movie.
+            update_movie_rating_record(movie_id, float(rating_number - prev_rating_number), 'edit')
+            # return msg
             data['success'] = True
             data['msg'] = 'successfully edit review'
             return JsonResponse(data)
@@ -1036,83 +1153,157 @@ def edit_review_view(request):
         return JsonResponse(data)
 
 
-def search_view(request):
+def others_wishlist_view(request):
+    '''
+    get all movies in wishlist of the current user
+    input: {
+                "username": "a username"
+            }
+
+    request.method == 'GET'
+    '''
+    data = {
+        'success': False,
+        'msg': '',
+        'wishlist': []
+    }
+
     if request.method == 'GET':
-        # key_words = request.GET.get('search')
+        # get the target username
         try:
             req = simplejson.loads(request.body)
-            key_words = req['search'].strip()
+            username = req['username'].strip()
         except:
-            key_words = request.GET.get('search')
-        # Check if input is empty
-        if not key_words:
-            data = {
-                'success': False,
-                'msg': 'empty input'
-            }
+            username = request.GET.get('username')
+
+        # get the target user query from database
+        try:
+            user_obj = login.models.User.objects.get(name=username)
+        except ObjectDoesNotExist:
+            data['msg'] = 'does not have user: ' + str(username)
             return JsonResponse(data)
 
-        data = {
-            'success': True,
-            'result': []
-        }
+        data['success'] = True
+        data['msg'] = 'successfully get wishlist of the target user'
 
-        key_words_list = key_words.split(' ')
-
-        by_genre = []
-        by_director = []
-        by_time = []
-        by_region = []
-
-        all_genres = ['action', 'animation', 'comedy', 'crime', 'documentary', 'drama', 'fantacy', 'horror', 'kids', 'family', 'mystery', 'romance', 'science', 'fiction']
-
-        # Get movies that keyword is or is a substring of movie names
-        by_name = list(models.Movie.objects.filter(name__icontains=key_words).values_list('mid', flat=True))
-
-        for word in key_words_list:
-
-            if word:
-                # Get movies that keyword is or is a substring of genres
-                if word.lower() in all_genres:
-                    id_list = list(models.Movie_genre.objects.filter(genre_type__icontains=word).values_list('movie_id', flat=True).distinct())
-                    by_genre.extend(id_list)
-
-                # Get movies that keyword is or is a substring of a director's name
-                pid_list = list(models.Person.objects.filter(name__icontains=word).values_list('pid', flat=True).distinct())
-                if pid_list:
-                    id_list = list(models.Movie.objects.filter(director_id__in=pid_list).values_list('mid', flat=True).distinct())
-                    by_director.extend(id_list)
-
-                # Get movies that keyword is a time
-                if re.findall(r'[1-2][0-9][0-9][0-9]', word):
-                    id_list = list(models.Movie.objects.filter(released_date__year=word).values_list('mid', flat=True).distinct())
-                    by_time.extend(id_list)
-
-                # Get movies that keyword is a region
-                id_list = list(models.Movie.objects.filter(region__icontains=word).values_list('mid', flat=True))
-                by_region.extend(id_list)
-
-        if by_name:
-            result_id_list = by_name + by_genre + by_director + by_time + by_region
-        else:
-            if not by_genre and not by_director and not by_region and not by_time:
-                return JsonResponse(data)
-            
-            set_list = [set(by_genre), set(by_director), set(by_time), set(by_region)]
-            set_list = [s for s in set_list if len(s) != 0]
-            result_id_list = set.intersection(*set_list)
-
-        # Get and calculate latest average ratings
-        movie_list = list(models.Movie.objects.filter(mid__in=result_id_list).values('mid', 'name', 'released_date', 'poster'))
-        for movie in movie_list:
-            movie['average_rating'] = models.Review.objects.filter(movie_id__exact=movie['mid']).aggregate(Avg('rating_number', distinct=True))['rating_number__avg']
-            if movie['average_rating'] is not None:
-                movie['average_rating'] = round(movie['average_rating'], 1)
-
-        # Sort results based on ratings.
-        # If two are the same then sort results alphabetically.
-        data['result'] = sorted(list(movie_list), key=lambda x: (-x['average_rating'], x['name']))
+        movie_id_list = list(models.Wish_list.objects.filter(user__exact=user_obj).values_list('movie_id', flat=True))
+        useful_keys = {'mid', 'name', 'region', 'released_date', 'average_rating'}
+        for mid in movie_id_list:
+            movie_obj = models.Movie.objects.get(mid=mid)
+            movie_dict = movie_to_dict(movie_obj, request)
+            data['wishlist'].append({key: value for key, value in movie_dict.items() if key in useful_keys})
         return JsonResponse(data)
 
-    return
+    else:
+        data['msg'] = 'please use GET'
+        return JsonResponse(data)
+
+
+def others_reviews_view(request):
+    '''
+    get all reviews left by the target user
+    input: {
+                "username" : "a username"
+            }
+
+    request.method == 'GET'
+    '''
+    data = {
+        'success': False,
+        'msg': '',
+        'reviewlist': []
+    }
+    if request.method == 'GET':
+        # get the target username
+        try:
+            req = simplejson.loads(request.body)
+            username = req['username'].strip()
+        except:
+            username = request.GET.get('username')
+        # return user_obj by username from database
+        try:
+            user_obj = login.models.User.objects.get(name=username)
+        except ObjectDoesNotExist:
+            data['msg'] = 'does not have user: ' + str(username)
+            return JsonResponse(data)
+
+        data['success'] = True
+        data['msg'] = 'successfully get reviewlist of the target user'
+        review_obj_list = models.Review.objects.filter(user__exact=user_obj).order_by('-date')
+        for review_obj in review_obj_list:
+            data['reviewlist'].append(review_to_dict(review_obj))
+        return JsonResponse(data)
+
+    else:
+        data['msg'] = 'please use GET'
+        return JsonResponse(data)
+
+
+def others_page_view(request):
+    data = {
+        'success': False,
+        'msg': [],
+        'profile_photo': '',
+        'username': '',
+        'top_reviews': [],
+        'wishlist': []
+    }
+
+    if request.method == 'GET':
+        # get the target username
+        try:
+            req = simplejson.loads(request.body)
+            username = req['username'].strip()
+        except:
+            username = request.GET.get('username')
+
+        # check if user is visiting the user's own page
+        if request.session.get('login_flag', None):
+            session_name = request.session.get('name', None)
+            if username == session_name:
+                my_page(request)
+
+        try:
+            user_obj = login.models.User.objects.get(name=username)
+        except ObjectDoesNotExist:
+            data['msg'] = 'target user does not exist'
+            return JsonResponse(data)
+
+        # data['profile_photo'] = user_obj.profile_photo
+        data['username'] = username
+        data['top_reviews'] = list(models.Review.objects.filter(user__exact=user_obj).order_by('-date').values()[:5])
+        data['wishlist'] = list(models.Wish_list.objects.filter(user__exact=user_obj).values_list('movie_id', flat=True)[:5])
+        return JsonResponse(data)
+
+
+def my_page_view(request):
+    data = {
+        'success': False,
+        'msg': [],
+        'profile_photo': '',
+        'username': '',
+        'top_reviews': [],
+        'wishlist': []
+    }
+
+    if request.method == 'GET':
+        # check if user is visiting the user's own page
+        if not request.session.get('login_flag', None):
+            data['msg'] = 'user did not log in'
+            return JsonResponse(data)
+
+        username = request.session.get('name', None)
+
+        try:
+            user_obj = login.models.User.objects.get(name=username)
+        except ObjectDoesNotExist:
+            data['msg'] = 'target user does not exist'
+            return JsonResponse(data)
+
+        # data['profile_photo'] = user_obj.profile_photo
+        data['username'] = username
+        data['top_reviews'] = list(models.Review.objects.filter(user__exact=user_obj).order_by('-date').values()[:5])
+        data['wishlist'] = list(
+            models.Wish_list.objects.filter(user__exact=user_obj).values_list('movie_id', flat=True)[:5])
+        return JsonResponse(data)
 

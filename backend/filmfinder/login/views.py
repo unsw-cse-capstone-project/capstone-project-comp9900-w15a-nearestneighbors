@@ -45,7 +45,7 @@ def browse_by_genre_view(request):
 
     :param request. Input Json data in this format:
                         {
-                            'genre': 'A genre'
+                            'genre': 'a genre'
                         }
     :return: {
         'movies' : [
@@ -134,7 +134,6 @@ def browse_by_director_view(request):
         data['movies'] = sorted(list(movie_list), key=lambda x: (-x['average_rating'], x['name']))
 
         return JsonResponse(data)
-
 
 
 def login_view(request):
