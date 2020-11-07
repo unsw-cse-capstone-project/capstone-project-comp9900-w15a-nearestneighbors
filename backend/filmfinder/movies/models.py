@@ -1,7 +1,7 @@
 from django.db import models
 from login.models import User
 from django.utils import timezone
-# Create your models here.
+
 
 # a custom CharField that treats all letters as lower case
 class lower_CharField(models.CharField):
@@ -10,6 +10,7 @@ class lower_CharField(models.CharField):
 
     def get_prep_value(self, value):
         return str(value).lower()
+
 
 class Person(models.Model):
     pid = models.AutoField(primary_key=True) # primary_key
@@ -21,6 +22,7 @@ class Person(models.Model):
     class Meta:
         ordering = ['name']
 
+
 class Movie(models.Model):
     mid = models.AutoField(primary_key=True) # primary_key
     name = models.CharField(max_length=50)
@@ -28,7 +30,7 @@ class Movie(models.Model):
     region = models.CharField(max_length=50)
     released_date = models.DateTimeField('released date')
     poster = models.ImageField(upload_to='../movies/posters',blank = True, null = True)    #TODO
-    director = models.ForeignKey(Person, on_delete=models.CASCADE)  #foreign key
+    director = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='movies')  #foreign key
     average_rating = models.DecimalField(max_digits=2, decimal_places=1, default=0)
     votecount = models.IntegerField(default=0)
     genre = models.CharField(max_length=100, default='')
@@ -39,9 +41,9 @@ class Movie(models.Model):
     class Meta:
         ordering = ['name']
 
+
 #TODO
 #class User(models.Model)
-
 
 
 class Cast(models.Model):
@@ -53,7 +55,10 @@ class Cast(models.Model):
     class Meta:
         unique_together=[["cast","movie"]]
 
+
 #TODO
+
+
 class Review(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='review')
@@ -67,7 +72,10 @@ class Review(models.Model):
     class Meta:
         unique_together=[["user","movie"]]
 
+
 #class Watch_history(models.Model)
+
+
 class Wish_list(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
@@ -77,6 +85,7 @@ class Wish_list(models.Model):
     
     class Meta:
         unique_together=[["user","movie"]]
+
 
 class Movie_genre(models.Model):
     movie = models.ForeignKey(Movie,on_delete=models.CASCADE, related_name='movie_genre')   #foreign key
@@ -88,11 +97,16 @@ class Movie_genre(models.Model):
     class Meta:
         unique_together=[["movie","genre_type"]]
 
+
 #TODO
+
+
 class User_banned_list(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE, related_name = 'banned_user_set')
     banned_user = models.ForeignKey(User, on_delete = models.CASCADE, related_name = 'users_banned_this_user_set')
+
     def __str__(self):
         return self.user.name + ' bans ' + self.banned_user.name
+
     class Meta:
         unique_together=[["user","banned_user"]]

@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 
 from .serializers import UserSerializer
 from . import models
-from movies.models import Movie, Movie_genre
+from movies.models import Movie, Movie_genre, Person
 import simplejson
 
 import pdb
@@ -18,39 +18,123 @@ def index_view(request):
         data = {
             'login_flag': True,
             'username': request.session.get('name'),
-            'most popular': []
+            'most_popular': []
         }
         return JsonResponse(data)
     else:
         data = {
             'login_flag': False,
             'username': None,
-            'most popular': []
+            'most_popular': []
         }
 
     # Get top 10 movies based on their average ratings.
     movie_list = list(Movie.objects.order_by('-average_rating').values('mid', 'name', 'released_date', 'poster', 'average_rating')[:10])
     # Sort result based on ratings.
-    data['most popular'] = sorted(list(movie_list), key=lambda x: (-x['average_rating'], x['name']))
+    data['most_popular'] = sorted(list(movie_list), key=lambda x: (-x['average_rating'], x['name']))
 
     # pdb.set_trace()
     return JsonResponse(data)
     # return render(request, 'login/index.html')
 
 
-def browse_by_genre(request):
-    '''
-    :param request. Input json data in this format:
+def browse_by_genre_view(request):
+    """
+    Once click buttons at index page in the section of "Browse by Genre",
+        this API will return the top 10 movies based on their ratings with the requested genre.
+
+    :param request. Input Json data in this format:
                         {
                             'genre': 'A genre'
                         }
-    :return:
-    '''
+    :return: {
+        'movies' : [
+                    {
+                      "mid": "movie id",
+                      "name": "movie name",
+                      "released_date": "released year",
+                      "poster": "src path of poster",
+                      "average_rating": "latest averaged rating"
+                    },
+                      {
+                      "mid": "movie id",
+                      "name": "movie name",
+                      "released_date": "released year",
+                      "poster": "src path of poster",
+                      "average_rating": "latest averaged rating"
+                    },
+                      ...
+                ]
+    }
+    """
     if request.method == 'GET':
-        req = simplejson.loads(request.body)
-        genre = req['genre']
+        try:
+            req = simplejson.loads(request.body)
+            genre = req['genre']
+        except:
+            genre = request.GET.get('genre')
 
+        data = {
+            'movies': []
+        }
+
+        # Get movies with the requested genre
         movie_list = list(Movie.objects.order_by('-average_rating').values('mid', 'name', 'released_date', 'poster', 'average_rating').filter(genre__icontains=genre)[:10])
+        # Sort results based on ratings.
+        # If two are the same then sort results alphabetically.
+        data['movies'] = sorted(list(movie_list), key=lambda x: (-x['average_rating'], x['name']))
+
+        return JsonResponse(data)
+
+
+def browse_by_director_view(request):
+    """
+    Once click buttons at index page in the section of "Browse by Director",
+        this API will return the top 10 movies of the requested director based on their ratings.
+
+    :param request. Input Json data in this format:
+                        {
+                            'director': 'A director name'
+                        }
+    :return: {
+        'movies' : [
+                    {
+                      "mid": "movie id",
+                      "name": "movie name",
+                      "released_date": "released year",
+                      "poster": "src path of poster",
+                      "average_rating": "latest averaged rating"
+                    },
+                      {
+                      "mid": "movie id",
+                      "name": "movie name",
+                      "released_date": "released year",
+                      "poster": "src path of poster",
+                      "average_rating": "latest averaged rating"
+                    },
+                      ...
+                ]
+    }
+    """
+    if request.method == 'GET':
+        try:
+            req = simplejson.loads(request.body)
+            name = req['director']
+        except:
+            name = request.GET.get('director')
+
+        data = {
+            'movies': []
+        }
+
+        # Get movies made by the requested director
+        movie_list = list(Person.objects.get(name=name).movies.order_by('-average_rating').values('mid', 'name', 'released_date', 'poster', 'average_rating')[:10])
+        # Sort results based on ratings.
+        # If two are the same then sort results alphabetically.
+        data['movies'] = sorted(list(movie_list), key=lambda x: (-x['average_rating'], x['name']))
+
+        return JsonResponse(data)
+
 
 
 def login_view(request):

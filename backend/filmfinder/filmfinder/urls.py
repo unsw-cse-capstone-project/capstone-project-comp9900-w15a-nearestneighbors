@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
-from login.views import index_view, login_view, register_view, logout_view
+from login.views import index_view, login_view, register_view, logout_view, browse_by_genre_view, browse_by_director_view
 from movies.views import search_view
 from movies.views import my_wishlist_view, remove_from_wishlist_view
 from movies.views import my_reviews_view, get_review_view, delete_review_view, edit_review_view
@@ -29,7 +29,11 @@ from movies.views import add_to_bannedlist_view, my_bannedlist_view, remove_from
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth', include('rest_framework.urls')),
+
     path('index/', index_view),
+    path('browse_by_genre/', browse_by_genre_view),
+    path('browse_by_director/', browse_by_director_view),
+
     path('login/', login_view),
     path('register/', register_view),
     path('logout/', logout_view),
