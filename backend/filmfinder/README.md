@@ -556,41 +556,6 @@ Note that if the user is logged in, the `"reviews"` field will exclude reviews g
 4. `{"success": false, "msg": "does not have movie with movie_id: " + str(movie_id)}` indicates the given movie_id field does not match any record in Movie database
 5. `{"success": false, "msg": "each user can only leave one review for a movie, but reviews are editable"}` indicates that there is already a review for the current user and the given movie
 6. `{"success": true, "msg": "successfully create a new review"}` indicates a new review is created
-
-## User Page(Pages for another users)
-
-### add_to_bannedlist_view
-
-**Author**: ZIJIAN SHEN
-
-**Url**: http://127.0.0.1:8000/user_page/add_to_bannedlist/
-
-**Request Method**: GET
-
-**Input Request**: 
-```json
-{
-  "banned_user_id": "banned user, that you don't like, id here, must be a positive integer"
-}
-```
-
-**Output Data**:
-```
-{
-  "success": true/false
-  "msg": "some message here",
-}
-```
-add user, that the current user doesn't like, given by banned_user_id, to the current user's blacklist.
-
-1. `{"success": false, "msg": "user does not log in"}` indicates that user does not log in
-2. `{"success": false, "msg": "banned_user_id is required"}` means the input json dose not have banned_user_id field 
-3. `{"success": false, "msg": "banned_user_id must be a positive integer"}` indicates the input json does not follow the above input request
-4. `{"success": false, "msg": "does not have user with banned_user_id: " + str(banned_user_id)}` indicates that the user you want to add to your blacklist does not exist
-5. `{"success": false, "msg": "user cannot add itself to its blacklist"}` indicates that user cannot add itself to its blacklist
-6. `{"success": false, "msg": "banned_user_id: " + str(banned_user_id) + " already in blacklist"}` indicates that the user you want to block is already in your blacklist
-7. `{"success": true, "msg": "successfully insert banned_user_id: " + str(banned_user_id) + " into blacklist"}` indicates that now the user with banned_user_id is in your blacklist
-
 <br/><br/>
 <br/><br/>
 
@@ -635,6 +600,8 @@ get all movies in wishlist of the current user.
 
 1. `{"success": false, "msg": "user does not log in", "wishlist":[]}` indicates that user does not log in
 2. `{"success": true, "msg": "successfully get wishlist of the current user", "wishlist":[...]}` means successfully get wishlist of the current user
+
+:question: ***Probs need to sort movies***
 
 
 <br/><br/>
@@ -904,4 +871,139 @@ remove banned_user given by banned_user_id from user's blacklist.
 4. `{"success": false, "msg": "does not have user with banned_user_id: " + str(banned_user_id)}` indicates the given banned_user_id field does not match any record in User database
 5. `{"success": false, "msg": "user with banned_user_id: " + str(banned_user_id) + " is not in blacklist"}` indicates the given banned_user is not in the current user's blacklist
 6. `{"success": true, "msg": "successfully remove user from blacklist"}` indicates the given banned_user is successfully removed from the current user's blacklist
+<br/><br/>
+<br/><br/>
+
+
+
+## Other User's Page
+
+### add_to_bannedlist_view
+
+**Author**: ZIJIAN SHEN
+
+**Url**: http://127.0.0.1:8000/user_page/add_to_bannedlist/
+
+**Request Method**: GET
+
+**Input Request**: 
+```json
+{
+  "banned_user_id": "banned user, that you don't like, id here, must be a positive integer"
+}
+```
+
+**Output Data**:
+```
+{
+  "success": true/false
+  "msg": "some message here",
+}
+```
+add user, that the current user doesn't like, given by banned_user_id, to the current user's blacklist.
+
+1. `{"success": false, "msg": "user does not log in"}` indicates that user does not log in
+2. `{"success": false, "msg": "banned_user_id is required"}` means the input json dose not have banned_user_id field 
+3. `{"success": false, "msg": "banned_user_id must be a positive integer"}` indicates the input json does not follow the above input request
+4. `{"success": false, "msg": "does not have user with banned_user_id: " + str(banned_user_id)}` indicates that the user you want to add to your blacklist does not exist
+5. `{"success": false, "msg": "user cannot add itself to its blacklist"}` indicates that user cannot add itself to its blacklist
+6. `{"success": false, "msg": "banned_user_id: " + str(banned_user_id) + " already in blacklist"}` indicates that the user you want to block is already in your blacklist
+7. `{"success": true, "msg": "successfully insert banned_user_id: " + str(banned_user_id) + " into blacklist"}` indicates that now the user with banned_user_id is in your blacklist
+
+
+<br/><br/>
+### others_wishlist_view
+
+**Author**: PATRICK LI
+
+**Url**: http://127.0.0.1:8000/user_page/user_wishlist/
+
+**Request Method**: GET
+
+**Input Request**: 
+```
+{
+  "username": "a user name"
+}
+```
+**Output Data**:
+```
+{
+  "success": true,
+  "msg": "successfully get wishlist of the target user",
+  "wishlist":[
+                  {
+                    "mid": 4,
+                    "name": "The Avengers",
+                    "region": "United States",
+                    "released_date": "2012-05-04T12:00:00Z",
+                    "average_rating": 3.8
+                  },
+                  {
+                    "mid": 5,
+                    "name": "Avengers: Age of Ultron",
+                    "region": "United States",
+                    "released_date": "2015-05-01T00:00:00Z",
+                    "average_rating": 3.0
+                  },
+                  ...
+                ]
+}
+```
+
+`"msg"` and `"success"` would contain following information:
+  1. `{"success": true, "msg": "successfully get wishlist of the current user", "wishlist":[...]}` indicates successfully get wishlist of the target user.
+  2.  `{"success": false, "msg": "does not have user [username]", "wishlist":[]}` indicates there's something with the target username.
+
+:question: ***Probs need to sort movies***
+ 
+
+<br/><br/>
+### others_reviews_view
+
+**Author**: PATRICK LI
+
+**Url**: http://127.0.0.1:8000/user_page/user_reviews/
+
+**Request Method**: GET
+
+**Input Request**: 
+```
+{
+  "username": "a user name"
+}
+```
+**Output Data**: 
+```
+{
+  "success": true,
+  "msg": "successfully get reviewlist of the current user",
+  "reviewlist":[
+                  {
+                    "user_id": 1,
+                    "user_name": "pete@123.com",
+                    "movie_id": 5,
+                    "movie_name": "Avengers: Age of Ultron",
+                    "review_comment": "some comment here, must be a string",
+                    "rating_number": 1.0,
+                    "date": "2020-11-05T10:20:09.849Z"
+                  },
+                  {
+                    "user_id": 1,
+                    "user_name": "pete@123.com",
+                    "movie_id": 4,
+                    "movie_name": "The Avengers",
+                    "review_comment": "bad movie for movie_id = 4",
+                    "rating_number": 1.0,
+                    "date": "2020-11-05T08:13:28.537Z"
+                  },
+                  ...
+                ]
+}
+```
+`"msg"` and `"success"` would contain following information:
+  1.  `{"success": true, "msg": "successfully get reviewlist of the target user", "reviewlist":[...]}` indicates that successfully get reviewlist of the current user.
+  2.  `{"success": false, "msg": "does not have user [username]", "wishlist":[]}` indicates there's something with the target username.
+  
+Once successfully fetch the review list from database, all reviews will be sorted by their created/last edited dates, from the latest to the earlist.
 
