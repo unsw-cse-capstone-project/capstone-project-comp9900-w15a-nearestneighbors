@@ -1,5 +1,5 @@
 # capstone-project-comp9900-w15a-nearestneighbors
-## work diary
+## Work Diary
 work diary directory contains each team member's work diary, using zID to name them (e.g. z5224890.txt), team members should update this file every week.
 
 ## Django Setup
@@ -36,7 +36,11 @@ work diary directory contains each team member's work diary, using zID to name t
 ```
         (your_venv)$ pip install simplejson
 ```
-9.  Now you can run the server by 
+9.  Install django-extensions package in your activated virtual environment by: 
+```
+        (your_venv)$ pip install django-extensions
+```
+10.  Now you can run the server by 
 ```
         (your_venv)$ python3 manage.py runserver
 ```
@@ -49,4 +53,4 @@ work diary directory contains each team member's work diary, using zID to name t
 ```
         $ python3 -m venv your_venv
 ```
-3.  Follow the step 4 to 9 above to set up Django.
+3.  Follow the step 4 to 10 above to set up Django.
