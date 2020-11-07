@@ -39,7 +39,93 @@
 `"login_flag"` indicates whether a user has logged in. 
 If so, `"name"` will be the username. 
 If not, `"name"` will be `None`.
-`"most_popular"` contains top 10 movies based on their average ratings, which is a list of dictionaries. In each dictionary, there are `"mid"`, `"name"`, `"released_date"`, `"poster"`, and `"average_rating"`.
+`"most_popular"` contains ***top 10*** movies based on their average ratings, which is a list of dictionaries. In each dictionary, there are `"mid"`, `"name"`, `"released_date"`, `"poster"`, and `"average_rating"`.
+
+:warning: ***The output data structure has changed, compared with the previous version.*** :warning:
+
+
+<br/><br/>
+### browse_by_genre_view
+
+**Author**: PATRICK LI
+
+**Url**:  http://127.0.0.1:8000/browse_by_genre/
+
+**Request Method**: GET
+
+**Input Request**:
+```json
+{
+  "genre": "a genre"
+}
+```
+**Output Data**:
+```
+{
+  "movies": [
+              {
+              "mid": "movie id", 
+              "name": "movie name", 
+              "released_date": "released year", 
+              "poster": "src path of poster", 
+              "average_rating": "latest averaged rating"
+            },
+              {
+              "mid": "movie id", 
+              "name": "movie name", 
+              "released_date": "released year", 
+              "poster": "src path of poster", 
+              "average_rating": "latest averaged rating"
+            },
+              ...
+          ]
+}
+```
+Once a user clicks buttons at index page in the section of "Browse by Genre", this API will return the ***top 10*** movies based on their ratings with the requested genre.
+
+
+<br/><br/>
+### browse_by_director_view
+
+**Author**: PATRICK LI
+
+**Url**:  http://127.0.0.1:8000/browse_by_director/
+
+**Request Method**: GET
+
+**Input Request**:
+```json
+{
+  "director": "a director name"
+}
+```
+**Output Data**:
+```
+{
+  "movies": [
+              {
+              "mid": "movie id", 
+              "name": "movie name", 
+              "released_date": "released year", 
+              "poster": "src path of poster", 
+              "average_rating": "latest averaged rating"
+            },
+              {
+              "mid": "movie id", 
+              "name": "movie name", 
+              "released_date": "released year", 
+              "poster": "src path of poster", 
+              "average_rating": "latest averaged rating"
+            },
+              ...
+          ]
+}
+```
+Once a user clicks buttons at index page in the section of "Browse by Director", this API will return the ***top 10*** movies of the requested director based on their ratings.
+
+:warning: ***The value of input data, i.e. the value of "director", must be as the same as it stored in the database.*** :warning:
+
+:warning:   The index_view, browse_by_genre_view and browse_by_director_view only return ***top 10*** movies now. If ***all movies*** could be displayed at frontend, please let me know. I'll adjust those three views to it.
 
 
 <br/><br/>
