@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 
 from .serializers import UserSerializer
 from . import models
-#from movie_finder import models
+from movies.models import Movie, Movie_genre
 import simplejson
 
 import pdb
@@ -17,19 +17,40 @@ def index_view(request):
     if request.session.get('login_flag', None):
         data = {
             'login_flag': True,
-            'username': request.session.get('name')
+            'username': request.session.get('name'),
+            'most popular': []
         }
         return JsonResponse(data)
-        # return render(request, 'login/index.html', {'message': message})
+    else:
+        data = {
+            'login_flag': False,
+            'username': None,
+            'most popular': []
+        }
 
-    # Validate login status
-    data = {
-        'login_flag': False,
-        'username': None
-    }
+    # Get top 10 movies based on their average ratings.
+    movie_list = list(Movie.objects.order_by('-average_rating').values('mid', 'name', 'released_date', 'poster', 'average_rating')[:10])
+    # Sort result based on ratings.
+    data['most popular'] = sorted(list(movie_list), key=lambda x: (-x['average_rating'], x['name']))
+
     # pdb.set_trace()
     return JsonResponse(data)
     # return render(request, 'login/index.html')
+
+
+def browse_by_genre(request):
+    '''
+    :param request. Input json data in this format:
+                        {
+                            'genre': 'A genre'
+                        }
+    :return:
+    '''
+    if request.method == 'GET':
+        req = simplejson.loads(request.body)
+        genre = req['genre']
+
+        movie_list = list(Movie.objects.order_by('-average_rating').values('mid', 'name', 'released_date', 'poster', 'average_rating').filter(genre__icontains=genre)[:10])
 
 
 def login_view(request):

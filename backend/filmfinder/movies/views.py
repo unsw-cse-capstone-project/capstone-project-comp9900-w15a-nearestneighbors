@@ -211,7 +211,8 @@ def movie_list_view(request):
         for movie_obj in movie_obj_list:
             data['movies'].append(movie_to_dict(movie_obj,request))
     return JsonResponse(data)
-    
+
+
 def detail_view(request):
     '''
     get a movie detail by giving movie_id.
@@ -262,6 +263,7 @@ def detail_view(request):
     else:
         data['msg'] = "please use GET"
         return JsonResponse(data)
+
 
 def add_to_wishlist_view(request):
     '''
@@ -332,6 +334,7 @@ def add_to_wishlist_view(request):
     else:
         data['msg'] = 'please use GET'
         return JsonResponse(data)
+
 
 def my_wishlist_view(request):
     '''
@@ -447,6 +450,7 @@ def remove_from_wishlist_view(request):
         data['msg'] = 'please use GET'
         return JsonResponse(data)
 
+
 def add_to_bannedlist_view(request):
     '''
     add user, that the current user doesn't like, given by banned_user_id, to the current user's blacklist.
@@ -521,6 +525,7 @@ def add_to_bannedlist_view(request):
         data['msg'] = 'please use GET'
         return JsonResponse(data)
 
+
 def my_bannedlist_view(request):
     '''
     get all users in bannedlist of the current user
@@ -558,6 +563,7 @@ def my_bannedlist_view(request):
     else:
         data['msg'] = 'please use GET'
         return JsonResponse(data)
+
 
 def remove_from_bannedlist_view(request):
     '''
@@ -626,7 +632,8 @@ def remove_from_bannedlist_view(request):
     else:
         data['msg'] = 'please use GET'
         return JsonResponse(data)
-    
+
+
 def all_reviews_view(request):
     '''
     get all reviews by giving movie_id.
@@ -679,7 +686,8 @@ def all_reviews_view(request):
     else:
         data['msg'] = "please use GET"
         return JsonResponse(data)
-    
+
+
 def new_review_view(request):
     '''
     a view function that create a new Review tuple
@@ -758,6 +766,7 @@ def new_review_view(request):
         data['msg'] = 'please use POST'
         return JsonResponse(data)
 
+
 def my_reviews_view(request):
     '''
     get all reviews left by the current user
@@ -795,6 +804,7 @@ def my_reviews_view(request):
     else:
         data['msg'] = 'please use GET'
         return JsonResponse(data)
+
 
 def get_review_view(request):
     '''
@@ -866,7 +876,8 @@ def get_review_view(request):
     else:
         data['msg'] = 'please use GET'
         return JsonResponse(data)
-    
+
+
 def delete_review_view(request):
     '''
     delete the review that was left by the current user, for movie_id
@@ -935,7 +946,8 @@ def delete_review_view(request):
     else:
         data['msg'] = 'please use GET'
         return JsonResponse(data)
-  
+
+
 def edit_review_view(request):
     '''
     edit the review that was left by the current user, for movie_id
@@ -1022,6 +1034,7 @@ def edit_review_view(request):
     else:
         data['msg'] = 'please use POST'
         return JsonResponse(data)
+
 
 def search_view(request):
     if request.method == 'GET':
