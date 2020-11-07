@@ -31,6 +31,7 @@ class Movie(models.Model):
     director = models.ForeignKey(Person, on_delete=models.CASCADE)  #foreign key
     average_rating = models.DecimalField(max_digits=2, decimal_places=1, default=0)
     votecount = models.IntegerField(default=0)
+    genre = models.CharField(max_length=100, default='')
 
     def __str__(self):
         return self.name
@@ -78,7 +79,7 @@ class Wish_list(models.Model):
         unique_together=[["user","movie"]]
 
 class Movie_genre(models.Model):
-    movie = models.ForeignKey(Movie,on_delete=models.CASCADE, related_name='genre')   #foreign key
+    movie = models.ForeignKey(Movie,on_delete=models.CASCADE, related_name='movie_genre')   #foreign key
     genre_type = models.CharField(max_length = 50)
     
     def __str__(self):

@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="96336994-92a9-449a-8d70-6ff21587ba67" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/filmfinder/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/filmfinder/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/login/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/login/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/movies/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/movies/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/movies/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/movies/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/update_genre.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -49,7 +46,7 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/login/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="698">
+                <state relative-caret-position="-875">
                   <caret line="52" column="170" selection-start-line="52" selection-start-column="26" selection-end-line="52" selection-end-column="170" />
                   <folding>
                     <element signature="e#0#35#0" expanded="true" />
@@ -83,10 +80,10 @@
             </entry>
           </file>
           <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/scripts/test.py">
+            <entry file="file://$PROJECT_DIR$/scripts/update_genre.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="90">
-                  <caret line="6" column="22" lean-forward="true" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
+                <state relative-caret-position="60">
+                  <caret line="4" column="24" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
                   <folding>
                     <element signature="e#0#39#0" expanded="true" />
                   </folding>
@@ -131,8 +128,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/movies/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="327">
-                  <caret line="1043" column="45" lean-forward="true" selection-start-line="1042" selection-start-column="12" selection-end-line="1043" selection-end-column="45" />
+                <state relative-caret-position="371">
+                  <caret line="1041" column="12" lean-forward="true" selection-start-line="1041" selection-start-column="12" selection-end-line="1041" selection-end-column="12" />
                   <folding>
                     <element signature="e#0#36#0" expanded="true" />
                     <element signature="e#603#1180#0" />
@@ -162,8 +159,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/movies/models.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="510">
-                  <caret line="82" column="4" lean-forward="true" selection-start-line="82" selection-start-column="4" selection-end-line="82" selection-end-column="4" />
+                <state relative-caret-position="495">
+                  <caret line="33" column="45" selection-start-line="33" selection-start-column="45" selection-end-line="33" selection-end-column="45" />
                   <folding>
                     <element signature="e#0#28#0" expanded="true" />
                   </folding>
@@ -215,9 +212,10 @@
         <option value="$PROJECT_DIR$/filmfinder/settings.py" />
         <option value="$PROJECT_DIR$/scripts/update_avg_rating.py" />
         <option value="$PROJECT_DIR$/movies/views.py" />
-        <option value="$PROJECT_DIR$/movies/models.py" />
         <option value="$PROJECT_DIR$/login/views.py" />
         <option value="$PROJECT_DIR$/scripts/test.py" />
+        <option value="$PROJECT_DIR$/movies/models.py" />
+        <option value="$PROJECT_DIR$/scripts/update_genre.py" />
       </list>
     </option>
   </component>
@@ -353,7 +351,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="68735000" />
+    <option name="totallyTimeSpent" value="69349000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1920" y="0" width="1920" height="1080" extended-state="0" />
@@ -590,10 +588,47 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/filmfinder/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="704">
+          <caret line="55" column="40" selection-start-line="55" selection-start-column="40" selection-end-line="55" selection-end-column="40" />
+          <folding>
+            <element signature="e#634#701#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/login/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-875">
+          <caret line="52" column="170" selection-start-line="52" selection-start-column="26" selection-end-line="52" selection-end-column="170" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/login/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="62" lean-forward="true" selection-start-line="7" selection-start-column="62" selection-end-line="7" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/update_avg_rating.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="2" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/movies/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="1043" column="45" lean-forward="true" selection-start-line="1042" selection-start-column="12" selection-end-line="1043" selection-end-column="45" />
+        <state relative-caret-position="371">
+          <caret line="1041" column="12" lean-forward="true" selection-start-line="1041" selection-start-column="12" selection-end-line="1041" selection-end-column="12" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
             <element signature="e#603#1180#0" />
@@ -619,57 +654,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/login/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="698">
-          <caret line="52" column="170" selection-start-line="52" selection-start-column="26" selection-end-line="52" selection-end-column="170" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/login/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="62" lean-forward="true" selection-start-line="7" selection-start-column="62" selection-end-line="7" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/filmfinder/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="704">
-          <caret line="55" column="40" selection-start-line="55" selection-start-column="40" selection-end-line="55" selection-end-column="40" />
-          <folding>
-            <element signature="e#634#701#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/update_avg_rating.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="2" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/movies/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="82" column="4" lean-forward="true" selection-start-line="82" selection-start-column="4" selection-end-line="82" selection-end-column="4" />
+        <state relative-caret-position="495">
+          <caret line="33" column="45" selection-start-line="33" selection-start-column="45" selection-end-line="33" selection-end-column="45" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/test.py">
+    <entry file="file://$PROJECT_DIR$/scripts/update_genre.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="22" lean-forward="true" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
+        <state relative-caret-position="60">
+          <caret line="4" column="24" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
