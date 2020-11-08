@@ -627,6 +627,8 @@ Note that if the user is logged in, the `"reviews"` field will exclude reviews g
   
 Once successfully fetch needed information from database, ***`top_reviews` will contain the latest 5 reviews*** of the user (***may be less if the user has less than 5 reveiws***), and ***`wishlist` will contain 5 movies*** in the user's wishlist (***may be less if the user has less than 5 movies in wishlist***).
 
+***:bangbang: Probs need movie posters in wishlist. Wishlist may need a date for every record so that can be sorted. :bangbang:***
+
 
 <br/><br/>
 ### my_wishlist_view
@@ -667,7 +669,9 @@ get all movies in wishlist of the current user.
 1. `{"success": false, "msg": "user does not log in", "wishlist":[]}` indicates that user does not log in
 2. `{"success": true, "msg": "successfully get wishlist of the current user", "wishlist":[...]}` means successfully get wishlist of the current user
 
-:question: ***Probs need to sort movies***
+***:bangbang: Probs need to sort movies. :bangbang:***
+
+***:bangbang: Probs need movie posters in wishlist. Wishlist may need a date for every record so that can be sorted. :bangbang:***
 
 
 <br/><br/>
@@ -1011,6 +1015,8 @@ remove banned_user given by banned_user_id from user's blacklist.
   
 Once successfully fetch needed information from database, ***`top_reviews` will contain the latest 5 reviews*** of the user (***may be less if the user has less than 5 reveiws***), and ***`wishlist` will contain 5 movies*** in the user's wishlist (***may be less if the user has less than 5 movies in wishlist***).
 
+***:bangbang: Probs need movie posters in wishlist. Wishlist may need a date for every record so that can be sorted. :bangbang:***
+
 
 <br/><br/>
 ### add_to_bannedlist_view
@@ -1090,7 +1096,9 @@ add user, that the current user doesn't like, given by banned_user_id, to the cu
   1. `{"success": true, "msg": "successfully get wishlist of the current user", "wishlist":[...]}` indicates successfully get wishlist of the target user.
   2.  `{"success": false, "msg": "does not have user [username]", "wishlist":[]}` indicates there's something with the target username.
 
-:question: ***Probs need to sort movies***
+***:bangbang: Probs need to sort movies. :bangbang:***
+
+***:bangbang: Probs need movie posters in wishlist. Wishlist may need a date for every record so that can be sorted :bangbang:***
  
 
 <br/><br/>
