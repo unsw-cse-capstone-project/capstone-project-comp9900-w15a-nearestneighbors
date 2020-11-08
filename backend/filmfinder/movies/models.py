@@ -77,7 +77,7 @@ class Review(models.Model):
 
 
 class Wish_list(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='wishlist')
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     
     def __str__(self):

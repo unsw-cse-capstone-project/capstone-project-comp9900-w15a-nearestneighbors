@@ -1261,7 +1261,7 @@ def others_page_view(request):
         if request.session.get('login_flag', None):
             session_name = request.session.get('name', None)
             if username == session_name:
-                my_page(request)
+                my_page_view(request)
 
         try:
             user_obj = login.models.User.objects.get(name=username)
@@ -1269,10 +1269,25 @@ def others_page_view(request):
             data['msg'] = 'target user does not exist'
             return JsonResponse(data)
 
-        # data['profile_photo'] = user_obj.profile_photo
+        data['success'] = True
+
+        if user_obj.profile_photo:
+            data['profile_photo'] = str(user_obj.profile_photo)
+
         data['username'] = username
-        data['top_reviews'] = list(models.Review.objects.filter(user__exact=user_obj).order_by('-date').values()[:5])
-        data['wishlist'] = list(models.Wish_list.objects.filter(user__exact=user_obj).values_list('movie_id', flat=True)[:5])
+
+        reviews_list = models.Review.objects.filter(user__exact=user_obj).order_by('-date')[:5]
+        for review_obj in reviews_list:
+            data['top_reviews'].append(review_to_dict(review_obj))
+
+        movie_ids = list(models.User.objects.get(name=username).wishlist.values('movie')[:5])
+        movie_ids = [e['movie'] for e in movie_ids]
+        if movie_ids:
+            data['wishlist'] = list(models.Movie.objects.filter(mid__in=movie_ids).values('mid', 'name', 'region', 'released_date','average_rating')[:5])
+
+        return JsonResponse(data)
+    else:
+        data['msg'] = 'incorrect request method'
         return JsonResponse(data)
 
 
@@ -1300,10 +1315,25 @@ def my_page_view(request):
             data['msg'] = 'target user does not exist'
             return JsonResponse(data)
 
-        # data['profile_photo'] = user_obj.profile_photo
+        data['success'] = True
+
+        if user_obj.profile_photo:
+            data['profile_photo'] = str(user_obj.profile_photo)
+
         data['username'] = username
-        data['top_reviews'] = list(models.Review.objects.filter(user__exact=user_obj).order_by('-date').values()[:5])
-        data['wishlist'] = list(
-            models.Wish_list.objects.filter(user__exact=user_obj).values_list('movie_id', flat=True)[:5])
+
+        reviews_list = models.Review.objects.filter(user__exact=user_obj).order_by('-date')[:5]
+        for review_obj in reviews_list:
+            data['top_reviews'].append(review_to_dict(review_obj))
+
+        movie_ids = list(models.User.objects.get(name=username).wishlist.values('movie')[:5])
+        movie_ids = [e['movie'] for e in movie_ids]
+        if movie_ids:
+            data['wishlist'] = list(models.Movie.objects.filter(mid__in=movie_ids).values('mid', 'name', 'region', 'released_date','average_rating')[:5])
+
+        return JsonResponse(data)
+
+    else:
+        data['msg'] = 'incorrect request method'
         return JsonResponse(data)
 

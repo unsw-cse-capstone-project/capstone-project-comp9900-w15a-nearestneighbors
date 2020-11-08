@@ -14,7 +14,7 @@ class User(models.Model):
     uid = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50,unique=True)
     password = models.CharField(max_length=20)
-    profile_photo = models.ImageField(blank=True)
+    profile_photo = models.ImageField(upload_to='../movies/user_dp', blank=True)
     email = models.CharField(max_length=50, default='N/A')
 
     def __str__(self):
