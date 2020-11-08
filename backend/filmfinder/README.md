@@ -563,6 +563,72 @@ Note that if the user is logged in, the `"reviews"` field will exclude reviews g
 
 ## My Page
 
+### my_page_view
+
+**Author**: PATRICK LI
+
+**Url**: http://127.0.0.1:8000/my_page/
+
+**Request Method**: GET
+
+**Input Request**: N/A
+
+**Output Data**: 
+```
+{
+  "success": true,
+  "msg": "",
+  "profile_photo": "a src path of user's profile photo",
+  "username" : "user's username",
+  "top_reviews":[
+                  {
+                    "user_id": a user id,
+                    "user_name": "a username",
+                    "movie_id": a movie id,
+                    "movie_name": "the name of the movie",
+                    "review_comment": "some comment here, must be a string",
+                    "rating_number": a rating number from 0 to 5, with one decimal digit,
+                    "date": "the date of review created/last edited"
+                  },
+                  {
+                    "user_id": 1,
+                    "user_name": "pete@123.com",
+                    "movie_id": 4,
+                    "movie_name": "The Avengers",
+                    "review_comment": "bad movie for movie_id = 4",
+                    "rating_number": 1.0,
+                    "date": "2020-11-05T08:13:28.537Z"
+                  },
+                  ...
+                ],
+  "wishlist": [
+                {
+                    "mid": a movie id,
+                    "name": "name fo the movie",
+                    "region": "movie's region",
+                    "released_date": "date the movie released",
+                    "average_rating": a rating number from 0 to 5, with one decimal digit
+                  },
+                  {
+                    "mid": 5,
+                    "name": "Avengers: Age of Ultron",
+                    "region": "United States",
+                    "released_date": "2015-05-01T00:00:00Z",
+                    "average_rating": 3.0
+                  },
+                  ...
+              ]
+}
+```
+`"msg"` and `"success"` would contain following error message:
+  1.  `{"success": false, "msg": "user did not log in", "profile_photo":"", "username":"", "top_reviews":[], "wishlist":[]}` indicates that the user didn't login to an account, which made the user fail to visit the user's own page.
+  2.  `{"success": false, "msg": "target user does not exist", "profile_photo":"", "username":"", "top_reviews":[], "wishlist":[]}` indicates the user has already logged in, yet the username stored in session couldn't be found in database.
+  3.  `{"success": false, "msg": "incorrect request method", "profile_photo":"", "username":"", "top_reviews":[], "wishlist":[]}` indicates method of the request is not `GET`.
+  
+Once successfully fetch needed information from database, ***`top_reviews` will contain the latest 5 reviews*** of the user (***may be less if the user has less than 5 reveiws***), and ***`wishlist` will contain 5 movies*** in the user's wishlist (***may be less if the user has less than 5 movies in wishlist***).
+
+
+<br/><br/>
 ### my_wishlist_view
 
 **Author**: ZIJIAN SHEN
@@ -878,6 +944,75 @@ remove banned_user given by banned_user_id from user's blacklist.
 
 ## Other User's Page
 
+### others_page_view
+
+**Author**: PATRICK LI
+
+**Url**: http://127.0.0.1:8000/user_page/
+
+**Request Method**: GET
+
+**Input Request**:
+```
+{
+  "username": "a user name"
+}
+```
+**Output Data**: 
+```
+{
+  "success": true,
+  "msg": "",
+  "profile_photo": "a src path of target user's profile photo",
+  "username" : "target user's username",
+  "top_reviews":[
+                  {
+                    "user_id": a user id,
+                    "user_name": "a username",
+                    "movie_id": a movie id,
+                    "movie_name": "the name of the movie",
+                    "review_comment": "some comment here, must be a string",
+                    "rating_number": a rating number from 0 to 5, with one decimal digit,
+                    "date": "the date of review created/last edited"
+                  },
+                  {
+                    "id": 1,
+                    "user_id": 4,
+                    "movie_id": 4,
+                    "movie_name": "The Avengers",
+                    "review_comment": "bad movie for movie_id = 4",
+                    "rating_number": 1.0,
+                    "date": "2020-11-05T08:13:28.537Z"
+                  },
+                  ...
+                ],
+  "wishlist": [
+                {
+                    "mid": a movie id,
+                    "name": "name fo the movie",
+                    "region": "movie's region",
+                    "released_date": "date the movie released",
+                    "average_rating": a rating number from 0 to 5, with one decimal digit
+                  },
+                  {
+                    "mid": 5,
+                    "name": "Avengers: Age of Ultron",
+                    "region": "United States",
+                    "released_date": "2015-05-01T00:00:00Z",
+                    "average_rating": 3.0
+                  },
+                  ...
+              ]
+}
+```
+`"msg"` and `"success"` would contain following error message:
+  1.  `{"success": false, "msg": "target user does not exist", "profile_photo":"", "username":"", "top_reviews":[], "wishlist":[]}` indicates the target username couldn't be found in database.
+  2.  `{"success": false, "msg": "incorrect request method", "profile_photo":"", "username":"", "top_reviews":[], "wishlist":[]}` indicates method of the request is not `GET`.
+  
+Once successfully fetch needed information from database, ***`top_reviews` will contain the latest 5 reviews*** of the user (***may be less if the user has less than 5 reveiws***), and ***`wishlist` will contain 5 movies*** in the user's wishlist (***may be less if the user has less than 5 movies in wishlist***).
+
+
+<br/><br/>
 ### add_to_bannedlist_view
 
 **Author**: ZIJIAN SHEN
