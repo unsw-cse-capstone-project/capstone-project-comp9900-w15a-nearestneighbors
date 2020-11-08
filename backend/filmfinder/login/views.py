@@ -128,7 +128,7 @@ def browse_by_director_view(request):
         }
 
         # Get movies made by the requested director
-        movie_list = list(Person.objects.get(name=name).movies.order_by('-average_rating').values('mid', 'name', 'released_date', 'poster', 'average_rating')[:10])
+        movie_list = list(Person.objects.get(name=name).movie_set.order_by('-average_rating').values('mid', 'name', 'released_date', 'poster', 'average_rating')[:10])
         # Sort results based on ratings.
         # If two are the same then sort results alphabetically.
         data['movies'] = sorted(list(movie_list), key=lambda x: (-x['average_rating'], x['name']))

@@ -1280,7 +1280,7 @@ def others_page_view(request):
         for review_obj in reviews_list:
             data['top_reviews'].append(review_to_dict(review_obj))
 
-        movie_ids = list(models.User.objects.get(name=username).wishlist.values('movie')[:5])
+        movie_ids = list(models.User.objects.get(name=username).wish_list_set.values('movie')[:5])
         movie_ids = [e['movie'] for e in movie_ids]
         if movie_ids:
             data['wishlist'] = list(models.Movie.objects.filter(mid__in=movie_ids).values('mid', 'name', 'region', 'released_date','average_rating')[:5])
@@ -1326,7 +1326,7 @@ def my_page_view(request):
         for review_obj in reviews_list:
             data['top_reviews'].append(review_to_dict(review_obj))
 
-        movie_ids = list(models.User.objects.get(name=username).wishlist.values('movie')[:5])
+        movie_ids = list(models.User.objects.get(name=username).wish_list_set.values('movie')[:5])
         movie_ids = [e['movie'] for e in movie_ids]
         if movie_ids:
             data['wishlist'] = list(models.Movie.objects.filter(mid__in=movie_ids).values('mid', 'name', 'region', 'released_date','average_rating')[:5])

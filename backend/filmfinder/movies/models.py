@@ -30,7 +30,7 @@ class Movie(models.Model):
     region = models.CharField(max_length=50)
     released_date = models.DateTimeField('released date')
     poster = models.ImageField(upload_to='../movies/posters',blank = True, null = True)    #TODO
-    director = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='movies')  #foreign key
+    director = models.ForeignKey(Person, on_delete=models.CASCADE)  #foreign key
     average_rating = models.DecimalField(max_digits=2, decimal_places=1, default=0)
     votecount = models.IntegerField(default=0)
     genre = models.CharField(max_length=100, default='')
@@ -61,7 +61,7 @@ class Cast(models.Model):
 
 class Review(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='review')
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     review_comment = models.TextField(max_length=1000)
     rating_number = models.FloatField()
     date = models.DateTimeField()
@@ -77,7 +77,7 @@ class Review(models.Model):
 
 
 class Wish_list(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='wishlist')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     
     def __str__(self):
@@ -88,7 +88,7 @@ class Wish_list(models.Model):
 
 
 class Movie_genre(models.Model):
-    movie = models.ForeignKey(Movie,on_delete=models.CASCADE, related_name='movie_genre')   #foreign key
+    movie = models.ForeignKey(Movie,on_delete=models.CASCADE)   #foreign key
     genre_type = models.CharField(max_length = 50)
     
     def __str__(self):
