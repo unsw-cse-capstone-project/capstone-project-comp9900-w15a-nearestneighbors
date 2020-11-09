@@ -2,15 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="96336994-92a9-449a-8d70-6ff21587ba67" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/other.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/movies/Movie.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/filmfinder.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/filmfinder.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/rescale_rating.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/filmfinder/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/filmfinder/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/Sri_database/Movie_Posters.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/tmdb_5000_movies.csv" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/Sri_database/tmdb_5000_movies.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/movies/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/movies/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/import_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/import_data.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -84,7 +80,7 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/filmfinder/urls.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="412">
+                <state relative-caret-position="423">
                   <caret line="35" column="29" selection-start-line="35" selection-start-column="10" selection-end-line="35" selection-end-column="29" />
                   <folding>
                     <element signature="e#634#701#0" expanded="true" />
@@ -121,11 +117,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/scripts/import_data.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="960">
-                  <caret line="64" lean-forward="true" selection-start-line="64" selection-end-line="64" />
+                <state relative-caret-position="481">
+                  <caret line="65" lean-forward="true" selection-start-line="65" selection-end-line="65" />
                   <folding>
                     <element signature="e#0#52#0" expanded="true" />
                   </folding>
@@ -141,6 +137,47 @@
                   <folding>
                     <element signature="e#0#47#0" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/movies/views.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="523">
+                  <caret line="214" column="25" selection-start-line="214" selection-start-column="25" selection-end-line="214" selection-end-column="25" />
+                  <folding>
+                    <element signature="e#0#36#0" expanded="true" />
+                    <element signature="e#603#1180#0" />
+                    <element signature="e#1229#3493#0" />
+                    <element signature="e#3532#4370#0" />
+                    <element signature="e#4437#7656#0" />
+                    <element signature="e#7735#8417#0" />
+                    <element signature="e#8461#12284#0" />
+                    <element signature="e#12803#14440#0" />
+                    <element signature="e#14482#16955#0" />
+                    <element signature="e#16993#18650#0" />
+                    <element signature="e#18705#21236#0" />
+                    <element signature="e#21280#24285#0" />
+                    <element signature="e#24325#25716#0" />
+                    <element signature="e#25765#28469#0" />
+                    <element signature="e#28507#30208#0" />
+                    <element signature="e#30245#33828#0" />
+                    <element signature="e#33865#35250#0" />
+                    <element signature="e#35287#37950#0" />
+                    <element signature="e#37990#40839#0" />
+                    <element signature="e#40877#44845#0" />
+                    <marker date="1604916859030" expanded="true" signature="49701:49746" ph="..." />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/scripts/rescale_rating.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="120">
+                  <caret line="8" column="13" lean-forward="true" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
                 </state>
               </provider>
             </entry>
@@ -192,13 +229,14 @@
         <option value="$PROJECT_DIR$/login/models.py" />
         <option value="$PROJECT_DIR$/scripts/download_posters.py" />
         <option value="$PROJECT_DIR$/login/views.py" />
-        <option value="$PROJECT_DIR$/movies/views.py" />
         <option value="$PROJECT_DIR$/movies/models.py" />
         <option value="$PROJECT_DIR$/scripts/similar_movie.py" />
         <option value="$PROJECT_DIR$/filmfinder/settings.py" />
         <option value="$PROJECT_DIR$/movies/scripts/import_data.py" />
         <option value="$PROJECT_DIR$/scripts/test.py" />
         <option value="$PROJECT_DIR$/scripts/import_data.py" />
+        <option value="$PROJECT_DIR$/movies/views.py" />
+        <option value="$PROJECT_DIR$/scripts/rescale_rating.py" />
       </list>
     </option>
   </component>
@@ -407,7 +445,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="103733000" />
+    <option name="totallyTimeSpent" value="105789000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1920" y="0" width="1920" height="1080" extended-state="0" />
@@ -488,34 +526,33 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/movies/views.py</url>
-          <line>865</line>
+          <line>861</line>
           <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/movies/views.py</url>
-          <line>1050</line>
+          <line>1046</line>
           <option name="timeStamp" value="33" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/movies/views.py</url>
-          <line>1047</line>
+          <line>1043</line>
           <option name="timeStamp" value="35" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/movies/views.py</url>
-          <line>1144</line>
+          <line>1140</line>
           <option name="timeStamp" value="36" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/movies/views.py</url>
-          <line>1136</line>
+          <line>1132</line>
           <option name="timeStamp" value="37" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/static/js/register.js" />
     <entry file="file://$PROJECT_DIR$/static/js/index.js" />
     <entry file="file://$PROJECT_DIR$/login/admin.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -688,34 +725,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/movies/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="36" selection-start-column="36" selection-end-column="36" />
-          <folding>
-            <element signature="e#603#1180#0" />
-            <element signature="e#1229#3493#0" />
-            <element signature="e#3532#4370#0" />
-            <element signature="e#4437#7656#0" />
-            <element signature="e#7735#8417#0" />
-            <element signature="e#12803#14440#0" />
-            <element signature="e#14482#16955#0" />
-            <element signature="e#16993#18650#0" />
-            <element signature="e#18705#21236#0" />
-            <element signature="e#21280#24285#0" />
-            <element signature="e#24325#25716#0" />
-            <element signature="e#25765#28469#0" />
-            <element signature="e#28507#30208#0" />
-            <element signature="e#30245#33828#0" />
-            <element signature="e#33865#35250#0" />
-            <element signature="e#35287#37950#0" />
-            <element signature="e#37990#40839#0" />
-            <element signature="e#40877#44845#0" />
-            <marker date="1604811857732" expanded="true" signature="50013:50058" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/numpy/lib/npyio.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="193">
@@ -836,7 +845,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/filmfinder/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="412">
+        <state relative-caret-position="423">
           <caret line="35" column="29" selection-start-line="35" selection-start-column="10" selection-end-line="35" selection-end-column="29" />
           <folding>
             <element signature="e#634#701#0" expanded="true" />
@@ -849,11 +858,48 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/scripts/import_data.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="960">
-          <caret line="64" lean-forward="true" selection-start-line="64" selection-end-line="64" />
+        <state relative-caret-position="481">
+          <caret line="65" lean-forward="true" selection-start-line="65" selection-end-line="65" />
           <folding>
             <element signature="e#0#52#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/movies/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="523">
+          <caret line="214" column="25" selection-start-line="214" selection-start-column="25" selection-end-line="214" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+            <element signature="e#603#1180#0" />
+            <element signature="e#1229#3493#0" />
+            <element signature="e#3532#4370#0" />
+            <element signature="e#4437#7656#0" />
+            <element signature="e#7735#8417#0" />
+            <element signature="e#8461#12284#0" />
+            <element signature="e#12803#14440#0" />
+            <element signature="e#14482#16955#0" />
+            <element signature="e#16993#18650#0" />
+            <element signature="e#18705#21236#0" />
+            <element signature="e#21280#24285#0" />
+            <element signature="e#24325#25716#0" />
+            <element signature="e#25765#28469#0" />
+            <element signature="e#28507#30208#0" />
+            <element signature="e#30245#33828#0" />
+            <element signature="e#33865#35250#0" />
+            <element signature="e#35287#37950#0" />
+            <element signature="e#37990#40839#0" />
+            <element signature="e#40877#44845#0" />
+            <marker date="1604916859030" expanded="true" signature="49701:49746" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/rescale_rating.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="13" lean-forward="true" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
         </state>
       </provider>
     </entry>

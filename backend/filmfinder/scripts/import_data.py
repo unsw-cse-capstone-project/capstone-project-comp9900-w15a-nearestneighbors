@@ -31,9 +31,9 @@ def run():
                           usecols=['imdbId', 'Poster', 'Imdb Link'])
 
     # Create Person objects
-    for index, row in df_person.iterrows():
-        if not Person.objects.filter(name__exact=row['name']):
-            Person.objects.create(name=row['name'])
+    # for index, row in df_person.iterrows():
+    #     if not Person.objects.filter(name__exact=row['name']):
+    #         Person.objects.create(name=row['name'])
 
     #Create movie objects
     for index, row in df_movie.iterrows():
@@ -44,6 +44,7 @@ def run():
             d_name = list(set(list(df_person.loc[df_person['pid'] == row['director']]['name'])))
             description = list(df_tmdb.loc[df_tmdb['id'] == row['mid']]['overview'])[0]
             poster_dir = ''
+            d_id = list(Person.objects.filter(name__exact=d_name[0]).values('pid'))[0]['pid']
 
             # Download posters
             poster_link = list(df_poster.loc[df_poster['imdbId'] == row['mid']]['Poster'])
@@ -61,7 +62,7 @@ def run():
             Movie.objects.create(name=row['name'], description=description, region=row['region'],
                                  released_date=row['released_date'], poster=poster_dir, average_rating=row['average_rating'],
                                  votecount=row['votecount'], genre=' '.join(genre_list).replace('Fiction', 'fiction'),
-                                 director=' '.join(d_name))
+                                 director_id=d_id)
 
             # Create Movie_genre objects
             for genre in genre_list:
