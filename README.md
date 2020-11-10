@@ -28,19 +28,18 @@ work diary directory contains each team member's work diary, using zID to name t
 ```
         (your_venv)$ pip install djangorestframework
 ```
-7.  Install Pillow package in your activated virtual environment by: 
+7.  Install packages needed in your activated virtual environment by: 
 ```
         (your_venv)$ pip install Pillow
-```
-8.  Install simplejson package in your activated virtual environment by: 
-```
         (your_venv)$ pip install simplejson
-```
-9.  Install django-extensions package in your activated virtual environment by: 
-```
         (your_venv)$ pip install django-extensions
+        (your_venv)$ pip install pandas
+        (your_venv)$ pip install -U scikit-learn
+        (your_venv)$ pip install numpy
+        (your_venv)$ pip install django-pandas
+        (your_venv)$ pip install rake-nltk
 ```
-10.  Now you can run the server by 
+8.  Now you can run the server by 
 ```
         (your_venv)$ python3 manage.py runserver
 ```
@@ -53,4 +52,4 @@ work diary directory contains each team member's work diary, using zID to name t
 ```
         $ python3 -m venv your_venv
 ```
-3.  Follow the step 4 to 10 above to set up Django.
+3.  Follow the step 4 to 8 above to set up Django.
