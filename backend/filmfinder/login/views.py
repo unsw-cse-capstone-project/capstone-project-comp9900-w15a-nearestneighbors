@@ -137,21 +137,12 @@ def browse_by_director_view(request):
 
 
 def login_view(request):
-    # Check if the user has already logged in.
-    # If so, direct the user to the index page.
-    if request.session.get('login_flag', None):
-        data = {
-            'success': False,
-            'msg': 'user already logged in'
-        }
-        return JsonResponse(data)
-        # return redirect('/index/')
 
     if request.method == 'POST':
+
         req = simplejson.loads(request.body)
         name = req['name']
         password = req['password']
-        # pdb.set_trace()
 
         # Check if name ans password are empty
         if name and password:
@@ -161,31 +152,52 @@ def login_view(request):
             except:
                 data = {
                     'success': False,
-                    'msg': "user doesn't exist"
+                    'msg': "user doesn't exist",
+                    'user_id': '',
+                    'username': name
                 }
                 return JsonResponse(data)
 
             # Check if the password is correct
             if user.password == password:
+
+                # Check if the user has already logged in.
+                # If so, direct the user to the index page.
+                if request.session.get('login_flag', None):
+                    data = {
+                        'success': False,
+                        'msg': 'user already logged in',
+                        'user_id': user.uid,
+                        'username': name
+                    }
+                    return JsonResponse(data)
+                    # return redirect('/index/')
+
                 # Store login information in session
                 request.session['login_flag'] = True
                 request.session['name'] = name
                 data = {
                     'success': True,
-                    'msg': None
+                    'msg': None,
+                    'user_id': user.uid,
+                    'username': name
                 }
                 return JsonResponse(data)
             else:
                 data = {
                     'success': False,
-                    'msg': 'incorrect password'
+                    'msg': 'incorrect password',
+                    'user_id': user.uid,
+                    'username': name
                 }
                 return JsonResponse(data)
 
         else:
             data = {
                 'success': False,
-                'msg': 'username and password are required'
+                'msg': 'username and password are required',
+                'user_id': '',
+                'username': ''
             }
             return JsonResponse(data)
 

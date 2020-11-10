@@ -76,8 +76,7 @@ count = CountVectorizer()
 count_matrix = count.fit_transform(df_content_features['bag_of_words'])
 cosine_sim = cosine_similarity(count_matrix, count_matrix)
 indices = pd.Series(df_content_features['title'])
-
-
+print(indices)
 
 
 def recommend(title, cosine_sim=cosine_sim):

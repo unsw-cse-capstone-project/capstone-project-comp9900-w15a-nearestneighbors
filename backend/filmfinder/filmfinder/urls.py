@@ -57,7 +57,7 @@ urlpatterns = [
     path('user_page/', others_page_view),
     path('user_page/user_wishlist/', others_wishlist_view),
     path('user_page/user_reviews/', others_reviews_view),
-    
+
     #URL for showing all movies, movies detail,
     #add to wishlist, view all reviews for a specific movie,
     #create a new review for a specific movie

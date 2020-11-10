@@ -14,6 +14,10 @@ from django.http import JsonResponse
 from django.core import serializers
 import pdb
 import re
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+from django_pandas.io import read_frame
+import pandas as pd
 
 
 '''internal function'''
@@ -335,6 +339,7 @@ def detail_view(request):
             movie_id = req['movie_id'].strip()
         except:
             movie_id = request.GET.get('movie_id')
+
         # Check if input is empty
         if movie_id == None:
             data['msg'] = 'movie_id is required'
@@ -352,19 +357,46 @@ def detail_view(request):
             return JsonResponse(data)
         
         try:
-            movie_obj = models.Movie.objects.get(mid = movie_id)
+            movie_obj = models.Movie.objects.get(mid=movie_id)
         except ObjectDoesNotExist:
             data['msg'] = 'does not have movie with movie_id: ' + str(movie_id)
             return JsonResponse(data)
         else:
             data['success'] = True
             data['msg'] = 'found movie with movie_id: ' + str(movie_id)
-            data['movie'].append(movie_detail_to_dict(movie_obj,request, num_review = 5))
+            data['movie'].append(movie_detail_to_dict(movie_obj, request, num_review=5))
+            similar_list = similar_movie(movie_obj.name)
+            data['similar_movies'] = list(models.Movie.objects.filter(name__in=similar_list).values('mid', 'name', 'released_date', 'poster', 'average_rating'))
             return JsonResponse(data)
             
     else:
         data['msg'] = "please use GET"
         return JsonResponse(data)
+
+
+def similar_movie(movie_title):
+
+    df = read_frame(models.MovieFeatures.objects.all())
+    count = CountVectorizer()
+    count_matrix = count.fit_transform(df['bag_of_words'])
+    cosine_sim = cosine_similarity(count_matrix, count_matrix)
+    indices = pd.Series(df['title'])
+
+    def recommend(title, cosine_sim=cosine_sim):
+        recommended_movies = []
+        idx = indices[indices == title].index[0]
+        score_series = pd.Series(cosine_sim[idx]).sort_values(ascending=False)
+        top_10_indices = list(score_series.iloc[1:11].index)
+
+        for i in top_10_indices:
+            recommended_movies.append(list(df['title'])[i])
+
+        return recommended_movies
+
+    similar_movies = recommend(movie_title)
+    return similar_movies
+
+
 
 
 def add_to_wishlist_view(request):

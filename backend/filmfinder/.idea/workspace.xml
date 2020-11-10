@@ -2,12 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="96336994-92a9-449a-8d70-6ff21587ba67" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/scripts/online_training.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/movies/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/movies/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/filmfinder/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/filmfinder/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/login/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/movies/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/movies/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/content_features.csv" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/content_features.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/similar_movie.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/similar_movie.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/test.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,7 +16,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/filmfinder$similar_movie.coverage" NAME="similar_movie Coverage Results" MODIFIED="1605007245471" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
+    <SUITE FILE_PATH="coverage/filmfinder$similar_movie.coverage" NAME="similar_movie Coverage Results" MODIFIED="1605012061144" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
     <SUITE FILE_PATH="coverage/filmfinder$import_data.coverage" NAME="import_data Coverage Results" MODIFIED="1604907195484" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
     <SUITE FILE_PATH="coverage/filmfinder$update_script.coverage" NAME="update_script Coverage Results" MODIFIED="1604721872604" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
@@ -38,7 +38,7 @@
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.45249406">
+    <splitter split-orientation="horizontal" split-proportion="0.425">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="false">
@@ -53,8 +53,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/login/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-1692">
-                  <caret line="89" column="37" selection-start-line="89" selection-start-column="37" selection-end-line="89" selection-end-column="37" />
+                <state relative-caret-position="398">
+                  <caret line="199" column="29" selection-start-line="199" selection-start-column="29" selection-end-line="199" selection-end-column="29" />
                   <folding>
                     <element signature="e#0#35#0" expanded="true" />
                   </folding>
@@ -78,7 +78,7 @@
             <entry file="file://$PROJECT_DIR$/movies/models.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="366">
-                  <caret line="41" column="27" lean-forward="true" selection-start-line="41" selection-start-column="27" selection-end-line="41" selection-end-column="27" />
+                  <caret line="41" column="27" selection-start-line="41" selection-start-column="27" selection-end-line="41" selection-end-column="27" />
                   <folding>
                     <element signature="e#0#28#0" expanded="true" />
                   </folding>
@@ -89,8 +89,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/scripts/similar_movie.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="123">
-                  <caret line="46" column="71" lean-forward="true" selection-start-line="46" selection-start-column="38" selection-end-line="46" selection-end-column="71" />
+                <state relative-caret-position="465">
+                  <caret line="90" column="29" lean-forward="true" selection-start-line="81" selection-end-line="90" selection-end-column="29" />
                   <folding>
                     <element signature="e#0#14#0" expanded="true" />
                   </folding>
@@ -110,18 +110,27 @@
               </provider>
             </entry>
           </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/filmfinder/urls.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="59">
+                  <caret line="25" column="62" selection-start-line="25" selection-start-column="62" selection-end-line="25" selection-end-column="62" />
+                  <folding>
+                    <element signature="e#634#701#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
         </leaf>
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/scripts/online_training.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="255">
-                  <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="34" selection-end-column="17" />
-                  <folding>
-                    <element signature="e#0#14#0" expanded="true" />
-                  </folding>
+                <state>
+                  <caret column="14" selection-start-column="14" selection-end-column="14" />
                 </state>
               </provider>
             </entry>
@@ -129,20 +138,17 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/scripts/test.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="60">
-                  <caret line="6" selection-start-line="6" selection-end-line="6" />
-                  <folding>
-                    <element signature="e#0#47#0" expanded="true" />
-                  </folding>
+                <state relative-caret-position="30">
+                  <caret line="2" selection-start-line="2" selection-end-line="2" selection-end-column="39" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/movies/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="525">
-                  <caret line="214" column="25" selection-start-line="214" selection-start-column="25" selection-end-line="214" selection-end-column="25" />
+                <state relative-caret-position="480">
+                  <caret line="122" column="55" selection-start-line="122" selection-start-column="55" selection-end-line="122" selection-end-column="55" />
                   <folding>
                     <element signature="e#0#36#0" expanded="true" />
                     <element signature="e#603#1180#0" />
@@ -150,7 +156,25 @@
                     <element signature="e#3532#4370#0" />
                     <element signature="e#4437#7656#0" />
                     <element signature="e#7735#8417#0" />
-                    <marker date="1604916859030" expanded="true" signature="49701:49746" ph="..." />
+                    <element signature="e#8461#11915#0" />
+                    <element signature="e#11952#12458#0" />
+                    <element signature="e#14170#16643#0" />
+                    <element signature="e#16681#18338#0" />
+                    <element signature="e#18393#20924#0" />
+                    <element signature="e#20968#23973#0" />
+                    <element signature="e#24013#25404#0" />
+                    <element signature="e#25453#28157#0" />
+                    <element signature="e#28195#29896#0" />
+                    <element signature="e#29933#33516#0" />
+                    <element signature="e#33553#34938#0" />
+                    <element signature="e#34975#37638#0" />
+                    <element signature="e#37678#40527#0" />
+                    <element signature="e#40565#44533#0" />
+                    <element signature="e#44575#46016#0" />
+                    <element signature="e#46057#47237#0" />
+                    <element signature="e#47275#48968#0" />
+                    <element signature="e#49002#50489#0" />
+                    <marker date="1605018318066" expanded="true" signature="50845:50890" ph="..." />
                   </folding>
                 </state>
               </provider>
@@ -199,19 +223,19 @@
         <option value="$PROJECT_DIR$/update_script.py" />
         <option value="$PROJECT_DIR$/scripts/update_avg_rating.py" />
         <option value="$PROJECT_DIR$/scripts/update_genre.py" />
-        <option value="$PROJECT_DIR$/filmfinder/urls.py" />
         <option value="$PROJECT_DIR$/login/models.py" />
         <option value="$PROJECT_DIR$/scripts/download_posters.py" />
-        <option value="$PROJECT_DIR$/login/views.py" />
         <option value="$PROJECT_DIR$/filmfinder/settings.py" />
         <option value="$PROJECT_DIR$/movies/scripts/import_data.py" />
-        <option value="$PROJECT_DIR$/scripts/test.py" />
         <option value="$PROJECT_DIR$/scripts/import_data.py" />
-        <option value="$PROJECT_DIR$/movies/views.py" />
         <option value="$PROJECT_DIR$/scripts/rescale_rating.py" />
-        <option value="$PROJECT_DIR$/scripts/similar_movie.py" />
         <option value="$PROJECT_DIR$/movies/models.py" />
         <option value="$PROJECT_DIR$/scripts/online_training.py" />
+        <option value="$PROJECT_DIR$/scripts/similar_movie.py" />
+        <option value="$PROJECT_DIR$/scripts/test.py" />
+        <option value="$PROJECT_DIR$/filmfinder/urls.py" />
+        <option value="$PROJECT_DIR$/movies/views.py" />
+        <option value="$PROJECT_DIR$/login/views.py" />
       </list>
     </option>
   </component>
@@ -236,6 +260,16 @@
             <path>
               <item name="filmfinder" type="b2602c69:ProjectViewProjectNode" />
               <item name="filmfinder" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="filmfinder" type="b2602c69:ProjectViewProjectNode" />
+              <item name="filmfinder" type="462c0819:PsiDirectoryNode" />
+              <item name="filmfinder" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="filmfinder" type="b2602c69:ProjectViewProjectNode" />
+              <item name="filmfinder" type="462c0819:PsiDirectoryNode" />
+              <item name="login" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="filmfinder" type="b2602c69:ProjectViewProjectNode" />
@@ -284,7 +318,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.online_training">
+  <component name="RunManager" selected="Python.similar_movie">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="filmfinder" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -417,8 +451,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.online_training" />
         <item itemvalue="Python.similar_movie" />
+        <item itemvalue="Python.online_training" />
         <item itemvalue="Python.import_data" />
         <item itemvalue="Python.update_script" />
       </list>
@@ -437,18 +471,18 @@
       <workItem from="1604028234082" duration="24308000" />
       <workItem from="1604194732639" duration="24599000" />
       <workItem from="1604995987618" duration="9121000" />
-      <workItem from="1605008153823" duration="1525000" />
+      <workItem from="1605008153823" duration="6027000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="117223000" />
+    <option name="totallyTimeSpent" value="121725000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1440" y="0" width="1920" height="1080" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.10543131" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.10543131" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -462,7 +496,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.22178218" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.1980198" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.23960397" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -518,32 +552,32 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/movies/views.py</url>
-          <line>86</line>
+          <line>90</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/movies/views.py</url>
-          <line>861</line>
+          <line>893</line>
           <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/movies/views.py</url>
-          <line>1046</line>
+          <line>1078</line>
           <option name="timeStamp" value="33" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/movies/views.py</url>
-          <line>1043</line>
+          <line>1075</line>
           <option name="timeStamp" value="35" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/movies/views.py</url>
-          <line>1140</line>
+          <line>1172</line>
           <option name="timeStamp" value="36" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/movies/views.py</url>
-          <line>1132</line>
+          <line>1164</line>
           <option name="timeStamp" value="37" />
         </line-breakpoint>
       </breakpoints>
@@ -755,42 +789,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/filmfinder/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="35" column="29" selection-start-line="35" selection-start-column="10" selection-end-line="35" selection-end-column="29" />
-          <folding>
-            <element signature="e#634#701#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
-          <folding>
-            <element signature="e#0#47#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/movies/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="214" column="25" selection-start-line="214" selection-start-column="25" selection-end-line="214" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-            <element signature="e#603#1180#0" />
-            <element signature="e#1229#3493#0" />
-            <element signature="e#3532#4370#0" />
-            <element signature="e#4437#7656#0" />
-            <element signature="e#7735#8417#0" />
-            <marker date="1604916859030" expanded="true" signature="49701:49746" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/scripts/import_data.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1">
@@ -801,40 +799,88 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/similar_movie.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="123">
-          <caret line="46" column="71" lean-forward="true" selection-start-line="46" selection-start-column="38" selection-end-line="46" selection-end-column="71" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/movies/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="366">
-          <caret line="41" column="27" lean-forward="true" selection-start-line="41" selection-start-column="27" selection-end-line="41" selection-end-column="27" />
+          <caret line="41" column="27" selection-start-line="41" selection-start-column="27" selection-end-line="41" selection-end-column="27" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/online_training.py">
+    <entry file="file://$PROJECT_DIR$/scripts/test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="34" selection-end-column="17" />
+        <state relative-caret-position="30">
+          <caret line="2" selection-start-line="2" selection-end-line="2" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/similar_movie.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="90" column="29" lean-forward="true" selection-start-line="81" selection-end-line="90" selection-end-column="29" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/online_training.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="14" selection-start-column="14" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/movies/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="122" column="55" selection-start-line="122" selection-start-column="55" selection-end-line="122" selection-end-column="55" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+            <element signature="e#603#1180#0" />
+            <element signature="e#1229#3493#0" />
+            <element signature="e#3532#4370#0" />
+            <element signature="e#4437#7656#0" />
+            <element signature="e#7735#8417#0" />
+            <element signature="e#8461#11915#0" />
+            <element signature="e#11952#12458#0" />
+            <element signature="e#14170#16643#0" />
+            <element signature="e#16681#18338#0" />
+            <element signature="e#18393#20924#0" />
+            <element signature="e#20968#23973#0" />
+            <element signature="e#24013#25404#0" />
+            <element signature="e#25453#28157#0" />
+            <element signature="e#28195#29896#0" />
+            <element signature="e#29933#33516#0" />
+            <element signature="e#33553#34938#0" />
+            <element signature="e#34975#37638#0" />
+            <element signature="e#37678#40527#0" />
+            <element signature="e#40565#44533#0" />
+            <element signature="e#44575#46016#0" />
+            <element signature="e#46057#47237#0" />
+            <element signature="e#47275#48968#0" />
+            <element signature="e#49002#50489#0" />
+            <marker date="1605018318066" expanded="true" signature="50845:50890" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/filmfinder/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="59">
+          <caret line="25" column="62" selection-start-line="25" selection-start-column="62" selection-end-line="25" selection-end-column="62" />
+          <folding>
+            <element signature="e#634#701#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/login/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1692">
-          <caret line="89" column="37" selection-start-line="89" selection-start-column="37" selection-end-line="89" selection-end-column="37" />
+        <state relative-caret-position="398">
+          <caret line="199" column="29" selection-start-line="199" selection-start-column="29" selection-end-line="199" selection-end-column="29" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>
