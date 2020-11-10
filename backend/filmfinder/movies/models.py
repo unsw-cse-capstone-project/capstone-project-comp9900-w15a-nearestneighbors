@@ -42,6 +42,19 @@ class Movie(models.Model):
         ordering = ['name']
 
 
+class MovieFeatures(models.Model):
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    title = models.CharField(max_length=50)
+    bag_of_words = models.TextField(max_length=1000)
+    # models.DecimalField(max_digits=2, decimal_places=1, default=0)
+    # votecount = models.IntegerField(default=0)
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['title']
+
+
 #TODO
 #class User(models.Model)
 
