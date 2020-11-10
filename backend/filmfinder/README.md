@@ -149,7 +149,9 @@ Once a user clicks buttons at index page in the section of "Browse by Director",
 ```json
 {
   "success": true,
-  "msg": "This is login message"
+  "msg": "This is login message",
+  "user_id": a user id,
+  "username": "a username"
 }
 ```
 `"success"` indicates whether a user successfully logged in.
@@ -413,6 +415,23 @@ Note that if the user is logged in, the `"average_rating"` field will exclude re
               ]
     }
   ]
+  "similar_movies": [
+              {
+              "mid": "movie id", 
+              "name": "movie name", 
+              "released_date": "released year", 
+              "poster": "src path of poster", 
+              "average_rating": "latest averaged rating"
+            },
+              {
+              "mid": 5, 
+              "name": "Avengers: Age of Ultron", 
+              "released_date": "2015-05-01T00:00:00Z", 
+              "poster": "src path of poster", 
+              "average_rating": 3.0
+            },
+              ...
+          ]
 }
 ```
 get a movie detail by giving movie_id.
