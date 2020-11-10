@@ -393,18 +393,21 @@ Note that if the user is logged in, the `"average_rating"` field will exclude re
       'average_rating': 4.5,
       'reviews':[
                   {
+                      'user_id': 6,
                       'user_name': '6@6.6',
                       'review_comment': 'I was lucky enough to attend the Marve.....',
                       'rating_number': 4.5,
                       'date': datetime.datetime(2018, 4, 11, 6, 41, 19, tzinfo=<UTC>)
                   },
                   {
+                      'user_id': 5,
                       'user_name': '5@5.5',
                       'review_comment': "'Avengers Assemble' ('The Avengers') is a truly enjoyable superhero film that ....",
                       'rating_number': 5.0,
                       'date': datetime.datetime(2015, 11, 4, 6, 40, 34, tzinfo=<UTC>)
                   },
                   {
+                      'user_id': 7,
                       'user_name': '7@7.7',
                       'review_comment': "I just saw the early screening for San Diego through the top 10 cities on facebook who got them.....",
                       'rating_number': 4.7,
@@ -413,6 +416,23 @@ Note that if the user is logged in, the `"average_rating"` field will exclude re
               ]
     }
   ]
+  "similar_movies": [
+              {
+              "mid": "movie id", 
+              "name": "movie name", 
+              "released_date": "released year", 
+              "poster": "src path of poster", 
+              "average_rating": "latest averaged rating"
+            },
+              {
+              "mid": 5, 
+              "name": "Avengers: Age of Ultron", 
+              "released_date": "2015-05-01T00:00:00Z", 
+              "poster": "src path of poster", 
+              "average_rating": 3.0
+            },
+              ...
+          ]
 }
 ```
 get a movie detail by giving movie_id.
