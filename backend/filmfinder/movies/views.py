@@ -197,7 +197,7 @@ def movie_detail_to_dict(movie_obj, request, num_review):
 
     for review_obj in review_obj_list.order_by('-date')[:num_review]:
         review_dict = review_to_dict(review_obj)
-        del review_dict['user_id']
+        #del review_dict['user_id']
         del review_dict['movie_id']
         del review_dict['movie_name']
         movie_dict['reviews'].append(review_dict)
