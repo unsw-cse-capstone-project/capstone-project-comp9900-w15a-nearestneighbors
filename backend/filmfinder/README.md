@@ -671,14 +671,16 @@ Once successfully fetch needed information from database, ***`top_reviews` will 
                     "name": "The Avengers",
                     "region": "United States",
                     "released_date": "2012-05-04T12:00:00Z",
-                    "average_rating": 3.8
+                    "average_rating": 3.8,
+                    "poster": "..."
                   },
                   {
                     "mid": 5,
                     "name": "Avengers: Age of Ultron",
                     "region": "United States",
                     "released_date": "2015-05-01T00:00:00Z",
-                    "average_rating": 3.0
+                    "average_rating": 3.0,
+                    "poster": "..."
                   }
                 ]
 }
@@ -689,6 +691,7 @@ get all movies in wishlist of the current user.
 2. `{"success": true, "msg": "successfully get wishlist of the current user", "wishlist":[...]}` means successfully get wishlist of the current user
 
 ***:bangbang: Probs need to sort movies. :bangbang:***
+solved: sort the current user's wishlist by movie name
 
 ***:bangbang: Probs need movie posters in wishlist. Wishlist may need a date for every record so that can be sorted. :bangbang:***
 
