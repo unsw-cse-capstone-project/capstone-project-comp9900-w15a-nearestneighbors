@@ -1,0 +1,17 @@
+from login.models import User
+from movies.models import Movie, Wish_list
+import numpy as np
+
+
+def run():
+    for uid in range(1, 23):
+        uid = set(np.random.randint(low=1, high=23, size=12))
+        movie_obj = Movie.objects.get(mid=mid)
+        for user in uid:
+            user_obj = User.objects.get(uid=user)
+            try:
+                Wish_list.objects.create(movie=movie_obj, user=user_obj)
+            except:
+                continue
+
+    print('DONE')
