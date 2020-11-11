@@ -5,7 +5,7 @@ import numpy as np
 
 def run():
     for mid in range(4, 216):
-        uid = set(np.random.randint(low=1, high=23, size=12))
+        uid = set(np.random.randint(low=24, high=53, size=12))
         movie_obj = Movie.objects.get(mid=mid)
         for user in uid:
             user_obj = User.objects.get(uid=user)
