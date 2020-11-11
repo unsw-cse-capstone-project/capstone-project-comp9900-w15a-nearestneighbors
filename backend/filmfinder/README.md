@@ -1023,14 +1023,16 @@ remove banned_user given by banned_user_id from user's blacklist.
                     "name": "name fo the movie",
                     "region": "movie's region",
                     "released_date": "date the movie released",
-                    "average_rating": a rating number from 0 to 5, with one decimal digit
+                    "average_rating": a rating number from 0 to 5, with one decimal digit,
+                    "poster": "..."
                   },
                   {
                     "mid": 5,
                     "name": "Avengers: Age of Ultron",
                     "region": "United States",
                     "released_date": "2015-05-01T00:00:00Z",
-                    "average_rating": 3.0
+                    "average_rating": 3.0,
+                    "poster": "..."
                   },
                   ...
               ]
@@ -1105,14 +1107,16 @@ add user, that the current user doesn't like, given by banned_user_id, to the cu
                     "name": "The Avengers",
                     "region": "United States",
                     "released_date": "2012-05-04T12:00:00Z",
-                    "average_rating": 3.8
+                    "average_rating": 3.8,
+                    "poster": "..."
                   },
                   {
                     "mid": 5,
                     "name": "Avengers: Age of Ultron",
                     "region": "United States",
                     "released_date": "2015-05-01T00:00:00Z",
-                    "average_rating": 3.0
+                    "average_rating": 3.0,
+                    "poster": "..."
                   },
                   ...
                 ]
