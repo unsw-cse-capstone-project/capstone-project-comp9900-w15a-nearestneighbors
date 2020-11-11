@@ -1,7 +1,8 @@
-from movies.models import MovieFeatures
-import pandas as pd
-from django_pandas.io import read_frame
+import numpy as np
 
-def run():
-    df = read_frame(MovieFeatures.objects.all())
-    print(df)
+
+parent1 = [1, 2, 3, 4]
+parent2 = [11, 12, 13, 14]
+result = np.random.choice(np.concatenate([parent1,parent2]), len(parent1) + len(parent2), replace=False)
+
+print(result)

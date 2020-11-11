@@ -18,6 +18,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from django_pandas.io import read_frame
 import pandas as pd
+import numpy as np
 
 
 '''internal function'''
@@ -365,7 +366,24 @@ def detail_view(request):
             data['success'] = True
             data['msg'] = 'found movie with movie_id: ' + str(movie_id)
             data['movie'].append(movie_detail_to_dict(movie_obj, request, num_review=5))
-            similar_list = similar_movie(movie_obj.name, [])
+            review_and_wishlist = []
+            # Check if user has logged in
+            if request.session.get('login_flag', None):
+                try:
+                    username = request.session['name']
+                    uid = login.models.User.objects.get(name=username).uid
+                except:
+                    similar_list = similar_movie(movie_obj.name, [])
+
+                review_ids = list(models.Review.objects.filter(user_id=uid).values_list('movie_id', flat=True))
+                review_names = list(models.Movie.objects.filter(mid__in=review_ids).values_list('name', flat=True))
+                wishlist_ids = list(models.Wish_list.objects.filter(user_id=uid).values_list('movie_id', flat=True))
+                wishlist_names = list(models.Movie.objects.filter(mid__in=wishlist_ids).values_list('name', flat=True))
+                names_list = np.random.choice(np.concatenate([review_names, wishlist_names]),
+                                              len(review_names) + len(wishlist_names), replace=False)
+            else:
+                names_list = []
+            similar_list = similar_movie(movie_obj.name, names_list)
             data['similar_movies'] = list(models.Movie.objects.filter(name__in=similar_list).values('mid', 'name', 'released_date', 'poster', 'average_rating'))
             return JsonResponse(data)
             
@@ -374,8 +392,7 @@ def detail_view(request):
         return JsonResponse(data)
 
 
-def similar_movie(movie_title, wishlist_names):
-
+def similar_movie(movie_title, names_list):
     df = read_frame(models.MovieFeatures.objects.all())
     count = CountVectorizer()
     count_matrix = count.fit_transform(df['bag_of_words'])
@@ -393,8 +410,13 @@ def similar_movie(movie_title, wishlist_names):
 
         return recommended_movies
 
-    similar_movies = recommend(movie_title)
-    return similar_movies
+    if names_list:
+        similar_movies = []
+        for name in names_list:
+            similar_movies.extend(recommend(name))
+        return similar_movies[:10]
+    else:
+        return recommend(movie_title)
 
 
 
