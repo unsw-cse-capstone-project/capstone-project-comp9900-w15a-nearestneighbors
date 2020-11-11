@@ -916,15 +916,18 @@ Note that only review_comment and rating_number are editable.
   "bannedlist":[
                   {
                     "uid": 2,
-                    "name": "holly@123.com"
+                    "name": "holly@123.com",
+                    "profile_photo": "..."
                   },
                   {
                     "uid": 6,
-                    "name": "6@6.6"
+                    "name": "6@6.6",
+                    "profile_photo": "..."
                   },
                   {
                     "uid": 7,
-                    "name": "7@7.7"
+                    "name": "7@7.7",
+                    "profile_photo": "..."
                   }
                 ]
 }
