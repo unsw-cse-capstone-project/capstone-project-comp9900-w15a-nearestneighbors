@@ -38,6 +38,7 @@ work diary directory contains each team member's work diary, using zID to name t
         (your_venv)$ pip install numpy
         (your_venv)$ pip install django-pandas
         (your_venv)$ pip install rake-nltk
+        (your_venv)$ pip install funkybob
 ```
 8.  Now you can run the server by 
 ```
