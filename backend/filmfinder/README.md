@@ -626,14 +626,16 @@ Note that if the user is logged in, the `"reviews"` field will exclude reviews g
                     "name": "name fo the movie",
                     "region": "movie's region",
                     "released_date": "date the movie released",
-                    "average_rating": a rating number from 0 to 5, with one decimal digit
+                    "average_rating": a rating number from 0 to 5, with one decimal digit,
+                    "poster": "..."
                   },
                   {
                     "mid": 5,
                     "name": "Avengers: Age of Ultron",
                     "region": "United States",
                     "released_date": "2015-05-01T00:00:00Z",
-                    "average_rating": 3.0
+                    "average_rating": 3.0,
+                    "poster": "..."
                   },
                   ...
               ]
