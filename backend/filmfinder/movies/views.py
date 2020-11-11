@@ -500,8 +500,8 @@ def my_wishlist_view(request):
         data['success'] = True
         data['msg'] = 'successfully get wishlist of the current user'
         
-        movie_id_list = list(models.Wish_list.objects.filter(user__exact = user_obj).values_list('movie_id',flat = True))
-        useful_keys = {'mid','name','region','released_date','average_rating'}
+        movie_id_list = list(models.Wish_list.objects.filter(user__exact = user_obj).order_by('movie').values_list('movie_id',flat = True))
+        useful_keys = {'mid','name','region','released_date','average_rating','poster'}
         for mid in movie_id_list:
             movie_obj = models.Movie.objects.get(mid = mid)
             movie_dict = movie_to_dict(movie_obj,request)
