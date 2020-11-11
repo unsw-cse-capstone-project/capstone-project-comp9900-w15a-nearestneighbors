@@ -263,7 +263,7 @@ def similar_movie(movie_title, names_list):
         return recommended_movies
 
     # check if name_list is empty
-    if names_list:
+    if len(names_list) > 0:
         similar_movies = []
         for name in names_list:
             similar_movies.extend(recommend(name))
