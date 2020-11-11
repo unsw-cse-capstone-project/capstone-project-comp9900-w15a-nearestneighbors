@@ -20,7 +20,6 @@ def index_view(request):
             'username': request.session.get('name'),
             'most_popular': []
         }
-        return JsonResponse(data)
     else:
         data = {
             'login_flag': False,

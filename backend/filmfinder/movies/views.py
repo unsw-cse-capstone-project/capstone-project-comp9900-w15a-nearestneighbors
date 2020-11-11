@@ -365,7 +365,7 @@ def detail_view(request):
             data['success'] = True
             data['msg'] = 'found movie with movie_id: ' + str(movie_id)
             data['movie'].append(movie_detail_to_dict(movie_obj, request, num_review=5))
-            similar_list = similar_movie(movie_obj.name)
+            similar_list = similar_movie(movie_obj.name, [])
             data['similar_movies'] = list(models.Movie.objects.filter(name__in=similar_list).values('mid', 'name', 'released_date', 'poster', 'average_rating'))
             return JsonResponse(data)
             
@@ -374,7 +374,7 @@ def detail_view(request):
         return JsonResponse(data)
 
 
-def similar_movie(movie_title):
+def similar_movie(movie_title, wishlist_names):
 
     df = read_frame(models.MovieFeatures.objects.all())
     count = CountVectorizer()
