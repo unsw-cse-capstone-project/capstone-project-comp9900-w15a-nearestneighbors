@@ -1,0 +1,668 @@
+genreID,GenreName,movieID
+28,Action,19995
+28,Action,285
+28,Action,206647
+28,Action,49026
+28,Action,49529
+28,Action,559
+28,Action,99861
+28,Action,209112
+28,Action,1452
+28,Action,10764
+28,Action,58
+28,Action,57201
+28,Action,49521
+28,Action,24428
+28,Action,1865
+28,Action,41154
+28,Action,122917
+28,Action,1930
+28,Action,20662
+28,Action,254
+28,Action,271110
+28,Action,44833
+28,Action,135397
+28,Action,37724
+28,Action,558
+28,Action,68721
+28,Action,36668
+28,Action,8373
+28,Action,91314
+28,Action,102382
+28,Action,20526
+28,Action,44912
+28,Action,534
+28,Action,168259
+28,Action,72190
+28,Action,127585
+28,Action,54138
+28,Action,81005
+28,Action,9543
+28,Action,68726
+28,Action,38356
+28,Action,217
+28,Action,62177
+28,Action,188927
+28,Action,5174
+28,Action,14161
+28,Action,76757
+28,Action,258489
+28,Action,155
+28,Action,1726
+28,Action,8487
+28,Action,1735
+28,Action,297761
+28,Action,137113
+28,Action,9804
+28,Action,14869
+28,Action,10138
+28,Action,102651
+28,Action,119450
+28,Action,79698
+28,Action,64686
+28,Action,100402
+28,Action,177572
+28,Action,47933
+28,Action,296
+28,Action,118340
+28,Action,27205
+28,Action,315011
+28,Action,49051
+28,Action,9799
+28,Action,49538
+28,Action,131634
+28,Action,27022
+28,Action,503
+28,Action,68735
+28,Action,87101
+28,Action,1858
+28,Action,1966
+28,Action,8960
+28,Action,6479
+28,Action,272
+28,Action,18360
+28,Action,2080
+28,Action,605
+28,Action,604
+28,Action,76338
+28,Action,76341
+28,Action,10195
+28,Action,19585
+28,Action,177677
+28,Action,10196
+28,Action,956
+28,Action,117251
+28,Action,36669
+28,Action,43074
+28,Action,95
+28,Action,608
+28,Action,2310
+28,Action,140300
+28,Action,56292
+28,Action,616
+28,Action,147441
+28,Action,13475
+28,Action,557
+28,Action,82702
+28,Action,10048
+28,Action,13183
+28,Action,944
+28,Action,1927
+28,Action,72559
+28,Action,7364
+28,Action,2114
+28,Action,1771
+28,Action,36643
+28,Action,1724
+28,Action,2503
+28,Action,102899
+28,Action,101299
+28,Action,8961
+28,Action,417859
+28,Action,27576
+28,Action,82700
+28,Action,38055
+28,Action,49524
+28,Action,22
+12,Adventure,19995
+12,Adventure,285
+12,Adventure,206647
+12,Adventure,49529
+12,Adventure,559
+12,Adventure,99861
+12,Adventure,767
+12,Adventure,209112
+12,Adventure,1452
+12,Adventure,10764
+12,Adventure,58
+12,Adventure,57201
+12,Adventure,49521
+12,Adventure,2454
+12,Adventure,24428
+12,Adventure,1865
+12,Adventure,122917
+12,Adventure,1930
+12,Adventure,20662
+12,Adventure,57158
+12,Adventure,2268
+12,Adventure,254
+12,Adventure,271110
+12,Adventure,44833
+12,Adventure,135397
+12,Adventure,37724
+12,Adventure,558
+12,Adventure,68721
+12,Adventure,12155
+12,Adventure,36668
+12,Adventure,8373
+12,Adventure,91314
+12,Adventure,68728
+12,Adventure,102382
+12,Adventure,20526
+12,Adventure,49013
+12,Adventure,44912
+12,Adventure,127585
+12,Adventure,54138
+12,Adventure,9543
+12,Adventure,68726
+12,Adventure,38356
+12,Adventure,217
+12,Adventure,105864
+12,Adventure,62177
+12,Adventure,188927
+12,Adventure,14161
+12,Adventure,76757
+12,Adventure,258489
+12,Adventure,411
+12,Adventure,14160
+12,Adventure,15512
+12,Adventure,1726
+12,Adventure,44826
+12,Adventure,8487
+12,Adventure,1735
+12,Adventure,297761
+12,Adventure,9804
+12,Adventure,14869
+12,Adventure,278927
+12,Adventure,10138
+12,Adventure,58595
+12,Adventure,102651
+12,Adventure,79698
+12,Adventure,64686
+12,Adventure,100402
+12,Adventure,10192
+12,Adventure,158852
+12,Adventure,177572
+12,Adventure,82690
+12,Adventure,5255
+12,Adventure,47933
+12,Adventure,10191
+12,Adventure,118340
+12,Adventure,157336
+12,Adventure,27205
+12,Adventure,315011
+12,Adventure,49051
+12,Adventure,49538
+12,Adventure,131634
+12,Adventure,27022
+12,Adventure,503
+12,Adventure,810
+12,Adventure,68735
+12,Adventure,87101
+12,Adventure,10140
+12,Adventure,1858
+12,Adventure,1966
+12,Adventure,675
+12,Adventure,674
+12,Adventure,118
+12,Adventure,18360
+12,Adventure,2080
+12,Adventure,605
+12,Adventure,109445
+12,Adventure,604
+12,Adventure,76338
+12,Adventure,76341
+12,Adventure,10195
+12,Adventure,13053
+12,Adventure,19585
+12,Adventure,57165
+12,Adventure,177677
+12,Adventure,5559
+12,Adventure,10196
+12,Adventure,956
+12,Adventure,50321
+12,Adventure,11619
+12,Adventure,266647
+12,Adventure,82703
+12,Adventure,652
+12,Adventure,36669
+12,Adventure,95
+12,Adventure,608
+12,Adventure,2310
+12,Adventure,140300
+12,Adventure,56292
+12,Adventure,147441
+12,Adventure,13475
+12,Adventure,82702
+12,Adventure,944
+12,Adventure,72559
+12,Adventure,7364
+12,Adventure,2114
+12,Adventure,1771
+12,Adventure,36643
+12,Adventure,8619
+12,Adventure,50620
+12,Adventure,1724
+12,Adventure,267935
+12,Adventure,281957
+12,Adventure,44896
+12,Adventure,270946
+12,Adventure,9502
+12,Adventure,102899
+12,Adventure,101299
+12,Adventure,74
+12,Adventure,8961
+12,Adventure,417859
+12,Adventure,86834
+12,Adventure,17578
+12,Adventure,673
+12,Adventure,82700
+12,Adventure,181533
+12,Adventure,671
+12,Adventure,22
+14,Fantasy,19995
+14,Fantasy,285
+14,Fantasy,559
+14,Fantasy,767
+14,Fantasy,209112
+14,Fantasy,1452
+14,Fantasy,58
+14,Fantasy,49521
+14,Fantasy,2454
+14,Fantasy,1865
+14,Fantasy,122917
+14,Fantasy,1930
+14,Fantasy,57158
+14,Fantasy,2268
+14,Fantasy,558
+14,Fantasy,12155
+14,Fantasy,68728
+14,Fantasy,102382
+14,Fantasy,127585
+14,Fantasy,81005
+14,Fantasy,9543
+14,Fantasy,62177
+14,Fantasy,76757
+14,Fantasy,411
+14,Fantasy,1735
+14,Fantasy,297761
+14,Fantasy,2698
+14,Fantasy,278927
+14,Fantasy,58595
+14,Fantasy,102651
+14,Fantasy,64686
+14,Fantasy,10192
+14,Fantasy,5255
+14,Fantasy,10191
+14,Fantasy,49051
+14,Fantasy,4922
+14,Fantasy,27022
+14,Fantasy,241259
+14,Fantasy,810
+14,Fantasy,68735
+14,Fantasy,10140
+14,Fantasy,675
+14,Fantasy,674
+14,Fantasy,8960
+14,Fantasy,118
+14,Fantasy,2062
+14,Fantasy,18360
+14,Fantasy,76338
+14,Fantasy,10195
+14,Fantasy,19585
+14,Fantasy,62213
+14,Fantasy,10196
+14,Fantasy,266647
+14,Fantasy,43074
+14,Fantasy,81188
+14,Fantasy,557
+14,Fantasy,82702
+14,Fantasy,205584
+14,Fantasy,2114
+14,Fantasy,50620
+14,Fantasy,267935
+14,Fantasy,228161
+14,Fantasy,417859
+14,Fantasy,673
+14,Fantasy,181533
+14,Fantasy,671
+14,Fantasy,49524
+14,Fantasy,22
+878,Science Fiction,19995
+878,Science Fiction,49529
+878,Science Fiction,99861
+878,Science Fiction,1452
+878,Science Fiction,49521
+878,Science Fiction,24428
+878,Science Fiction,41154
+878,Science Fiction,271110
+878,Science Fiction,44833
+878,Science Fiction,135397
+878,Science Fiction,68721
+878,Science Fiction,36668
+878,Science Fiction,8373
+878,Science Fiction,91314
+878,Science Fiction,20526
+878,Science Fiction,44912
+878,Science Fiction,534
+878,Science Fiction,72190
+878,Science Fiction,127585
+878,Science Fiction,54138
+878,Science Fiction,68726
+878,Science Fiction,38356
+878,Science Fiction,188927
+878,Science Fiction,14161
+878,Science Fiction,76757
+878,Science Fiction,246655
+878,Science Fiction,15512
+878,Science Fiction,1726
+878,Science Fiction,8487
+878,Science Fiction,297761
+878,Science Fiction,137113
+878,Science Fiction,14869
+878,Science Fiction,10138
+878,Science Fiction,119450
+878,Science Fiction,79698
+878,Science Fiction,100402
+878,Science Fiction,158852
+878,Science Fiction,47933
+878,Science Fiction,296
+878,Science Fiction,118340
+878,Science Fiction,157336
+878,Science Fiction,27205
+878,Science Fiction,315011
+878,Science Fiction,49538
+878,Science Fiction,131634
+878,Science Fiction,87101
+878,Science Fiction,1858
+878,Science Fiction,6479
+878,Science Fiction,2080
+878,Science Fiction,605
+878,Science Fiction,604
+878,Science Fiction,76341
+878,Science Fiction,95
+878,Science Fiction,608
+878,Science Fiction,13475
+878,Science Fiction,13183
+878,Science Fiction,1927
+878,Science Fiction,72559
+878,Science Fiction,2114
+878,Science Fiction,1771
+878,Science Fiction,1724
+878,Science Fiction,102899
+878,Science Fiction,101299
+878,Science Fiction,228161
+878,Science Fiction,74
+878,Science Fiction,82700
+878,Science Fiction,38055
+80,Crime,206647
+80,Crime,49026
+80,Crime,10764
+80,Crime,5174
+80,Crime,155
+80,Crime,297761
+80,Crime,9799
+80,Crime,272
+80,Crime,944
+80,Crime,8961
+80,Crime,49524
+18,Drama,49026
+18,Drama,254
+18,Drama,597
+18,Drama,72190
+18,Drama,64682
+18,Drama,17979
+18,Drama,155
+18,Drama,44826
+18,Drama,150540
+18,Drama,278927
+18,Drama,58595
+18,Drama,119450
+18,Drama,64686
+18,Drama,157336
+18,Drama,315011
+18,Drama,4922
+18,Drama,27022
+18,Drama,503
+18,Drama,1966
+18,Drama,6479
+18,Drama,272
+18,Drama,7978
+18,Drama,117251
+18,Drama,652
+18,Drama,616
+18,Drama,147441
+18,Drama,1927
+18,Drama,7364
+18,Drama,50620
+18,Drama,281957
+18,Drama,2503
+18,Drama,86834
+18,Drama,6972
+53,Thriller,49026
+53,Thriller,10764
+53,Thriller,597
+53,Thriller,44833
+53,Thriller,135397
+53,Thriller,37724
+53,Thriller,36668
+53,Thriller,44912
+53,Thriller,534
+53,Thriller,72190
+53,Thriller,5174
+53,Thriller,155
+53,Thriller,14869
+53,Thriller,119450
+53,Thriller,296
+53,Thriller,27205
+53,Thriller,9799
+53,Thriller,4922
+53,Thriller,503
+53,Thriller,87101
+53,Thriller,6479
+53,Thriller,2080
+53,Thriller,605
+53,Thriller,604
+53,Thriller,76341
+53,Thriller,13448
+53,Thriller,177677
+53,Thriller,7978
+53,Thriller,956
+53,Thriller,117251
+53,Thriller,36669
+53,Thriller,95
+53,Thriller,56292
+53,Thriller,944
+53,Thriller,72559
+53,Thriller,2114
+53,Thriller,36643
+53,Thriller,281957
+53,Thriller,2503
+53,Thriller,74
+53,Thriller,8961
+53,Thriller,27576
+16,Animation,38757
+16,Animation,62211
+16,Animation,49013
+16,Animation,10193
+16,Animation,105864
+16,Animation,62177
+16,Animation,10681
+16,Animation,17979
+16,Animation,14160
+16,Animation,15512
+16,Animation,150540
+16,Animation,10192
+16,Animation,177572
+16,Animation,82690
+16,Animation,5255
+16,Animation,10191
+16,Animation,810
+16,Animation,2062
+16,Animation,10527
+16,Animation,109445
+16,Animation,13053
+16,Animation,5559
+16,Animation,49444
+16,Animation,50321
+16,Animation,11619
+16,Animation,82703
+16,Animation,80321
+16,Animation,2310
+16,Animation,140300
+16,Animation,81188
+16,Animation,82702
+16,Animation,2114
+16,Animation,65759
+16,Animation,77950
+16,Animation,44896
+16,Animation,270946
+16,Animation,9502
+16,Animation,228161
+16,Animation,417859
+16,Animation,17578
+16,Animation,10567
+16,Animation,38055
+10751,Family,38757
+10751,Family,767
+10751,Family,2454
+10751,Family,12155
+10751,Family,62211
+10751,Family,68728
+10751,Family,49013
+10751,Family,10193
+10751,Family,81005
+10751,Family,105864
+10751,Family,62177
+10751,Family,10681
+10751,Family,411
+10751,Family,14160
+10751,Family,15512
+10751,Family,44826
+10751,Family,2698
+10751,Family,150540
+10751,Family,278927
+10751,Family,102651
+10751,Family,10192
+10751,Family,158852
+10751,Family,177572
+10751,Family,82690
+10751,Family,5255
+10751,Family,10191
+10751,Family,810
+10751,Family,10140
+10751,Family,675
+10751,Family,674
+10751,Family,118
+10751,Family,2062
+10751,Family,10527
+10751,Family,18360
+10751,Family,109445
+10751,Family,13053
+10751,Family,19585
+10751,Family,5559
+10751,Family,49444
+10751,Family,10196
+10751,Family,50321
+10751,Family,11619
+10751,Family,266647
+10751,Family,82703
+10751,Family,80321
+10751,Family,140300
+10751,Family,81188
+10751,Family,82702
+10751,Family,65759
+10751,Family,267935
+10751,Family,77950
+10751,Family,44896
+10751,Family,270946
+10751,Family,9502
+10751,Family,228161
+10751,Family,417859
+10751,Family,673
+10751,Family,10567
+10751,Family,181533
+10751,Family,38055
+10751,Family,671
+37,Western,57201
+37,Western,8487
+37,Western,281957
+37,Western,44896
+35,Comedy,41154
+35,Comedy,49013
+35,Comedy,10193
+35,Comedy,62177
+35,Comedy,5174
+35,Comedy,14160
+35,Comedy,8487
+35,Comedy,2698
+35,Comedy,150540
+35,Comedy,10192
+35,Comedy,177572
+35,Comedy,82690
+35,Comedy,27022
+35,Comedy,810
+35,Comedy,118
+35,Comedy,2062
+35,Comedy,18360
+35,Comedy,13053
+35,Comedy,19585
+35,Comedy,62213
+35,Comedy,5559
+35,Comedy,11619
+35,Comedy,43074
+35,Comedy,608
+35,Comedy,140300
+35,Comedy,7552
+35,Comedy,82702
+35,Comedy,944
+35,Comedy,7364
+35,Comedy,65759
+35,Comedy,44896
+35,Comedy,270946
+35,Comedy,9502
+35,Comedy,228161
+35,Comedy,8961
+35,Comedy,181533
+35,Comedy,38055
+35,Comedy,49524
+10749,Romance,597
+10749,Romance,64682
+10749,Romance,9543
+10749,Romance,102651
+10749,Romance,79698
+10749,Romance,4922
+10749,Romance,676
+10749,Romance,1966
+10749,Romance,50620
+27,Horror,72190
+27,Horror,315011
+27,Horror,6479
+27,Horror,7978
+9648,Mystery,158852
+9648,Mystery,27205
+9648,Mystery,4922
+9648,Mystery,675
+9648,Mystery,13448
+9648,Mystery,13183
+9648,Mystery,7364
+9648,Mystery,2503
+9648,Mystery,27576
+9648,Mystery,17578
+36,History,676
+36,History,1966
+36,History,616
+10752,War,676
+10752,War,1966
+10752,War,652
+10752,War,616
