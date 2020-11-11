@@ -713,7 +713,7 @@ def my_bannedlist_view(request):
         data['msg'] = 'successfully get blacklist of the current user'
         
         banned_user_obj_list = get_banned_user_obj_list(user_obj)
-        data['bannedlist'] = [{"uid":banned_user_obj.uid, "name":banned_user_obj.name} for banned_user_obj in banned_user_obj_list]
+        data['bannedlist'] = [{"uid":banned_user_obj.uid, "name":banned_user_obj.name, "profile_photo":str(banned_user_obj.profile_photo)} for banned_user_obj in banned_user_obj_list]
         return JsonResponse(data)
         
     else:

@@ -703,7 +703,7 @@ solved: sort the current user's wishlist by movie name
 
 **Author**: ZIJIAN SHEN
 
-**Url**: http://127.0.0.1:8000/my_page/remove_from_wishlist/
+**Url**: http://127.0.0.1:8000/my_page/my_wishlist/remove_from_wishlist/
 
 **Request Method**: GET
 
