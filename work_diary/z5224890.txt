@@ -24,4 +24,7 @@ week 7
 build Django project, write temporary database in Django and write some code returning all movies abstract information, some code returning detail information for single movie.
 
 week 8 
-write more functions, e.g. create a new review. fix some tiny bug for previous code.TODO
+write more functions, e.g. create a new review. fix some tiny bug for previous code, write document explaining API design
+
+week 9
+work with Patrick to complete backend code and document, write report
