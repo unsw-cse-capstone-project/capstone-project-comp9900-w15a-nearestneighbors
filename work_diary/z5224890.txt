@@ -21,10 +21,10 @@ week 6
 write retrospective A, learn more about Django, learn Json and learn how to write backend functions interacting with frontend.
 
 week 7
-build Django project, write temporary database in Django and write some code returning all movies abstract information, some code returning detail information for single movie.
+build Django project, write temporary test database in Django and write some code returning all movies abstract information, some code returning detail information for single movie.
 
 week 8 
-write more functions, e.g. create a new review. fix some tiny bug for previous code, write document explaining API design
+write a lot more functions, e.g. create a new review, edit review, get users blacklist, get users wishlist.... fix some tiny bug for previous code, write document explaining API design
 
 week 9
-work with Patrick to complete backend code and document, write report
+work with Patrick to complete backend code and document, check all APIs working correctly, write report
