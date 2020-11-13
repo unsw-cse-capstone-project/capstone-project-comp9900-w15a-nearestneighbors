@@ -5,7 +5,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #3C57FC;
+  background: url("../img/login.jpg") no-repeat;
+  background-size: cover;
 }
 
 .wp100 {
