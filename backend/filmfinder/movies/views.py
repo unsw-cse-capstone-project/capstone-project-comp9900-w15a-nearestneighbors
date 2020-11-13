@@ -1802,7 +1802,7 @@ def others_page_view(request):
                                     "movie_name": "The Avengers",
                                     "review_comment": "bad movie for movie_id = 4",
                                     "rating_number": 1.0,
-                                    "date": "2020-11-05T08:13:28.537Z"
+                                    "date": "2020-11-05T08:13:28.537Z",
                                   },
                                   ...
                                 ],
@@ -1812,14 +1812,16 @@ def others_page_view(request):
                                     "name": "name fo the movie",
                                     "region": "movie's region",
                                     "released_date": "date the movie released",
-                                    "average_rating": a rating number from 0 to 5, with one decimal digit
+                                    "average_rating": a rating number from 0 to 5, with one decimal digit,
+                                    "poster": "a src path of the movie poster"
                                   },
                                   {
                                     "mid": 5,
                                     "name": "Avengers: Age of Ultron",
                                     "region": "United States",
                                     "released_date": "2015-05-01T00:00:00Z",
-                                    "average_rating": 3.0
+                                    "average_rating": 3.0,
+                                    "poster": "a src path of the movie poster"
                                   },
                                   ...
                               ]
@@ -1875,8 +1877,8 @@ def others_page_view(request):
 
         movie_ids = list(models.User.objects.get(name=username).wish_list_set.values('movie')[:5])
         movie_ids = [e['movie'] for e in movie_ids]
-        if movie_ids:
-            data['wishlist'] = list(models.Movie.objects.filter(mid__in=movie_ids).values('mid', 'name', 'region', 'released_date','average_rating','poster')[:5])
+        if len(movie_ids) > 0:
+            data['wishlist'] = list(models.Movie.objects.filter(mid__in=movie_ids).values('mid', 'name', 'region', 'released_date', 'average_rating', 'poster')[:5])
 
         return JsonResponse(data)
     else:
@@ -1987,8 +1989,8 @@ def my_page_view(request):
             data['top_reviews'].append(review_to_dict(review_obj))
         movie_ids = list(models.User.objects.get(name=username).wish_list_set.values('movie')[:5])
         movie_ids = [e['movie'] for e in movie_ids]
-        if movie_ids:
-            data['wishlist'] = list(models.Movie.objects.filter(mid__in=movie_ids).values('mid', 'name', 'region', 'released_date','average_rating','poster')[:5])
+        if len(movie_ids) > 0:
+            data['wishlist'] = list(models.Movie.objects.filter(mid__in=movie_ids).values('mid', 'name', 'region', 'released_date', 'average_rating', 'poster')[:5])
 
         return JsonResponse(data)
 
