@@ -10,3 +10,8 @@
 .main-list .ant-card-meta-title {
   min-height: 50px;
 }
+
+.main-list {
+  width: 1600px;
+  margin: 0 auto;
+}

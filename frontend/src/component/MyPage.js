@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Row, Col, Card, message, Button,Breadcrumb, Empty } from 'antd';
+import { Row, Col, Card, message, Button,Breadcrumb, Empty, Avatar, Image } from 'antd';
 import styles from "../app.module.css";
 import api from "../api";
 import Header from './Cheader';
@@ -53,6 +53,10 @@ function MyPage(props) {
           </Breadcrumb>
           <div >
             <h1>
+              <Avatar
+                src={userInfo.profile_photo}
+                alt="user avatar"
+              />
               <span>{ userInfo.username }</span>
 
               <Button type="link" onClick={() => gotoMyBlackList(props)}>My BlackList</Button>
@@ -79,10 +83,13 @@ function MyPage(props) {
 
             <Row justify="space-around" style={{marginBottom: '20px', width: '1024px', overflowX: 'auto'}}>
               {
-                (userInfo.wishlist || []).map(({ name, poster = 'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png' }) => {
+                (userInfo.wishlist || []).map(({ name, mid, poster = 'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png' }) => {
                   return <Col key={name}>
                     <Card
                       hoverable
+                      onClick={() => {
+                        props.history.push('/detail/' + mid);
+                      }}
                       className={styles.wd}
                       cover={<img alt="example" src={poster}/>}
                     >

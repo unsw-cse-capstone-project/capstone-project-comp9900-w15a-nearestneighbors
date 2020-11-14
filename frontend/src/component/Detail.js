@@ -117,7 +117,6 @@ function Detail(props) {
             <Descriptions.Item label="Film Name">{ detail.name }</Descriptions.Item>
             <Descriptions.Item label="Director">{ detail.director }</Descriptions.Item>
             <Descriptions.Item label="Genre">{ (detail.genre || []).join(' , ') }</Descriptions.Item>
-            <Descriptions.Item label="Cast">{ (detail.cast || []).join(' , ') }</Descriptions.Item>
             <Descriptions.Item label="Average Rating">{ detail.average_rating }</Descriptions.Item>
             <Descriptions.Item label="">
               <Button type="primary" onClick={addToWishList}>Add to Wishlist</Button>
@@ -192,6 +191,10 @@ function Detail(props) {
               <Col key={mid}>
                 <Card
                   hoverable
+                  onClick={() => {
+                    props.history.push('/detail/' + mid);
+                    document.location.reload();
+                  }}
                   className={styles.wd}
                   cover={<img alt="example" src={poster}/>}
                 >
