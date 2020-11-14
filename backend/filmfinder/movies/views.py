@@ -381,7 +381,15 @@ def search_view(request):
 
         # merge search results
         if by_name:
-            result_id_list = by_name + by_genre + by_director + by_time + by_region
+            # result_id_list = by_name + by_genre + by_director + by_time + by_region
+            set_list = [set(by_name), set(by_genre), set(by_director), set(by_time), set(by_region)]
+            set_list = [s for s in set_list if len(s) != 0]
+            result_id_list = set.intersection(*set_list)
+            if len(result_id_list) == 0:
+                set_list = [set(by_genre), set(by_director), set(by_time), set(by_region)]
+                set_list = [s for s in set_list if len(s) != 0]
+                result_id_list = set.intersection(*set_list)
+                result_id_list = set.union(set(result_id_list), set(by_name))
         else:
             if not by_genre and not by_director and not by_region and not by_time:
                 return JsonResponse(data)
