@@ -9,3 +9,16 @@ Joined Jira and done some work related to project proposal.
 
 Week4:
 Created the database and tables using SqlLite3.
+
+Week5:
+Presented progressive Demo A. Added functions for backend.
+
+Week7:
+Wrote python code for backend design and created tables and functions for database.
+
+Week8:
+Fixed errors in the database backend and processed data and created tables to meet the requirements for django framework.
+
+Week9:
+Added Movie Posters and made changes to the database and Wrote Project report.
+
