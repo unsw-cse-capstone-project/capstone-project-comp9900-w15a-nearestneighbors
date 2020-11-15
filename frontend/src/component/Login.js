@@ -1,14 +1,15 @@
-import { Card, Form, Input,message, Button, Modal } from 'antd';
-import styles from '../css/login.module.css';
-import api from '../api/index.js';
-import { useState } from 'react';
-// 登录组件，处理登录，注册的
+import { Card, Form, Input, message, Button, Modal } from "antd";
+import styles from "../css/login.module.css";
+import api from "../api/index.js";
+import { useState } from "react";
+/* the login and registration page, which is mainly responsible for the login of old users and the registration of new users. 
+   The registration is mainly in the form of mailboxes and requires users to provide some information about themselves. */
 const layout = {
   labelCol: { span: 7 },
   wrapperCol: { span: 25 },
 };
 const tailLayout = {
-  wrapperCol: {  span: 32 },
+  wrapperCol: { span: 32 },
 };
 const formItemLayout = {
   labelCol: {
@@ -22,36 +23,38 @@ const formItemLayout = {
 };
 
 function Login(props) {
-  const onFinish = values => {
-    api.post('/login/', values)
+  const onFinish = (values) => {
+    api
+      .post("/login/", values)
       .then(({ data }) => {
         if (data.success) {
-          props.history.push('/');
+          props.history.push("/");
           localStorage.clear();
-          localStorage.setItem('user', JSON.stringify(data));
+          localStorage.setItem("user", JSON.stringify(data));
         } else {
           message.error(data.msg);
         }
       })
       .catch((e) => {
-        console.log('Success:', values);
+        console.log("Success:", values);
       });
   };
 
   const [visible, setVisible] = useState(false);
   const [form] = Form.useForm();
   const onFinishRegister = (values) => {
-    api.post('/register/', values)
+    api
+      .post("/register/", values)
       .then(({ data }) => {
         if (data.success) {
           setVisible(false);
-          message.success('register success');
+          message.success("register success");
         } else {
           message.error(data.msg);
         }
       })
       .catch((e) => {
-        console.log('Success:', values);
+        console.log("Success:", values);
       });
   };
 
@@ -61,13 +64,13 @@ function Login(props) {
         <Form
           {...layout}
           name="basic"
-          initialValues={{ name: '',  password: '' }}
+          initialValues={{ name: "", password: "" }}
           onFinish={onFinish}
         >
           <Form.Item
             label="Username"
             name="name"
-            rules={[{ required: true, message: 'Please input your username!' }]}
+            rules={[{ required: true, message: "Please input your username!" }]}
           >
             <Input />
           </Form.Item>
@@ -75,7 +78,7 @@ function Login(props) {
           <Form.Item
             label="Password"
             name="password"
-            rules={[{ required: true, message: 'Please input your password!' }]}
+            rules={[{ required: true, message: "Please input your password!" }]}
           >
             <Input.Password />
           </Form.Item>
@@ -84,9 +87,13 @@ function Login(props) {
             <Button type="primary" htmlType="submit" className={styles.wp100}>
               Login
             </Button>
-            <div style={{ textAlign: 'center' }}>
+            <div style={{ textAlign: "center" }}>
               Don't have an account?
-              <Button type="link" htmlType="button" onClick={() => setVisible(true)}>
+              <Button
+                type="link"
+                htmlType="button"
+                onClick={() => setVisible(true)}
+              >
                 Register
               </Button>
             </div>
@@ -112,29 +119,41 @@ function Login(props) {
         >
           <Form.Item
             name="firstname"
-            label={
-              <span>firstname&nbsp;</span>
-            }
-            rules={[{ required: true, message: 'Please input your firstname!', whitespace: true }]}
+            label={<span>firstname&nbsp;</span>}
+            rules={[
+              {
+                required: true,
+                message: "Please input your firstname!",
+                whitespace: true,
+              },
+            ]}
           >
             <Input />
           </Form.Item>
           <Form.Item
             name="lastname"
-            label={
-              <span>lastname&nbsp;</span>
-            }
-            rules={[{ required: true, message: 'Please input your lastname!', whitespace: true }]}
+            label={<span>lastname&nbsp;</span>}
+            rules={[
+              {
+                required: true,
+                message: "Please input your lastname!",
+                whitespace: true,
+              },
+            ]}
           >
             <Input />
           </Form.Item>
 
           <Form.Item
             name="name"
-            label={
-              <span>username&nbsp;</span>
-            }
-            rules={[{ required: true, message: 'Please input your username!', whitespace: true }]}
+            label={<span>username&nbsp;</span>}
+            rules={[
+              {
+                required: true,
+                message: "Please input your username!",
+                whitespace: true,
+              },
+            ]}
           >
             <Input />
           </Form.Item>
@@ -144,12 +163,12 @@ function Login(props) {
             label="E-mail"
             rules={[
               {
-                type: 'email',
-                message: 'The input is not valid E-mail!',
+                type: "email",
+                message: "The input is not valid E-mail!",
               },
               {
                 required: true,
-                message: 'Please input your E-mail!',
+                message: "Please input your E-mail!",
               },
             ]}
           >
@@ -162,7 +181,7 @@ function Login(props) {
             rules={[
               {
                 required: true,
-                message: 'Please input your password!',
+                message: "Please input your password!",
               },
             ]}
             hasFeedback
@@ -173,19 +192,21 @@ function Login(props) {
           <Form.Item
             name="re_password"
             label="Confirm Password"
-            dependencies={['password']}
+            dependencies={["password"]}
             hasFeedback
             rules={[
               {
                 required: true,
-                message: 'Please confirm your password!',
+                message: "Please confirm your password!",
               },
               ({ getFieldValue }) => ({
                 validator(rule, value) {
-                  if (!value || getFieldValue('password') === value) {
+                  if (!value || getFieldValue("password") === value) {
                     return Promise.resolve();
                   }
-                  return Promise.reject('The two passwords that you entered do not match!');
+                  return Promise.reject(
+                    "The two passwords that you entered do not match!"
+                  );
                 },
               }),
             ]}

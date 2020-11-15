@@ -1,49 +1,66 @@
-import { Layout, Input, Space, Card, Row, Col, Rate, message, Spin, Tabs, Select } from "antd";
-import { useState, useMemo } from 'react';
-import styles from './app.module.css';
+import {
+  Layout,
+  Input,
+  Space,
+  Card,
+  Row,
+  Col,
+  Rate,
+  message,
+  Spin,
+  Tabs,
+  Select,
+} from "antd";
+import { useState, useMemo } from "react";
+import styles from "./app.module.css";
 import { useEffect } from "react";
-import api from './api';
-import './css/common.css';
-import Cheader from './component/Cheader';
+import api from "./api";
+import "./css/common.css";
+import Cheader from "./component/Cheader";
+
+/*the main page, which is the movie search page. The first is the display of all the movies, which are displayed in a fixed form on the homepage, 
+  the second is the most popular movies, in the form of adding tags in the upper left corner, users can click on the tags to view the current most popular top10 movies, 
+  and third One is to query according to the recommended query form, such as director or genre.
+*/
 
 const { Footer, Content } = Layout;
 const { Meta } = Card;
 
 const directors = [
-  'Peter Jackson',
-  'Michael Bay',
-  'Steven Spielberg',
-  'Christopher Nolan',
-  'Gore Verbinski',
-  'Sam Raimi',
-  'Bryan Singer',
-  'Quentin Tarantino',
-  'David Yates',
-  'Zack Snyder',
+  "Peter Jackson",
+  "Michael Bay",
+  "Steven Spielberg",
+  "Christopher Nolan",
+  "Gore Verbinski",
+  "Sam Raimi",
+  "Bryan Singer",
+  "Quentin Tarantino",
+  "David Yates",
+  "Zack Snyder",
 ];
 
 const genres = [
-  'Action',
-  'Adventure',
-  'Animation',
-  'Comedy',
-  'Crime',
-  'Drama',
-  'Family',
-  'Fantacy',
-  'Fantasy',
-  'History',
-  'Horror',
-  'Mystery',
-  'Romance',
-  'Science fiction',
-  'Thriller',
-  'War',
-  'Western',
+  "Action",
+  "Adventure",
+  "Animation",
+  "Comedy",
+  "Crime",
+  "Drama",
+  "Family",
+  "Fantacy",
+  "Fantasy",
+  "History",
+  "Horror",
+  "Mystery",
+  "Romance",
+  "Science fiction",
+  "Thriller",
+  "War",
+  "Western",
 ];
 
 /**
- * 切割电影数组为二维数组，方便生成ui的时候遍历
+ * Cut the movie array into a two-dimensional array, which is convenient for traversal when generating ui
  * @param arr
  * @param len
  * @returns {Array}
@@ -60,44 +77,58 @@ function getSlicedArr(arr, len = 5) {
     movies.push(arr);
   }
 
-  return movies
+  return movies;
 }
 
 function genRows(allRowData, props, desc) {
-
   return allRowData.map((singleRow, i) => {
-    return <Row key={i} style={{ marginBottom: '16px' }} className="main-list" gutter={[20,20]}>
-      {
-        singleRow.map(({ name, poster, mid, average_rating, rating }) => {
+    return (
+      <Row
+        key={i}
+        style={{ marginBottom: "16px" }}
+        className="main-list"
+        gutter={[20, 20]}
+      >
+        {singleRow.map(({ name, poster, mid, average_rating, rating }) => {
           return (
-            <Col key={mid} onClick={() => props.history.push('/detail/' + mid)}>
+            <Col key={mid} onClick={() => props.history.push("/detail/" + mid)}>
               <Card
                 hoverable
                 className={styles.wd}
-                cover={<img alt="example" src={poster} style={{ height: '400px' }}/>}
+                cover={
+                  <img alt="example" src={poster} style={{ height: "400px" }} />
+                }
               >
-                <div style={{marginBottom: '8px' }}>
+                <div style={{ marginBottom: "8px" }}>
                   <span>
-                    <Rate disabled value={desc.indexOf(Math.floor(average_rating || rating)) + 1} />
-                    <span className="ant-rate-text">{Number((average_rating || rating)).toFixed(1)}</span>
+                    <Rate
+                      disabled
+                      value={
+                        desc.indexOf(Math.floor(average_rating || rating)) + 1
+                      }
+                    />
+                    <span className="ant-rate-text">
+                      {Number(average_rating || rating).toFixed(1)}
+                    </span>
                   </span>
                 </div>
-                <Meta title={name}/>
+                <Meta title={name} />
               </Card>
             </Col>
           );
-        })
-      }
-    </Row>
+        })}
+      </Row>
+    );
   });
 }
 
 function App(props) {
-  const onSearch = value => {
-    if (value === '') return setSearchValue(!searchValue);
+  const onSearch = (value) => {
+    if (value === "") return setSearchValue(!searchValue);
 
     setSpinning(true);
-    api.get('/search/', { params: { search: value } })
+    api
+      .get("/search/", { params: { search: value } })
       .then(({ data }) => {
         setSpinning(false);
         if (data.success) {
@@ -109,19 +140,20 @@ function App(props) {
       .catch((e) => {
         setSpinning(false);
         console.log(e);
-      })
+      });
   };
   const desc = useMemo(() => [1, 2, 3, 4, 5], []);
   const [moves, setMovies] = useState([]);
   const [searchValue, setSearchValue] = useState(false);
   const [spinning, setSpinning] = useState(true);
-  const [currentTab, setCurrentTab] = useState('1');
-  const [genre, setGen] = useState('Action');
-  const [director, setDir] = useState('Peter Jackson');
+  const [currentTab, setCurrentTab] = useState("1");
+  const [genre, setGen] = useState("Action");
+  const [director, setDir] = useState("Peter Jackson");
 
   const getMovies = () => {
     setSpinning(true);
-    api.get('/movies/')
+    api
+      .get("/movies/")
       .then(({ data }) => {
         setSpinning(false);
         if (data.success) {
@@ -132,51 +164,56 @@ function App(props) {
       })
       .catch((e) => {
         setSpinning(false);
-        console.log(e)
+        console.log(e);
       });
   };
   useEffect(() => getMovies(), [searchValue]);
   const tabChange = (key) => {
     setCurrentTab(key);
-    if (key === '1') getMovies();
-    if (key === '2') mostPopular();
-    if (key === '3') viewByGenre();
-    if (key === '4') viewByDirector();
+    if (key === "1") getMovies();
+    if (key === "2") mostPopular();
+    if (key === "3") viewByGenre();
+    if (key === "4") viewByDirector();
   };
   const mostPopular = () => {
     setSpinning(true);
-    api.get('/index/')
+    api
+      .get("/index/")
       .then(({ data }) => {
         setSpinning(false);
         setMovies(data.most_popular);
       })
       .catch((e) => {
         setSpinning(false);
-        console.log(e)
+        console.log(e);
       });
   };
   const viewByGenre = (data) => {
     setSpinning(true);
-    api.get('/browse_by_genre/', { params: { genre: data ? data : genre } })
+    api
+      .get("/browse_by_genre/", { params: { genre: data ? data : genre } })
       .then(({ data }) => {
         setSpinning(false);
         setMovies(data.movies);
       })
       .catch((e) => {
         setSpinning(false);
-        console.log(e)
+        console.log(e);
       });
   };
   const viewByDirector = (data) => {
     setSpinning(true);
-    api.get('/browse_by_director/', { params: { director: data ? data : director } })
+    api
+      .get("/browse_by_director/", {
+        params: { director: data ? data : director },
+      })
       .then(({ data }) => {
         setSpinning(false);
         setMovies(data.movies);
       })
       .catch((e) => {
         setSpinning(false);
-        console.log(e)
+        console.log(e);
       });
   };
   const genreChange = (genre) => {
@@ -189,60 +226,79 @@ function App(props) {
   };
 
   function getCurrentTabMovie() {
-    return <Spin tip="Loading..." spinning={spinning}>
-      <Row className={styles.mb16} justify="center">
-        <Space>
-          {
-            currentTab === '1' && <Input.Search
-              placeholder="input movie name, description, or genre..."
-              allowClear
-              enterButton="Search"
-              size="large"
-              onSearch={onSearch}
-              style={{width: '600px'}}
-            />
-          }
+    return (
+      <Spin tip="Loading..." spinning={spinning}>
+        <Row className={styles.mb16} justify="center">
+          <Space>
+            {currentTab === "1" && (
+              <Input.Search
+                placeholder="input movie name, description, or genre..."
+                allowClear
+                enterButton="Search"
+                size="large"
+                onSearch={onSearch}
+                style={{ width: "600px" }}
+              />
+            )}
 
-          {
-            currentTab === '3' && <Select onChange={genreChange} defaultValue="Action" size='large' style={{width: '200px'}}>
-              {
-                genres.map(n => <Select.Option value={n} key={n}>{n}</Select.Option>)
-              }
-            </Select>
-          }
+            {currentTab === "3" && (
+              <Select
+                onChange={genreChange}
+                defaultValue="Action"
+                size="large"
+                style={{ width: "200px" }}
+              >
+                {genres.map((n) => (
+                  <Select.Option value={n} key={n}>
+                    {n}
+                  </Select.Option>
+                ))}
+              </Select>
+            )}
 
-          {
-            currentTab === '4' && <Select onChange={directorChange} defaultValue="Peter Jackson" size='large' style={{width: '200px'}}>
-              {
-                directors.map(n => <Select.Option value={n} key={n}>{n}</Select.Option>)
-              }
-            </Select>
-          }
-        </Space>
-      </Row>
-      { genRows(getSlicedArr(moves), props, desc) }
-    </Spin>
+            {currentTab === "4" && (
+              <Select
+                onChange={directorChange}
+                defaultValue="Peter Jackson"
+                size="large"
+                style={{ width: "200px" }}
+              >
+                {directors.map((n) => (
+                  <Select.Option value={n} key={n}>
+                    {n}
+                  </Select.Option>
+                ))}
+              </Select>
+            )}
+          </Space>
+        </Row>
+        {genRows(getSlicedArr(moves), props, desc)}
+      </Spin>
+    );
   }
 
   return (
     <>
-      <Layout style={{ minWidth: '1590px', }}>
+      <Layout style={{ minWidth: "1590px" }}>
         <Cheader {...{ props }}></Cheader>
-        <Content className={`${styles.contentHeight} ${styles.pd} main-list`} style={{minHeight: 'calc(100vh - 134px)'}}>
+        <Content
+          className={`${styles.contentHeight} ${styles.pd} main-list`}
+          style={{ minHeight: "calc(100vh - 134px)" }}
+        >
           <Tabs defaultActiveKey="1" onChange={tabChange}>
             <Tabs.TabPane tab="All" key="1"></Tabs.TabPane>
             <Tabs.TabPane tab="Most Popular" key="2"></Tabs.TabPane>
             <Tabs.TabPane tab="View By Genre" key="3"></Tabs.TabPane>
             <Tabs.TabPane tab="View By Director" key="4"></Tabs.TabPane>
           </Tabs>
-          {  getCurrentTabMovie() }
+          {getCurrentTabMovie()}
         </Content>
-        <Footer style={{ textAlign: 'center' }}>FilmFinder ©2020 Created by Zzmilk</Footer>
+        <Footer style={{ textAlign: "center" }}>
+          FilmFinder ©2020 Created by Zzmilk
+        </Footer>
       </Layout>
     </>
   );
 }
-
-
 
 export default App;
