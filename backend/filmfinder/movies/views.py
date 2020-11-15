@@ -352,6 +352,7 @@ def search_view(request):
 
         # get movies that keyword is or is a substring of movie names
         by_name = list(models.Movie.objects.filter(name__icontains=key_words).values_list('mid', flat=True))
+        by_description = list(models.Movie.objects.filter(description__icontains=key_words).values_list('mid', flat=True))
 
         for word in key_words_list:
             if word:
@@ -385,20 +386,25 @@ def search_view(request):
             set_list = [set(by_name), set(by_genre), set(by_director), set(by_time), set(by_region)]
             set_list = [s for s in set_list if len(s) != 0]
             result_id_list = set.intersection(*set_list)
+            result_id_list = set.union(set(result_id_list), set(by_description))
             if len(result_id_list) == 0:
                 set_list = [set(by_genre), set(by_director), set(by_time), set(by_region)]
                 set_list = [s for s in set_list if len(s) != 0]
                 result_id_list = set.intersection(*set_list)
-                result_id_list = set.union(set(result_id_list), set(by_name))
+                result_id_list = set.union(set(result_id_list), set(by_name), set(by_description))
         else:
-            if not by_genre and not by_director and not by_region and not by_time:
-                return JsonResponse(data)
-
-            set_list = [set(by_genre), set(by_director), set(by_time), set(by_region)]
-            set_list = [s for s in set_list if len(s) != 0]
-            result_id_list = set.intersection(*set_list)
+            if by_genre or by_director or by_region or by_time:
+                set_list = [set(by_genre), set(by_director), set(by_time), set(by_region)]
+                set_list = [s for s in set_list if len(s) != 0]
+                result_id_list = set.intersection(*set_list)
+                result_id_list = set.union(set(result_id_list), set(by_description))
+            else:
+                result_id_list = by_description
 
         # get all information needed
+        if not result_id_list:
+            return JsonResponse(data)
+
         movie_list = list(
             models.Movie.objects.filter(mid__in=result_id_list).values('mid', 'name', 'released_date', 'poster',
                                                                        'average_rating'))

@@ -60,7 +60,7 @@ def index_view(request):
         }
 
     # Get top 10 movies based on their average ratings.
-    movie_list = list(Movie.objects.order_by('-average_rating').values('mid', 'name', 'released_date', 'poster', 'average_rating')[:10])
+    movie_list = list(Movie.objects.order_by('-average_rating').values('mid', 'name', 'released_date', 'poster', 'average_rating')[:50])
     # Sort result based on ratings.
     data['most_popular'] = sorted(list(movie_list), key=lambda x: (-x['average_rating'], x['name']))
 
@@ -113,7 +113,7 @@ def browse_by_genre_view(request):
         }
 
         # get movies with the requested genre
-        movie_list = list(Movie.objects.order_by('-average_rating').values('mid', 'name', 'released_date', 'poster', 'average_rating').filter(genre__icontains=genre)[:10])
+        movie_list = list(Movie.objects.order_by('-average_rating').values('mid', 'name', 'released_date', 'poster', 'average_rating').filter(genre__icontains=genre)[:30])
         # sort results based on ratings
         # if two are the same then sort results alphabetically
         data['movies'] = sorted(list(movie_list), key=lambda x: (-x['average_rating'], x['name']))
@@ -165,7 +165,7 @@ def browse_by_director_view(request):
             'movies': []
         }
         # get movies made by the requested director
-        movie_list = list(Person.objects.get(name=name).movie_set.order_by('-average_rating').values('mid', 'name', 'released_date', 'poster', 'average_rating')[:10])
+        movie_list = list(Person.objects.get(name=name).movie_set.order_by('-average_rating').values('mid', 'name', 'released_date', 'poster', 'average_rating')[:20])
         # sort results based on ratings.
         # if two are the same then sort results alphabetically.
         data['movies'] = sorted(list(movie_list), key=lambda x: (-x['average_rating'], x['name']))
