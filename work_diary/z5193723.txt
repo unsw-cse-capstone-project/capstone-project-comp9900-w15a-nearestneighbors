@@ -29,3 +29,18 @@ Week 6
 
 Completed the re-architecture and functional design of the main page and movie details page, as well as the registration and login pages, 
 and used api to connect to the back-end database.
+
+Week 7
+
+Optimize the design of the main interface and movie detail, complete the review and preview review related operations, 
+and complete the logical processing of otherpage and userpage
+
+Week 8
+
+Optimize the userpage interface, design watchlist and blacklist, complete the corresponding functions, and handle the logic of jumping between web pages
+
+
+Week 9
+
+Optimize some logic and add functions, such as deleting comments, demonstrating the number of stars based on ratings, searching the homepage according to specific tags, and api applications for the most popular movies and similar movies, 
+and writing the corresponding part of the front end of the report
