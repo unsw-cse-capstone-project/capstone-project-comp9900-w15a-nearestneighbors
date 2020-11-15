@@ -471,7 +471,7 @@ def movie_list_view(request):
     if request.method == 'GET':
         data['success'] = True
         # get information of all movie objects
-        movie_obj_list = models.Movie.objects.order_by('name')[:]
+        movie_obj_list = models.Movie.objects.order_by('name')[:30]
         for movie_obj in movie_obj_list:
             data['movies'].append(movie_to_dict(movie_obj, request))
     return JsonResponse(data)
@@ -1879,14 +1879,14 @@ def others_page_view(request):
 
         data['username'] = username
 
-        reviews_list = models.Review.objects.filter(user__exact=user_obj).order_by('-date')[:5]
+        reviews_list = models.Review.objects.filter(user__exact=user_obj).order_by('-date')
         for review_obj in reviews_list:
             data['top_reviews'].append(review_to_dict(review_obj))
 
-        movie_ids = list(models.User.objects.get(name=username).wish_list_set.values('movie')[:5])
+        movie_ids = list(models.User.objects.get(name=username).wish_list_set.values('movie'))
         movie_ids = [e['movie'] for e in movie_ids]
         if len(movie_ids) > 0:
-            data['wishlist'] = list(models.Movie.objects.filter(mid__in=movie_ids).values('mid', 'name', 'region', 'released_date', 'average_rating', 'poster')[:5])
+            data['wishlist'] = list(models.Movie.objects.filter(mid__in=movie_ids).values('mid', 'name', 'region', 'released_date', 'average_rating', 'poster'))
 
         return JsonResponse(data)
     else:
@@ -1992,13 +1992,13 @@ def my_page_view(request):
         if user_obj.profile_photo:
             data['profile_photo'] = str(user_obj.profile_photo)
         data['username'] = username
-        reviews_list = models.Review.objects.filter(user__exact=user_obj).order_by('-date')[:5]
+        reviews_list = models.Review.objects.filter(user__exact=user_obj).order_by('-date')
         for review_obj in reviews_list:
             data['top_reviews'].append(review_to_dict(review_obj))
-        movie_ids = list(models.User.objects.get(name=username).wish_list_set.values('movie')[:5])
+        movie_ids = list(models.User.objects.get(name=username).wish_list_set.values('movie'))
         movie_ids = [e['movie'] for e in movie_ids]
         if len(movie_ids) > 0:
-            data['wishlist'] = list(models.Movie.objects.filter(mid__in=movie_ids).values('mid', 'name', 'region', 'released_date', 'average_rating', 'poster')[:5])
+            data['wishlist'] = list(models.Movie.objects.filter(mid__in=movie_ids).values('mid', 'name', 'region', 'released_date', 'average_rating', 'poster'))
 
         return JsonResponse(data)
 
