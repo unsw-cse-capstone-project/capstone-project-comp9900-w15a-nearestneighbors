@@ -19,7 +19,7 @@ function MyPage(props) {
     props.history.push('/blackList');
   };
 
-  useEffect(() => {
+  const getMyPageInfo = () => {
     api
       .get('/my_page/', {})
       .then(({ data }) => {
@@ -32,7 +32,20 @@ function MyPage(props) {
       .catch((e) => {
         console.log(e);
       })
-  }, []);
+  };
+
+  useEffect(() => getMyPageInfo(), []);
+
+  const deleteReview = (movie_id) => {
+    api
+      .get('/my_page/my_reviews/get_review/delete_review/', { params: { movie_id } })
+      .then(() => {
+        getMyPageInfo();
+      })
+      .catch((e) => {
+        console.log(e);
+      })
+  };
 
   return (
     <div>
@@ -64,13 +77,16 @@ function MyPage(props) {
             <h2>Reviews</h2>
             <div style={{maxHeight: '400px', overflowY: 'auto'}}>
               {
-                (userInfo.top_reviews || []).map(({ movie_name, rating_number, review_comment }) => {
+                (userInfo.top_reviews || []).map(({ movie_name, rating_number, review_comment, movie_id }) => {
                   return <div key={movie_name}>
                     <Row>
                       <Col span={8}><b>{ movie_name }</b></Col>
                       <Col span={1} offset={15}><b>{ rating_number }</b></Col>
                     </Row>
-                    <p>{ review_comment }</p>
+                    <p>
+                      { review_comment }
+                      <Button type="link" onClick={() => deleteReview(movie_id)}>Delete</Button>
+                    </p>
                   </div>
                 })
               }

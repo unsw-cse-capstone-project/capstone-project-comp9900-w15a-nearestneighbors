@@ -79,7 +79,7 @@ function genRows(allRowData, props, desc) {
                 <div style={{marginBottom: '8px' }}>
                   <span>
                     <Rate disabled value={desc.indexOf(Math.floor(average_rating || rating)) + 1} />
-                    <span className="ant-rate-text">{average_rating || rating}</span>
+                    <span className="ant-rate-text">{Number((average_rating || rating)).toFixed(1)}</span>
                   </span>
                 </div>
                 <Meta title={name}/>

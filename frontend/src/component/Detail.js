@@ -1,5 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { Descriptions, Row, Col, Comment, Button, Avatar, Card, Form, Input, message, Tooltip, Breadcrumb } from 'antd';
+import React, { useEffect, useMemo, useState } from 'react';
+import {
+  Descriptions,
+  Row,
+  Col,
+  Comment,
+  Button,
+  Avatar,
+  Card,
+  Form,
+  Input,
+  message,
+  Tooltip,
+  Breadcrumb,
+  Rate
+} from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import styles from "../app.module.css";
@@ -10,10 +24,14 @@ import { HomeOutlined } from '@ant-design/icons';
 
 
 // 这是评论的组件
-const Editor = ({ onChange, onSubmit, submitting, value }) => (
+const Editor = ({ onChange, onSubmit, submitting, value, ratingChange, valueRating }) => (
   <>
     <Form.Item>
       <Input.TextArea rows={4} onChange={onChange} value={value} />
+    </Form.Item>
+    <Form.Item>
+      <Rate onChange={ratingChange} value={desc.indexOf(Math.floor(valueRating)) + 1} />
+      <span className="ant-rate-text">{ valueRating }</span>
     </Form.Item>
     <Form.Item>
       <Button htmlType="submit" loading={submitting} onClick={onSubmit} type="primary">
@@ -23,11 +41,14 @@ const Editor = ({ onChange, onSubmit, submitting, value }) => (
   </>
 );
 
+const desc = [1, 2, 3, 4, 5];
+
 function Detail(props) {
   const [detail, setDetail] = useState({});
   const [similar, setSimilar] = useState([]);
   const [submitting, setSubmitting] = useState(false);
   const [value, setValue] = useState('');
+  const [valueRating, setV] = useState(0);
 
   const getDetail = () => {
     api
@@ -47,7 +68,7 @@ function Detail(props) {
 
   useEffect(() => getDetail(), []);
 
-  const handleSubmit = () => {
+  const comment = () => {
     if (!value) return;
     setSubmitting(true);
 
@@ -55,7 +76,7 @@ function Detail(props) {
       .post('/movies/detail/new_review/', {
         movie_id: props.match.params.mid,
         review_comment: value,
-        rating_number: 5,
+        rating_number: valueRating,
       })
       .then(({ data }) => {
         setSubmitting(false);
@@ -94,6 +115,10 @@ function Detail(props) {
     }
 
     props.history.push(`/othersPage/${user_name}/${user_id}`);
+  };
+
+  const ratingChange = (v) => {
+    setV(v);
   };
 
   return <>
@@ -137,7 +162,7 @@ function Detail(props) {
           <h1>Reviews</h1>
         </Col>
         {
-          (detail.reviews || []).map(({ user_name, review_comment, date, user_id }) => {
+          (detail.reviews || []).map(({ user_name, review_comment, date, user_id, rating_number }) => {
             return (
               <Col key={user_name}>
                 <Comment
@@ -149,9 +174,15 @@ function Detail(props) {
                     <p>{ review_comment }</p>
                   }
                   datetime={
-                    <Tooltip title={moment(new Date(date)).format('YYYY-MM-DD HH:mm:ss')}>
-                      <span>{moment(new Date(date)).fromNow()}</span>
-                    </Tooltip>
+                    <div style={{ display: 'flex' }}>
+                      <Tooltip title={moment(new Date(date)).format('YYYY-MM-DD HH:mm:ss')}>
+                        <span>{moment(new Date(date)).fromNow()}</span>
+                      </Tooltip>
+                      <div style={{ marginLeft: '80px' }}>
+                        <Rate disabled value={desc.indexOf(Math.floor(rating_number)) + 1} />
+                        <span className="ant-rate-text">{Number((rating_number)).toFixed(1)}</span>
+                      </div>
+                    </div>
                   }
                 />
               </Col>
@@ -169,12 +200,16 @@ function Detail(props) {
               />
             }
             content={
-              <Editor
-                onChange={(e) => setValue(e.target.value)}
-                onSubmit={handleSubmit}
-                submitting={submitting}
-                value={value}
-              />
+              <div>
+                <Editor
+                  onChange={(e) => setValue(e.target.value)}
+                  onSubmit={comment}
+                  submitting={submitting}
+                  value={value}
+                  valueRating={valueRating}
+                  ratingChange={ratingChange}
+                />
+              </div>
             }
           />
         </Col>

@@ -24,7 +24,7 @@ function Cheader({ props }) {
   return <Header style={{backgroundImage: 'linear-gradient(50deg, #816EFE,#227DE8)' }}>
     <Row>
       <Col span={2}>
-        <h1><a href="" style={{ color: 'white',margin: 0 }}>FilmFinder</a></h1>
+        <h1><a href="/" style={{ color: 'white',margin: 0 }}>FilmFinder</a></h1>
       </Col>
       <Col span={3} offset={19}>
         <Space style={{ position: 'relative', right: 0 }}>
