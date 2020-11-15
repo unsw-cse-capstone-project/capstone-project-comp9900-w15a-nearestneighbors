@@ -7,6 +7,9 @@ Week2:
 Created a project outline and we came up with some extra features for our project.
 Joined Jira and done some work related to project proposal.
 
+Week3:
+Collected and processed datasets required for the project. Got familiar with softwares like GIT, sqlite and Jira.
+
 Week4:
 Created the database and tables using SqlLite3.
 
