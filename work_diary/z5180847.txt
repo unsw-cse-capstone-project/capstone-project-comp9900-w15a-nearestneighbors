@@ -44,3 +44,16 @@ Worked on backend, built up project framework.
 Week 8
 
 Developed APIs for login, register, logout, index page and search functionality.
+Intergrate database with our Django framework.
+
+
+Week 9
+
+Finished all APIs, including the search algorithm and the movie recommender.
+Wrote the report, and made sure the database work well.
+
+
+Week 10
+
+Formatted the report, and submitted it along with our source codes.
+Prepared for the final demonstration.
