@@ -71,6 +71,10 @@ work diary directory contains each team member's work diary, using zID to name t
 ```
         $ yarn start
 ```
+4.  If you changed the port number in Django setup, please go to `../frontend/package.json` , replace the port number 8000 in line 2 with the port number you chose. For example, I chose port 8001, then line 2 will be
+```
+        “proxy”: “http://localhost:8001”,
+```
 
 
 <br></br>
@@ -84,3 +88,4 @@ work diary directory contains each team member's work diary, using zID to name t
 ```
         $ npm start
 ```
+4.  Follow the step 4 above.
