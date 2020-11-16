@@ -35,7 +35,7 @@ work diary directory contains each team member's work diary, using zID to name t
         (your_venv)$ pip install django-extensions
         (your_venv)$ pip install pandas
         (your_venv)$ pip install -U scikit-learn
-        (your_venv)$ pip install numpy
+        (your_venv)$ pip install numpy==1.19.2
         (your_venv)$ pip install django-pandas
         (your_venv)$ pip install rake-nltk
         (your_venv)$ pip install funkybob
