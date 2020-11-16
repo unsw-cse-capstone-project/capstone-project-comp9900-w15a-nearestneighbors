@@ -44,6 +44,10 @@ work diary directory contains each team member's work diary, using zID to name t
 ```
         (your_venv)$ python3 manage.py runserver
 ```
+   If port 8000 (by default) is in user, you can use other port by
+```
+        (your_venv)$ python3 manage.py runserver (port number)
+```
         
 <br></br>
 **On CSE machine**:
