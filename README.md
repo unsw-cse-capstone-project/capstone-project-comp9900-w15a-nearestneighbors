@@ -58,3 +58,29 @@ work diary directory contains each team member's work diary, using zID to name t
         $ python3 -m venv your_venv
 ```
 3.  Follow the step 4 to 8 above to set up Django.
+
+
+</br></br>
+## Frontend Setup
+1.  Clone this repo to your CSE machine and go to the directory ../frontend in terminal.
+2.  Install all of the dependencies needed to run the ReactJS app
+```
+        $ yarn
+```
+3.  Start the ReactJS app, it will automatically open your browser and load the homepage of our film finder
+```
+        $ yarn start
+```
+
+
+<br></br>
+**On CSE machine**:
+1.  Clone this repo to your CSE machine and go to the directory ../frontend in terminal.
+2.  Install all of the dependencies needed to run the ReactJS app
+```
+        $ npm install
+```
+3.  Start the ReactJS app, it will automatically open your browser and load the homepage of our film finder
+```
+        $ npm start
+```
